@@ -24,4 +24,4 @@
 	@endforeach
 	</tbody>
 </table>
-<div class="text-center">{{ $articles->links() }}</div>
+<div class="text-center">{{ $articles->appends(['q' => $usersearch->searchquery->name])->links() }}</div>
