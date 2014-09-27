@@ -8,7 +8,7 @@ class Usersearch extends \Eloquent {
 
 	public function searchquery()
 	{
-		return $this->belongsTo('SearchQuery');
+		return $this->belongsTo('Searchquery');
 	}
 
 	public static function search(Searchquery $query)
