@@ -13,10 +13,16 @@
 
 Route::get('/', function()
 {
-	$searches = Usersearch::orderBy('id', 'desc')->take(10)->get();
+	$searches = Usersearch::orderBy('id', 'desc')->take(5)->get();
+
+	$subreddits = Subreddit::orderByRaw('rand()')->take(5)->get();
+
+	$authors = Author::orderByRaw('rand()')->take(5)->get();
 
 	return View::make('index')
-		->with('searches', $searches);
+		->with('searches', $searches)
+		->with('subreddits', $subreddits)
+		->with('authors', $authors);
 });
 
 Route::get('search', function()

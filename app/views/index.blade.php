@@ -15,12 +15,32 @@
 </div>
 <br/><br/>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-4">
 		<div class="text-center">
-			<p class="lead">Recent shit people have searched for</p>
+			<p class="lead">Recent retarded searches</p>
 			<ul class="list-unstyled">
 				@foreach($searches as $search)
 					<li>{{ link_to('search?q='.urlencode($search->searchquery->name),$search->searchquery->name) }}</li>
+				@endforeach
+			</ul>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="text-center">
+			<p class="lead">Random fucking subreddits</p>
+			<ul class="list-unstyled">
+				@foreach($subreddits as $subreddit)
+					<li>{{ link_to('sub/'.$subreddit->name, 'r/'.$subreddit->name) }}</li>
+				@endforeach
+			</ul>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="text-center">
+			<p class="lead">Random stupid people</p>
+			<ul class="list-unstyled">
+				@foreach($authors as $author)
+					<li>{{ link_to('author/'.$author->name, 'u/'.$author->name) }}</li>
 				@endforeach
 			</ul>
 		</div>
