@@ -13,9 +13,17 @@ class Usersearch extends \Eloquent {
 
 	public static function search(Searchquery $query)
 	{
-		$scraper = new \HiveMind\Reddit();
+		$data['searchquery_id'] = $query->id;
 
-		$data = $scraper->Search($query, 5, 'plain', 'relevance', 'all', 'all');
+		if(App::environment() == 'production')
+			$data['page_depth'] 	= 5;
+		else
+			$data['page_depth'] 	= 1;
+
+		$data['sort_type'] 		= 'relevance';
+		$data['subreddits'] 	= 'all';
+
+		Queue::push('\HiveMind\Jobs\ScrapeReddit@fullScrape', $data, 'redditscrape');
 
 		return Usersearch::create(['searchquery_id' => $query->id]);
 	}
