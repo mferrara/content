@@ -24,7 +24,7 @@ class ScrapeReddit {
 	public function fullScrape($job, $data)
 	{
 		ini_set('MAX_EXECUTION_TIME', 300);
-		
+
 		$query = \Searchquery::find($data['searchquery_id']);
 		$sort = $data['sort_type'];
 		$subs = $data['subreddits'];
