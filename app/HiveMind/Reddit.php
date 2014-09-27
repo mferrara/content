@@ -171,7 +171,8 @@ class Reddit extends Scraper {
 			else
 				$search_count = 0;
 
-			usleep(500000);
+			//usleep(500000);
+			sleep(2);
 		}
 
 		return $results;
