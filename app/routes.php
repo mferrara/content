@@ -34,11 +34,7 @@ Route::get('search', function()
 
 	$keyword = Input::get('q');
 
-	$query = Searchquery::where('name', $keyword)->first();
-	if($query == null)
-		$query = Searchquery::create(['name' => $keyword]);
-
-	$search = Usersearch::search($query);
+	$search = Usersearch::search($keyword);
 
 	$articles = $search->searchquery->articles()->orderBy('score', 'DESC')->paginate(25);
 

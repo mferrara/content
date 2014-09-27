@@ -11,19 +11,32 @@ class Usersearch extends \Eloquent {
 		return $this->belongsTo('Searchquery');
 	}
 
-	public static function search(Searchquery $query)
+	public static function search($keyword)
 	{
-		$data['searchquery_id'] = $query->id;
+		// Get the search query
+		$query = Searchquery::where('name', $keyword)->first();
 
-		if(App::environment() == 'production')
-			$data['page_depth'] 	= 5;
-		else
-			$data['page_depth'] 	= 1;
+		// If there isn't one, create it
+		if($query == null)
+		{
+			$query = Searchquery::create(['name' => $keyword]);
+		}
 
-		$data['sort_type'] 		= 'relevance';
-		$data['subreddits'] 	= 'all';
+		// If the query hasn't been scraped, queue it
+		if($query->scraped == 0)
+		{
+			$data['searchquery_id'] = $query->id;
 
-		Queue::push('\HiveMind\Jobs\ScrapeReddit@fullScrape', $data, 'redditscrape');
+			if(App::environment() == 'production')
+				$data['page_depth'] 	= 5;
+			else
+				$data['page_depth'] 	= 1;
+
+			$data['sort_type'] 		= 'relevance';
+			$data['subreddits'] 	= 'all';
+
+			Queue::push('\HiveMind\Jobs\ScrapeReddit@fullScrape', $data, 'redditscrape');
+		}
 
 		return Usersearch::create(['searchquery_id' => $query->id]);
 	}
