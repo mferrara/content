@@ -158,3 +158,42 @@ function remove_long_words($string,$max_length)
 	$snippet = implode(" ",$array);
 	return $snippet;
 }
+
+function extractCommonPhrases($text, $num_words_array, $num_results)
+{
+	$phrases = [];
+
+	if(is_array($num_words_array))
+	{
+		foreach($num_words_array as $num)
+		{
+			$phrases[$num] = extract_phrases($text, \Config::get('hivemind.ignore_words'), $num, 50);
+		}
+	}
+
+	$return = [];
+	if(count($phrases) > 0)
+	{
+		foreach($phrases as $page => $array)
+		{
+			foreach($array as $phrase => $count)
+			{
+				if(!isset($return[$phrase]))
+					$return[$phrase] = $count;
+			}
+		}
+	}
+
+	arsort($return);
+
+	// Remove anything that doesn't at least occur 2x
+	$phrases = array_slice($return, 0, $num_results);
+
+	foreach($phrases as $phrase => $count)
+	{
+		if($count < 2)
+			unset($phrases[$phrase]);
+	}
+
+	return $phrases;
+}
