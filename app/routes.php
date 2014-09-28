@@ -13,11 +13,11 @@
 
 Route::get('/', function()
 {
-	$searches = Searchquery::orderBy('id', 'desc')->take(5)->get();
+	$searches = Searchquery::orderBy('id', 'desc')->take(10)->get();
 
-	$subreddits = Subreddit::orderByRaw('rand()')->take(5)->get();
+	$subreddits = Subreddit::orderByRaw('rand()')->take(10)->get();
 
-	$authors = Author::orderByRaw('rand()')->take(5)->get();
+	$authors = Author::orderByRaw('rand()')->take(10)->get();
 
 	return View::make('index')
 		->with('searches', $searches)
