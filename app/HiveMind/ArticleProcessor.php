@@ -12,6 +12,7 @@ class ArticleProcessor {
 		//$all_text = '';
 		$content_types = [];
 		$subreddits = [];
+		$base_domains = [];
 		$self_posts = 0;
 		$total_posts = 0;
 		$authors = [];
