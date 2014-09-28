@@ -7,6 +7,7 @@ class ArticleProcessor {
 
 	public static function fire($searchquery)
 	{
+		\Log::critical('It fired...');
 		// Loop through all content for counters
 		$all_text = '';
 		$content_types = [];
@@ -43,7 +44,7 @@ class ArticleProcessor {
 			else
 				$base_domains[$art->base_domain] = 1;
 		}
-
+		\Log::critical('Finished Loop...');
 		// Convert subreddit_ids into names
 		$subs = [];
 		foreach($subreddits as $sub_id => $count)
@@ -66,7 +67,7 @@ class ArticleProcessor {
 			$phrases = self::extractCommonPhrases($all_text, [2,3], 25);
 		else
 			$phrases = self::extractCommonPhrases(substr($all_text,0,1000), [2,3], 25);
-
+		\Log::critical('Finished Phrases...');
 		$cache = [
 			'content_types' => $content_types,
 			'subreddits' 	=> $subs,
@@ -82,7 +83,7 @@ class ArticleProcessor {
 		\Cache::forget($key);
 		// Create a new one
 		\Cache::add($key, $cache, \Config::get('hivemind.cache_reddit_requests'));
-
+		\Log::critical('After caching...');
 	}
 
 	public static function extractCommonPhrases($text, $num_words_array, $num_results)
