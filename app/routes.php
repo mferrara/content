@@ -20,13 +20,14 @@ Route::get('/', function()
 	$authors = Author::orderByRaw('rand()')->take(10)->get();
 
 	return View::make('index')
-		->with('searches', $searches)
-		->with('subreddits', $subreddits)
-		->with('authors', $authors)
-		->with('total_articles', Article::count())
-		->with('total_authors', Author::count())
-		->with('total_subreddits', Subreddit::count())
-		->with('total_queries', Searchquery::count())
+		->with('searches', 			$searches)
+		->with('subreddits', 		$subreddits)
+		->with('authors', 			$authors)
+		->with('pending_searches', 	Searchquery::where('currently_updating', 1)->orWhere('scraped', 0)->count())
+		->with('total_articles', 	Article::count())
+		->with('total_authors', 	Author::count())
+		->with('total_subreddits', 	Subreddit::count())
+		->with('total_queries', 	Searchquery::count())
 		;
 });
 
