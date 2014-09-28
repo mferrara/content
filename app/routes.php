@@ -48,7 +48,7 @@ Route::get('search', function()
 	else
 		$articles = false;
 
-	if($usersearch->searchquery->updating == 1)
+	if($usersearch->searchquery->currently_updating == 1)
 		$currently_updating = true;
 	else
 		$currently_updating = false;

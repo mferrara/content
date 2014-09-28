@@ -54,7 +54,7 @@ class ScrapeReddit {
 		\HiveMind\ArticleProcessor::fire($query);
 
 		$query->scraped = 1;
-		$query->updating = 0;
+		$query->currently_updating = 0;
 		$query->save();
 
 		$job->delete();

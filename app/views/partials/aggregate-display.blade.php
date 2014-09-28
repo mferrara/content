@@ -11,7 +11,16 @@
 		<dl class="dl-horizontal">
 			<dt>Self Posts</dt><dd>{{ $aggregate_data['self_posts'] }}</dd>
 			<dt>Total Posts</dt><dd>{{ $aggregate_data['total_posts'] }}</dd>
+			<dt>&nbsp;</dt><dd>&nbsp;</dd>
 			<dt>Last Updated</dt><dd>{{ \Carbon\Carbon::createFromTimestamp(strtotime($aggregate_data['updated']))->diffForHumans() }}</dd>
+			<dt>Next Update</dt>
+				<dd>
+					@if($currently_updating == 1)
+						<strong>Now!</strong>
+					@else
+						{{ \Carbon\Carbon::createFromTimestamp(strtotime($aggregate_data['updated']) + Config::get('hivemind.cache_reddit_requests'))->diffForHumans() }}
+					@endif
+				</dd>
 		</dl>
 	</div>
 	<div class="col-md-3">

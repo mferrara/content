@@ -27,7 +27,7 @@ class Usersearch extends \Eloquent {
 		$seconds_since_last_update = strtotime(\Carbon\Carbon::now())- strtotime($query->updated_at);
 
 		// If it's not currently updating right now...(let's not spawn updates in the queue everytime a user refreshes the page)
-		if($query->updating == 0)
+		if($query->currently_updating == 0)
 		{
 			// If this query has either never been scraped or it's been too long since the last time
 			if($query->scraped == 0 || $seconds_since_last_update > Config::get('hivemind.cache_reddit_requests'))
@@ -41,7 +41,7 @@ class Usersearch extends \Eloquent {
 
 				// Set a flag that it's currently updating to further requests to this page won't spawn more
 				// The job will set the flag back to false when it completes
-				$query->updating = 1;
+				$query->currently_updating = 1;
 				$query->save();
 
 				// Fire off the scraping job
