@@ -62,6 +62,7 @@ class ArticleProcessor {
 		arsort($content_types);
 		arsort($subs);
 		arsort($auths);
+		arsort($base_domains);
 
 		/*
 		if(\App::environment() == 'production')
@@ -74,6 +75,7 @@ class ArticleProcessor {
 			'content_types' => $content_types,
 			'subreddits' 	=> $subs,
 			'authors'		=> $auths,
+			'base_domains'	=> $base_domains,
 			'self_posts' 	=> $self_posts,
 			'total_posts'	=> $total_posts,
 			//'phrases'		=> $phrases,
