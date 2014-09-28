@@ -2,7 +2,7 @@
 
 	return [
 
-		'cache_reddit_requests' => 1200,
+		'cache_reddit_requests' => 3600,
 		'ignore_words'	=> [
 			"with",
 			"or",
