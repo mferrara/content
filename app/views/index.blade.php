@@ -46,7 +46,21 @@
 		</div>
 	</div>
 </div>
-
+<br/><br/>
+<div class="row">
+	<div class="col-md-4">&nbsp;</div>
+	<div class="col-md-5 text-center">
+		<dl class="dl-horizontal">
+			<dt>Drivel indexed</dt>
+			<dd>{{ number_format($total_articles) }}</dd>
+			<dt>Drivel groups watched</dt>
+			<dd>{{ number_format($total_subreddits) }}</dd>
+			<dt>Bukowski's tracked</dt>
+			<dd>{{ number_format($total_authors) }}</dd>
+		</dl>
+	</div>
+	<div class="col-md-1">&nbsp;</div>
+</div>
 
 
 @stop

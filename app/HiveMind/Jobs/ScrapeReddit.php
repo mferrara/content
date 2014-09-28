@@ -77,7 +77,7 @@ class ScrapeReddit {
 			$query->save();
 
 			\Log::error('Query Saved - '.$query->name);
-			
+
 			$job->delete();
 		}
 	}

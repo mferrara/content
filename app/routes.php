@@ -23,7 +23,10 @@ Route::get('/', function()
 		->with('searches', $searches)
 		->with('subreddits', $subreddits)
 		->with('authors', $authors)
-		->with('total_articles', Article::count());
+		->with('total_articles', Article::count())
+		->with('total_authors', Author::count())
+		->with('total_subreddits', Subreddit::count())
+		;
 });
 
 Route::get('search', function()
