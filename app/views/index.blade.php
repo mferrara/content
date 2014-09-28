@@ -57,7 +57,7 @@
 			<dd>{{ number_format($total_subreddits) }}</dd>
 			<dt>Post authors</dt>
 			<dd>{{ number_format($total_authors) }}</dd>
-			<dt>Searches requested</dt>
+			<dt>{{ link_to('searches', 'Searches requested') }}</dt>
 			<dd>{{ number_format($total_queries) }}</dd>
 			<dt>Searches pending</dt>
 			<dd>{{ number_format($pending_searches) }}</dd>

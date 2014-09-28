@@ -31,6 +31,14 @@ Route::get('/', function()
 		;
 });
 
+Route::get('searches', function()
+{
+	$searches = Searchquery::orderBy('name', 'asc')->paginate(25);
+
+	return View::make('searches')
+			->with('searches', $searches);
+});
+
 Route::get('search', function()
 {
 	if(!Input::has('q'))

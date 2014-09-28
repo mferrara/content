@@ -22,15 +22,11 @@ class Usersearch extends \Eloquent {
 			$query = Searchquery::create(['name' => $keyword]);
 		}
 
-		// If the query hasn't been scraped, scrape it it
-		// Or it's stale
-		$seconds_since_last_update = strtotime(\Carbon\Carbon::now())- strtotime($query->updated_at);
-
 		// If it's not currently updating right now...(let's not spawn updates in the queue everytime a user refreshes the page)
 		if($query->currently_updating == 0)
 		{
 			// If this query has either never been scraped or it's been too long since the last time
-			if($query->scraped == 0 || $seconds_since_last_update > Config::get('hivemind.cache_reddit_requests'))
+			if($query->scraped == 0 || $query->isStale())
 			{
 				$data['searchquery_id'] = $query->id;
 				$data['page_depth'] 	= $page_depth;
