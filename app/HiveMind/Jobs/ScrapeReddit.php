@@ -54,8 +54,7 @@ class ScrapeReddit {
 		// Queue up the processing of the articles
 		// This is after the model is saved because we're triggering the clearing
 		// of this cache by updating of the model
-		$data['searchquery_id'] = $query->id;
-		\Queue::push('\HiveMind\Jobs\ArticleProcessor', $data, 'redditprocess');
+		\HiveMind\ArticleProcessor::fire($query);
 
 		$job->delete();
 	}

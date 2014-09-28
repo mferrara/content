@@ -1,14 +1,12 @@
 <?php
 
-namespace HiveMind\Jobs;
+namespace HiveMind;
 
 
 class ArticleProcessor {
 
-	public static function fire($job, $data)
+	public static function fire($searchquery)
 	{
-		$searchquery = \Searchquery::find($data['searchquery_id']);
-
 		// Loop through all content for counters
 		$all_text = '';
 		$content_types = [];
@@ -85,7 +83,6 @@ class ArticleProcessor {
 		// Create a new one
 		\Cache::add($key, $cache, \Config::get('hivemind.cache_reddit_requests'));
 
-		$job->delete();
 	}
 
 	public static function extractCommonPhrases($text, $num_words_array, $num_results)
