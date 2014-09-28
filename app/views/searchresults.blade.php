@@ -27,7 +27,7 @@
 @endif
 
 @if($currently_updating == true)
-	<p class="lead alert alert-warning text-center">Results being collected/updated@if($articles != false)...here's what we've got so far@else...please check back in a few minutes@endif</p>
+	<p class="lead alert alert-warning text-center">Results being collected/updated @if($articles != false)...here's what we've got so far @else ...please check back in a few minutes @endif</p>
 @endif
 
 @include('partials.articles-table')
