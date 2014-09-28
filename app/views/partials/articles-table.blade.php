@@ -29,7 +29,9 @@
 	</tbody>
 </table>
 @if(isset($usersearch))
-<div class="text-center">{{ $articles->appends(['q' => $usersearch->searchquery->name])->links() }}</div>
+	<div class="text-center">{{ $articles->appends(['q' => $usersearch->searchquery->name])->links() }}</div>
+@else
+	<div class="text-center">{{ $articles->links() }}</div>
 @endif
 
 @endif
