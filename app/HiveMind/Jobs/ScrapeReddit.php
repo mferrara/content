@@ -2,6 +2,7 @@
 
 namespace HiveMind\Jobs;
 
+use GuzzleHttp\Exception\ServerException;
 use HiveMind\Reddit;
 
 class ScrapeReddit {
@@ -29,43 +30,55 @@ class ScrapeReddit {
 		$subs 			= $data['subreddits'];
 		$search_type 	= $data['search_type'];
 		$time			= $data['time'];
+		$error 			= false;
 
 		if(\App::environment() == 'production')
 			$page_depth = 5;
 		else
 			$page_depth = 1;
 
-		$scraper = new Reddit();
+		try{
+			\Log::error('Before Scraping...');
 
-		\Log::error('Before Scraping...');
-		if(is_array($time))
-		{
-			foreach($time as $t)
+			$scraper = new Reddit();
+
+			if(is_array($time))
 			{
-				$scraper->Search($query, $page_depth, $search_type, $sort, $t, $subs);
+				foreach($time as $t)
+				{
+					$scraper->Search($query, $page_depth, $search_type, $sort, $t, $subs);
+				}
 			}
+			else
+			{
+				$scraper->Search($query, $page_depth, $search_type, $sort, $time, $subs);
+			}
+			\Log::error('After Scraping...');
 		}
-		else
+		catch(\GuzzleHttp\Exception\ServerException $e)
 		{
-			$scraper->Search($query, $page_depth, $search_type, $sort, $time, $subs);
+			$error = true;
+			$job->release();
 		}
-		\Log::error('After Scraping...');
 
 		\Log::error('Before Processing');
 
-		// Queue up the processing of the articles
-		// This is after the model is saved because we're triggering the clearing
-		// of this cache by updating of the model
-		\HiveMind\ArticleProcessor::fire($query);
+		if($error == false)
+		{
+			// Queue up the processing of the articles
+			// This is after the model is saved because we're triggering the clearing
+			// of this cache by updating of the model
+			\HiveMind\ArticleProcessor::fire($query);
 
-		\Log::error('After Processing');
+			\Log::error('After Processing');
 
-		$query->scraped = 1;
-		$query->currently_updating = 0;
-		$query->save();
+			$query->scraped = 1;
+			$query->currently_updating = 0;
+			$query->save();
 
-		\Log::error('Query Saved - '.$query->name);
-
-		$job->delete();
+			\Log::error('Query Saved - '.$query->name);
+			
+			$job->delete();
+		}
 	}
 } 
