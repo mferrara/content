@@ -43,7 +43,7 @@ class ScrapeGoogleTrends extends ScheduledCommand {
 		{
 			$check = Searchquery::where('name', $keyword)->first();
 
-			if($check !== null)
+			if($check == null)
 				Usersearch::search($keyword);
 		}
 
