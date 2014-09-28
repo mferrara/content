@@ -57,6 +57,8 @@
 			<dd>{{ number_format($total_subreddits) }}</dd>
 			<dt>Bukowski's tracked</dt>
 			<dd>{{ number_format($total_authors) }}</dd>
+			<dt>Brilliant questions</dt>
+			<dd>{{ number_format($total_queries) }}</dd>
 		</dl>
 	</div>
 	<div class="col-md-1">&nbsp;</div>
