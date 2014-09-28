@@ -49,6 +49,7 @@ class ScrapeReddit {
 		}
 
 		$query->scraped = 1;
+		$query->updating = 0;
 		$query->save();
 
 		// Queue up the processing of the articles

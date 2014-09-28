@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddScrapedToSearchqueriesTable extends Migration {
+class AddUpdatingToSearchqueriesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -15,7 +15,7 @@ class AddScrapedToSearchqueriesTable extends Migration {
 		Schema::table('searchqueries', function(Blueprint $table)
 		{
 
-			$table->boolean('scraped')->after('name')->default(0);
+			$table->boolean('updating')->after('name')->default(0);
 
 		});
 	}
@@ -31,7 +31,7 @@ class AddScrapedToSearchqueriesTable extends Migration {
 		Schema::table('searchqueries', function(Blueprint $table)
 		{
 
-			$table->dropColumn('scraped');
+			$table->dropColumn('updating');
 
 		});
 	}

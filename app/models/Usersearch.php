@@ -26,18 +26,30 @@ class Usersearch extends \Eloquent {
 		// Or it's stale
 		$seconds_since_last_update = strtotime(\Carbon\Carbon::now())- strtotime($query->updated_at);
 
-		if($query->scraped == 0 || $seconds_since_last_update > Config::get('hivemind.cache_reddit_requests'))
+		// If it's not currently updating right now...(let's not spawn updates in the queue everytime a user refreshes the page)
+		if($query->updating == 0)
 		{
-			$data['searchquery_id'] = $query->id;
-			$data['page_depth'] 	= $page_depth;
-			$data['search_type']	= $search_type;
-			$data['sort_type'] 		= $sort_by;
-			$data['subreddits'] 	= $subreddits;
-			$data['time']			= ['all', 'year', 'month', 'week'];
+			// If this query has either never been scraped or it's been too long since the last time
+			if($query->scraped == 0 || $seconds_since_last_update > Config::get('hivemind.cache_reddit_requests'))
+			{
+				$data['searchquery_id'] = $query->id;
+				$data['page_depth'] 	= $page_depth;
+				$data['search_type']	= $search_type;
+				$data['sort_type'] 		= $sort_by;
+				$data['subreddits'] 	= $subreddits;
+				$data['time']			= ['all', 'year', 'month', 'week'];
 
-			Queue::push('\HiveMind\Jobs\ScrapeReddit@fullScrape', $data, 'redditscrape');
+				// Set a flag that it's currently updating to further requests to this page won't spawn more
+				// The job will set the flag back to false when it completes
+				$query->updating = 1;
+				$query->save();
+
+				// Fire off the scraping job
+				Queue::push('\HiveMind\Jobs\ScrapeReddit@fullScrape', $data, 'redditscrape');
+			}
 		}
 
+		// Return a Usersearch object
 		return Usersearch::create(['searchquery_id' => $query->id]);
 	}
 

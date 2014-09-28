@@ -35,23 +35,29 @@ Route::get('search', function()
 
 	$keyword = Input::get('q');
 
-	$search = Usersearch::search($keyword);
+	$usersearch = Usersearch::search($keyword);
 
-	$cache_key = 'searchquery_'.$search->searchquery->id.'_processed_data';
+	$cache_key = 'searchquery_'.$usersearch->searchquery->id.'_processed_data';
 	if(Cache::has($cache_key))
 		$aggregate_data = Cache::get($cache_key);
 	else
 		$aggregate_data = false;
 
-	if($search->searchquery->articles()->count() > 0)
-		$articles = $search->searchquery->articles()->orderBy('score', 'DESC')->paginate(25);
+	if($usersearch->searchquery->articles()->count() > 0)
+		$articles = $usersearch->searchquery->articles()->orderBy('score', 'DESC')->paginate(25);
 	else
 		$articles = false;
 
+	if($usersearch->searchquery->updating == 1)
+		$currently_updating = true;
+	else
+		$currently_updating = false;
+
 	return View::make('searchresults')
-		->with('usersearch', $search)
+		->with('usersearch', $usersearch)
 		->with('articles', $articles)
-		->with('aggregate_data', $aggregate_data);
+		->with('aggregate_data', $aggregate_data)
+		->with('currently_updating', $currently_updating);
 });
 
 Route::get('post/{fullname}', function($fullname)

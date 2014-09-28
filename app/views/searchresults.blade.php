@@ -26,6 +26,10 @@
     </div>
 @endif
 
+@if($currently_updating == true)
+	<p class="lead text-center">Results being collected...here's what we've got so far</p>
+@endif
+
 @include('partials.articles-table')
 
 @stop
