@@ -66,7 +66,8 @@ Route::get('post/{fullname}', function($fullname)
 		->with(['author', 'subreddit'])
 		->first();
 
-	return $article;
+	return View::make('post')
+		->with('article', $article);
 });
 
 Route::get('sub/{name}', function($name)
