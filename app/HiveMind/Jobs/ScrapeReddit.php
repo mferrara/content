@@ -48,14 +48,14 @@ class ScrapeReddit {
 			$scraper->Search($query, $page_depth, $search_type, $sort, $time, $subs);
 		}
 
-		$query->scraped = 1;
-		$query->updating = 0;
-		$query->save();
-
 		// Queue up the processing of the articles
 		// This is after the model is saved because we're triggering the clearing
 		// of this cache by updating of the model
 		\HiveMind\ArticleProcessor::fire($query);
+
+		$query->scraped = 1;
+		$query->updating = 0;
+		$query->save();
 
 		$job->delete();
 	}
