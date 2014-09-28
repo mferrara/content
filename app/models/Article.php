@@ -27,6 +27,11 @@ class Article extends \Eloquent {
 		return $this->belongsTo('Subreddit');
 	}
 
+	public function basedomain()
+	{
+		return $this->belongsTo('Basedomain');
+	}
+
 	public function searchqueries()
 	{
 		return $this->belongsToMany('Searchquery');

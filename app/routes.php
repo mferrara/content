@@ -106,3 +106,14 @@ Route::get('author/{name}', function($name)
 		->with('articles', $articles)
 		->with('author', $author);
 });
+
+Route::get('domain/{name}', function($name)
+{
+	$domain = Basedomain::whereName($name)->first();
+
+	$articles = $domain->articles()->orderBy('score', 'DESC')->paginate(25);
+
+	return View::make('domain')
+			->with('domain', $domain)
+			->with('articles', $articles);
+});

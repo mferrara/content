@@ -40,10 +40,10 @@ class ArticleProcessor {
 
 			$total_posts++;
 
-			if(isset($base_domains[$art->base_domain]))
-				$base_domains[$art->base_domain]++;
+			if(isset($base_domains[$art->basedomain_id]))
+				$base_domains[$art->basedomain_id]++;
 			else
-				$base_domains[$art->base_domain] = 1;
+				$base_domains[$art->basedomain_id] = 1;
 		}
 
 		// Convert subreddit_ids into names
@@ -59,11 +59,17 @@ class ArticleProcessor {
 			$auths[\Author::find($author_id)->name] = $count;
 		}
 
+		$doms = [];
+		foreach($base_domains as $basedomain_id => $count)
+		{
+			$doms[\Basedomain::find($basedomain_id)->name] = $count;
+		}
+
 		// Reverse sort arrays
 		arsort($content_types);
 		arsort($subs);
 		arsort($auths);
-		arsort($base_domains);
+		arsort($doms);
 
 		/*
 		if(\App::environment() == 'production')
@@ -76,7 +82,7 @@ class ArticleProcessor {
 			'content_types' => $content_types,
 			'subreddits' 	=> $subs,
 			'authors'		=> $auths,
-			'base_domains'	=> $base_domains,
+			'base_domains'	=> $doms,
 			'self_posts' 	=> $self_posts,
 			'total_posts'	=> $total_posts,
 			//'phrases'		=> $phrases,

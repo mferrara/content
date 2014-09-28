@@ -12,7 +12,7 @@
 	<div class="col-md-3">
 		<dl class="dl-horizontal">
 			@foreach(array_slice($aggregate_data['base_domains'], 0, 7) as $name => $count)
-				<dt>{{ $name }}</dt>
+				<dt>{{ link_to('domain/'.$name, $name) }}</dt>
 				<dd>{{ $count }}</dd>
 			@endforeach
 		</dl>

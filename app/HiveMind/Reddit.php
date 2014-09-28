@@ -229,6 +229,7 @@ class Reddit extends Scraper {
 
 				$r['subreddit_id'] 		= \Subreddit::findOrCreate($post->data->subreddit)->id;
 				$r['author_id']			= \Author::findOrCreate($post->data->author)->id;
+				$r['basedomain_id']		= \Basedomain::findOrCreate($base_domain)->id;
 
 				$r['character_count']	= $character_count;
 				$r['word_count']		= $word_count;
@@ -241,7 +242,6 @@ class Reddit extends Scraper {
 				$r['nsfw']				= $post->data->over_18;
 				$r['permalink']			= $post->data->permalink;
 				$r['url']				= $post->data->url;
-				$r['base_domain']		= $base_domain;
 				$r['created']			= $post->data->created;
 				$r['is_self']			= $post->data->is_self;
 				$r['title']				= $post->data->title;
