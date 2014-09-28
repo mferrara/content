@@ -63,10 +63,12 @@ class ArticleProcessor {
 		arsort($subs);
 		arsort($auths);
 
+		/*
 		if(\App::environment() == 'production')
 			$phrases = extractCommonPhrases($all_text, [2,3], 25);
 		else
 			$phrases = extractCommonPhrases(substr($all_text,0,1000), [2,3], 25);
+		*/
 
 		$cache = [
 			'content_types' => $content_types,
@@ -74,7 +76,7 @@ class ArticleProcessor {
 			'authors'		=> $auths,
 			'self_posts' 	=> $self_posts,
 			'total_posts'	=> $total_posts,
-			'phrases'		=> $phrases,
+			//'phrases'		=> $phrases,
 			'updated'		=> \Carbon\Carbon::now()->toDateTimeString()
 		];
 

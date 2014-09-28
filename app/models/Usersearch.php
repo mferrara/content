@@ -25,7 +25,7 @@ class Usersearch extends \Eloquent {
 		// If the query hasn't been scraped, scrape it it
 		// Or it's stale
 		$seconds_since_last_update = strtotime(\Carbon\Carbon::now())- strtotime($query->updated_at);
-		
+
 		// If it's not currently updating right now...(let's not spawn updates in the queue everytime a user refreshes the page)
 		if($query->currently_updating == 0)
 		{
