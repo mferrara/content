@@ -5,7 +5,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="text-center">
-			<p class="lead">Search for shit</p>
+			<p class="lead">Search for stuff</p>
 			{{ Form::open(['url' => '/search', 'method' => 'get']) }}
 			{{ Form::input('search', 'q') }}
 			{{ Form::submit() }}
@@ -17,7 +17,7 @@
 <div class="row">
 	<div class="col-md-4">
 		<div class="text-center">
-			<p class="lead">Recent retarded searches</p>
+			<p class="lead">Recent searches</p>
 			<ul class="list-unstyled">
 				@foreach($searches as $search)
 					<li>{{ link_to('search?q='.urlencode($search->name),$search->name) }}</li>
@@ -27,7 +27,7 @@
 	</div>
 	<div class="col-md-4">
 		<div class="text-center">
-			<p class="lead">Random fucking subreddits</p>
+			<p class="lead">Random subreddits</p>
 			<ul class="list-unstyled">
 				@foreach($subreddits as $subreddit)
 					<li>{{ link_to('sub/'.$subreddit->name, 'r/'.$subreddit->name) }}</li>
@@ -37,7 +37,7 @@
 	</div>
 	<div class="col-md-4">
 		<div class="text-center">
-			<p class="lead">Random stupid people</p>
+			<p class="lead">Random authors</p>
 			<ul class="list-unstyled">
 				@foreach($authors as $author)
 					<li>{{ link_to('author/'.$author->name, 'u/'.$author->name) }}</li>
@@ -51,15 +51,15 @@
 	<div class="col-md-4">&nbsp;</div>
 	<div class="col-md-5 text-center">
 		<dl class="dl-horizontal">
-			<dt>Drivel indexed</dt>
+			<dt>Posts indexed</dt>
 			<dd>{{ number_format($total_articles) }}</dd>
-			<dt>Drivel groups watched</dt>
+			<dt>Subreddits</dt>
 			<dd>{{ number_format($total_subreddits) }}</dd>
-			<dt>Bukowski's tracked</dt>
+			<dt>Post authors</dt>
 			<dd>{{ number_format($total_authors) }}</dd>
-			<dt>Brilliant questions</dt>
+			<dt>Searches requested</dt>
 			<dd>{{ number_format($total_queries) }}</dd>
-			<dt>Losers waiting in line</dt>
+			<dt>Searches pending</dt>
 			<dd>{{ number_format($pending_searches) }}</dd>
 		</dl>
 	</div>
