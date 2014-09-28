@@ -1,5 +1,5 @@
 @if($articles == false)
-	<p class="lead">Results are being collected, please check back in a few minutes.</p>
+
 @else
 
 <table class="table table-condensed table-striped">
