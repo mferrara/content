@@ -9,7 +9,7 @@ class ArticleProcessor {
 	{
 
 		// Loop through all content for counters
-		$all_text = '';
+		//$all_text = '';
 		$content_types = [];
 		$subreddits = [];
 		$self_posts = 0;
@@ -17,7 +17,7 @@ class ArticleProcessor {
 		$authors = [];
 		foreach($searchquery->articles as $art)
 		{
-			$all_text .= $art->post_text;
+			//$all_text .= $art->post_text;
 
 			if(isset($content_types[$art->content_type]))
 				$content_types[$art->content_type]++;

@@ -23,8 +23,8 @@ class ScrapeReddit {
 
 	public function fullScrape($job, $data)
 	{
-		\Log::error('Job start');
 		$query 			= \Searchquery::find($data['searchquery_id']);
+		\Log::error('Job start - '.$query->name);
 		$sort 			= $data['sort_type'];
 		$subs 			= $data['subreddits'];
 		$search_type 	= $data['search_type'];
@@ -64,7 +64,7 @@ class ScrapeReddit {
 		$query->currently_updating = 0;
 		$query->save();
 
-		\Log::error('Query Saved');
+		\Log::error('Query Saved - '.$query->name);
 
 		$job->delete();
 	}
