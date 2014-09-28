@@ -11,7 +11,7 @@ class Usersearch extends \Eloquent {
 		return $this->belongsTo('Searchquery');
 	}
 
-	public static function search($keyword)
+	public static function search($keyword, $page_depth = 1, $search_type = 'plain', $sort_by = 'relevance', $time = 'all', $subreddits = 'all')
 	{
 		// Get the search query
 		$query = Searchquery::where('name', $keyword)->first();
@@ -22,18 +22,18 @@ class Usersearch extends \Eloquent {
 			$query = Searchquery::create(['name' => $keyword]);
 		}
 
-		// If the query hasn't been scraped, queue it
-		if($query->scraped == 0)
+		// If the query hasn't been scraped, scrape it it
+		// Or it's stale
+		$seconds_since_last_update = strtotime(\Carbon\Carbon::now())- strtotime($query->updated_at);
+
+		if($query->scraped == 0 || $seconds_since_last_update > Config::get('hivemind.cache_reddit_requests'))
 		{
 			$data['searchquery_id'] = $query->id;
-
-			if(App::environment() == 'production')
-				$data['page_depth'] 	= 5;
-			else
-				$data['page_depth'] 	= 1;
-
-			$data['sort_type'] 		= 'relevance';
-			$data['subreddits'] 	= 'all';
+			$data['page_depth'] 	= $page_depth;
+			$data['search_type']	= $search_type;
+			$data['sort_type'] 		= $sort_by;
+			$data['subreddits'] 	= $subreddits;
+			$data['time']			= ['all', 'year', 'month', 'week'];
 
 			Queue::push('\HiveMind\Jobs\ScrapeReddit@fullScrape', $data, 'redditscrape');
 		}

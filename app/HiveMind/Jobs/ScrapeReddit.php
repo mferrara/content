@@ -23,11 +23,11 @@ class ScrapeReddit {
 
 	public function fullScrape($job, $data)
 	{
-		ini_set('MAX_EXECUTION_TIME', 300);
-
-		$query = \Searchquery::find($data['searchquery_id']);
-		$sort = $data['sort_type'];
-		$subs = $data['subreddits'];
+		$query 			= \Searchquery::find($data['searchquery_id']);
+		$sort 			= $data['sort_type'];
+		$subs 			= $data['subreddits'];
+		$search_type 	= $data['search_type'];
+		$time			= $data['time'];
 
 		if(\App::environment() == 'production')
 			$page_depth = 5;
@@ -35,13 +35,27 @@ class ScrapeReddit {
 			$page_depth = 1;
 
 		$scraper = new Reddit();
-		$scraper->Search($query, $page_depth, 'plain', $sort, 'all', $subs);
-		$scraper->Search($query, $page_depth, 'plain', $sort, 'year', $subs);
-		$scraper->Search($query, $page_depth, 'plain', $sort, 'month', $subs);
-		$scraper->Search($query, $page_depth, 'plain', $sort, 'week', $subs);
+
+		if(is_array($time))
+		{
+			foreach($time as $t)
+			{
+				$scraper->Search($query, $page_depth, $search_type, $sort, $t, $subs);
+			}
+		}
+		else
+		{
+			$scraper->Search($query, $page_depth, $search_type, $sort, $time, $subs);
+		}
 
 		$query->scraped = 1;
 		$query->save();
+
+		// Queue up the processing of the articles
+		// This is after the model is saved because we're triggering the clearing
+		// of this cache by updating of the model
+		$data['searchquery_id'] = $query->id;
+		\Queue::push('\HiveMind\Jobs\ArticleProcessor', $data, 'redditprocess');
 
 		$job->delete();
 	}

@@ -33,7 +33,8 @@
             "app/tests/TestCase.php"
         ],
         "files": [
-            "app/helpers.php"
+            "app/helpers.php",
+            "app/events.php"
         ],
         "psr-0": {
             "HiveMind": "app/"

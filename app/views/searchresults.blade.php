@@ -7,6 +7,25 @@
 <h1>Search Results <small>{{ $usersearch->searchquery->name }}</small></h1>
 <hr />
 
+@if($aggregate_data != false)
+	@include('partials.aggregate-display')
+@else
+	<div class="row">
+    	<div class="col-md-2">
+    		<p class="text-center">Processing...</p>
+    	</div>
+    	<div class="col-md-4">
+    		<p class="text-center">Processing...</p>
+    	</div>
+    	<div class="col-md-3">
+    		<p class="text-center">Processing...</p>
+    	</div>
+    	<div class="col-md-3">
+    		<p class="text-center">Processing...</p>
+    	</div>
+    </div>
+@endif
+
 @include('partials.articles-table')
 
 @stop

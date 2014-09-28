@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	$searches = Usersearch::orderBy('id', 'desc')->take(5)->get();
+	$searches = Searchquery::orderBy('id', 'desc')->take(5)->get();
 
 	$subreddits = Subreddit::orderByRaw('rand()')->take(5)->get();
 
@@ -22,7 +22,8 @@ Route::get('/', function()
 	return View::make('index')
 		->with('searches', $searches)
 		->with('subreddits', $subreddits)
-		->with('authors', $authors);
+		->with('authors', $authors)
+		->with('total_articles', Article::all()->count());
 });
 
 Route::get('search', function()
@@ -36,11 +37,21 @@ Route::get('search', function()
 
 	$search = Usersearch::search($keyword);
 
-	$articles = $search->searchquery->articles()->orderBy('score', 'DESC')->paginate(25);
+	$cache_key = 'searchquery_'.$search->searchquery->id.'_processed_data';
+	if(Cache::has($cache_key))
+		$aggregate_data = Cache::get($cache_key);
+	else
+		$aggregate_data = false;
+
+	if($search->searchquery->articles()->count() > 0)
+		$articles = $search->searchquery->articles()->orderBy('score', 'DESC')->paginate(25);
+	else
+		$articles = false;
 
 	return View::make('searchresults')
 		->with('usersearch', $search)
-		->with('articles', $articles);
+		->with('articles', $articles)
+		->with('aggregate_data', $aggregate_data);
 });
 
 Route::get('post/{fullname}', function($fullname)

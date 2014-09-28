@@ -20,7 +20,7 @@
 			<p class="lead">Recent retarded searches</p>
 			<ul class="list-unstyled">
 				@foreach($searches as $search)
-					<li>{{ link_to('search?q='.urlencode($search->searchquery->name),$search->searchquery->name) }}</li>
+					<li>{{ link_to('search?q='.urlencode($search->name),$search->name) }}</li>
 				@endforeach
 			</ul>
 		</div>
