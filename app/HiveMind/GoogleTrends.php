@@ -44,6 +44,24 @@ class GoogleTrends {
 			}
 		}
 
+		// API 3 - Google news top searches
+		$request = "https://www.kimonolabs.com/api/2v9hkv1e?apikey=kfUE38PA7D0QmPetnOI2LjzAR63kjNBv";
+		$response = file_get_contents($request);
+		$results = json_decode($response, TRUE);
+
+		if(isset($results['results']['collection1']))
+		{
+			$results = $results['results']['collection1'];
+
+			foreach($results as $key => $array)
+			{
+				foreach($array as $key => $data)
+				{
+					$return[] = $data['text'];
+				}
+			}
+		}
+
 		return $return;
 	}
 
