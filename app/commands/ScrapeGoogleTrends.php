@@ -51,7 +51,7 @@ class ScrapeGoogleTrends extends ScheduledCommand {
 
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->everyHours(12);
+		return $scheduler->everyDays(1);
 	}
 
 }

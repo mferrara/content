@@ -9,7 +9,7 @@ class GoogleTrends {
 	{
 		$return = [];
 
-		// API 1
+		// API 1 - Top Charts (Updated Monthly)
 		$request = "https://www.kimonolabs.com/api/7klgm2uw?apikey=kfUE38PA7D0QmPetnOI2LjzAR63kjNBv";
 		$response = file_get_contents($request);
 		$results = json_decode($response, TRUE);
@@ -26,7 +26,7 @@ class GoogleTrends {
 			}
 		}
 
-		// API 2
+		// API 2 - Hot Trends (Updated Daily)
 		$request = "https://www.kimonolabs.com/api/8i72e5y2?apikey=kfUE38PA7D0QmPetnOI2LjzAR63kjNBv";
 		$response = file_get_contents($request);
 		$results = json_decode($response, TRUE);
