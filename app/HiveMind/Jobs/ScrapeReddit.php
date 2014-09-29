@@ -91,7 +91,7 @@ class ScrapeReddit {
 			{
 				\Log::error('Processing Failed - Adding '.$query->name.' to queue');
 				\Log::error($e->getMessage());
-				
+
 				// queue it back up
 				$searchquery_id = $query->id;
 				\Queue::push(function($job) use($searchquery_id)
