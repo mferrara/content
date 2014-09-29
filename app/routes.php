@@ -11,6 +11,15 @@
 |
 */
 
+Route::get('test', function()
+{
+	$client = new \HiveMind\Reddit;
+
+	$test = $client->Subreddit('newjersey');
+
+	var_dump($test);
+});
+
 Route::get('/', function()
 {
 	$searches = Searchquery::orderBy('id', 'desc')->take(10)->get();
@@ -49,7 +58,7 @@ Route::get('search', function()
 
 	$keyword = Input::get('q');
 
-	$usersearch = Usersearch::search($keyword);
+	$usersearch = Usersearch::getSearch($keyword);
 
 	$cache_key = 'searchquery_'.$usersearch->searchquery->id.'_processed_data';
 	if(Cache::has($cache_key))
@@ -89,11 +98,29 @@ Route::get('sub/{name}', function($name)
 	$subreddit = Subreddit::where('name', $name)
 		->first();
 
-	$articles = $subreddit->articles()->orderBy('score', 'DESC')->paginate(25);
+	$usersearch = Usersearch::getSubreddit($subreddit->name);
+
+	$cache_key = strtolower(get_class($subreddit)).'_'.$usersearch->subreddit->id.'_processed_data';
+	if(Cache::has($cache_key))
+		$aggregate_data = Cache::get($cache_key);
+	else
+		$aggregate_data = false;
+
+	if($usersearch->subreddit->articles()->count() > 0)
+		$articles = $usersearch->subreddit->articles()->orderBy('score', 'DESC')->paginate(25);
+	else
+		$articles = false;
+
+	if($usersearch->subreddit->currently_updating == 1)
+		$currently_updating = true;
+	else
+		$currently_updating = false;
 
 	return View::make('subreddit')
 		->with('articles', $articles)
-		->with('subreddit', $subreddit);
+		->with('subreddit', $subreddit)
+		->with('aggregate_data', $aggregate_data)
+		->with('currently_updating', $currently_updating);
 });
 
 Route::get('author/{name}', function($name)

@@ -111,6 +111,59 @@ class Reddit extends Scraper {
 		return $comments;
 	}
 
+	public function Subreddit($subreddit, $page_depth = 1, $search_sort = 'top', $search_time = 'all')
+	{
+		$url = $this->url."r/".$subreddit."/".$search_sort.$this->response_type."?".
+			$this->sort_parameter	.$search_sort."&".
+			$this->time_parameter	.$search_time."&".
+			$this->limit_parameter	.$this->result_limit;
+
+		$results = [];
+		$pages_completed = 0;
+		$after = false;
+		$request_count = $this->result_limit; // To determine if a search returned was less than max results, if so, don't run the next page page_depth searches
+		while($pages_completed < $page_depth && $request_count == $this->result_limit)
+		{
+			// Add the previous request's 'after' token to this one to get the next page of results
+			if($after != false)
+				$url .= "&"."after=".$after;
+
+			// Fetch results
+			$content = json_decode($this->GET($url));
+
+			// Acquire "after" parameter for next page request
+			if($page_depth > 1 && isset($content->data->after))
+			{
+				$after = $content->data->after;
+			}
+
+			// Add to output array
+			if(is_object($content) && is_object($content->data))
+			{
+				if(isset($content->data->children))
+				{
+					if(count($content->data->children) > 0)
+					{
+						$results[] = $this->ExtractArticles($content);
+					}
+				}
+			}
+
+			$pages_completed++;
+
+			// Update count of results, to be checked before running through the loop again
+			if(isset($content->data->children) && count($content->data->children) > 0)
+				$request_count = count($content->data->children);
+			else
+				$request_count = 0;
+
+			//usleep(500000);
+			sleep(\Config::get('hivemind.reddit_sleep'));
+		}
+
+		return $results;
+	}
+
 	public function Search(\Searchquery $query, $page_depth = 1, $search_syntax = 'plain', $search_sort = 'relevance', $search_time = 'all', $subreddits = "all")
 	{
 		$replace = [' ', ','];
@@ -135,8 +188,8 @@ class Reddit extends Scraper {
 		$results = [];
 		$pages_completed = 0;
 		$after = false;
-		$search_count = $this->result_limit; // To determine if a search returned was less than max results, if so, don't run the next page page_depth searches
-		while($pages_completed < $page_depth && $search_count == $this->result_limit)
+		$request_count = $this->result_limit; // To determine if a search returned was less than max results, if so, don't run the next page page_depth searches
+		while($pages_completed < $page_depth && $request_count == $this->result_limit)
 		{
 			// Add the previous request's 'after' token to this one to get the next page of results
 			if($after != false)
@@ -158,7 +211,7 @@ class Reddit extends Scraper {
 				{
 					if(count($content->data->children) > 0)
 					{
-						$results[] = $this->ExtractResultsFromSearch($content, $query);
+						$results[] = $this->ExtractArticles($content, $query);
 					}
 				}
 			}
@@ -167,18 +220,18 @@ class Reddit extends Scraper {
 
 			// Update count of results, to be checked before running through the loop again
 			if(isset($content->data->children) && count($content->data->children) > 0)
-				$search_count = count($content->data->children);
+				$request_count = count($content->data->children);
 			else
-				$search_count = 0;
+				$request_count = 0;
 
 			//usleep(500000);
-			sleep(2);
+			sleep(\Config::get('hivemind.reddit_sleep'));
 		}
 
 		return $results;
 	}
 
-	public function ExtractResultsFromSearch($content, \Searchquery $query)
+	public function ExtractArticles($content, \Searchquery $query = null, \Subreddit $subreddit = null)
 	{
 		$results = [];
 
@@ -186,7 +239,7 @@ class Reddit extends Scraper {
 		{
 			// Check to see if this article already exists
 			$article = \Article::whereFullname($post->data->name)->first();
-			if($article !== null)
+			if($article !== null && $query !== null)
 			{
 				// Exists, add the search query pivot value
 				$check = $article->searchqueries()->where('searchquery_id', $query->id)->first();
@@ -252,8 +305,13 @@ class Reddit extends Scraper {
 				if($val->passes())
 				{
 					$article = \Article::create($r);
-					// Add this query to it's record
-					$article->searchqueries()->attach($query);
+
+					if($query !== null)
+					{
+						// Add this article to searchquery relationship
+						$article->searchqueries()->attach($query);
+					}
+
 					// Add to output array
 					$results[] = $r;
 				}

@@ -5,7 +5,7 @@ namespace HiveMind;
 
 class ArticleProcessor {
 
-	public static function fire($searchquery)
+	public static function fire($model)
 	{
 
 		// Loop through all content for counters
@@ -16,7 +16,7 @@ class ArticleProcessor {
 		$self_posts = 0;
 		$total_posts = 0;
 		$authors = [];
-		foreach($searchquery->articles as $art)
+		foreach($model->articles as $art)
 		{
 			//$all_text .= $art->post_text;
 
@@ -89,7 +89,7 @@ class ArticleProcessor {
 			'updated'		=> \Carbon\Carbon::now()->toDateTimeString()
 		];
 
-		$key = 'searchquery_'.$searchquery->id.'_processed_data';
+		$key = strtolower(get_class($model)).'_'.$model->id.'_processed_data';
 		// Remove existing cache entry
 		\Cache::forget($key);
 		// Create a new one
