@@ -12,15 +12,18 @@
 		 */
 		public function up()
 		{
-			Schema::table('articles', function(Blueprint $table)
+			if(!Schema::hasColumn('articles', 'basedomain_id'))
 			{
-				// Add the new column
-				$table->integer('basedomain_id')->indexed()->unsigned()->after('url');
+				Schema::table('articles', function(Blueprint $table)
+				{
+					// Add the new column
+					$table->integer('basedomain_id')->indexed()->unsigned()->after('url');
 
-			});
+				});
+			}
 
 			// Run through the existing records migrating the data to the new column
-			Article::chunk(200, function($articles)
+			Article::where('basedomain_id', 0)->chunk(200, function($articles)
 			{
 				foreach($articles as $article)
 				{
@@ -29,13 +32,16 @@
 				}
 			});
 
-			Schema::table('articles', function(Blueprint $table)
+			if(Schema::hasColumn('articles', 'base_domain'))
 			{
+				Schema::table('articles', function(Blueprint $table)
+				{
 
-				// Drop old column
-				$table->dropColumn('base_domain');
+					// Drop old column
+					$table->dropColumn('base_domain');
 
-			});
+				});
+			}
 
 		}
 
