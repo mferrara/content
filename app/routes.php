@@ -13,11 +13,7 @@
 
 Route::get('test', function()
 {
-	$client = new \HiveMind\Reddit;
 
-	$test = $client->Subreddit('newjersey');
-
-	var_dump($test);
 });
 
 Route::get('/', function()
@@ -32,12 +28,13 @@ Route::get('/', function()
 		->with('searches', 			$searches)
 		->with('subreddits', 		$subreddits)
 		->with('authors', 			$authors)
-		->with('pending_searches', 	Searchquery::where('currently_updating', 1)->orWhere('scraped', 0)->count())
+		->with('pending_searches', 	Searchquery::where('currently_updating', 1)->orWhere('scraped', 0)->count() + Subreddit::where('currently_updating', 1)->count())
 		->with('total_articles', 	Article::count())
 		->with('total_authors', 	Author::count())
 		->with('total_subreddits', 	Subreddit::count())
 		->with('total_queries', 	Searchquery::count())
 		->with('total_domains',		Basedomain::count())
+		->with('scraped_subreddits',Subreddit::where('scraped', 1)->count())
 		;
 });
 
@@ -47,6 +44,14 @@ Route::get('searches', function()
 
 	return View::make('searches')
 			->with('searches', $searches);
+});
+
+Route::get('subreddits', function()
+{
+	$subreddits = Subreddit::where('scraped', 1)->paginate(25);
+
+	return View::make('subreddits')
+			->with('subreddits', $subreddits);
 });
 
 Route::get('search', function()
