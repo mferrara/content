@@ -103,6 +103,11 @@ Route::get('sub/{name}', function($name)
 	$subreddit = Subreddit::where('name', $name)
 		->first();
 
+	if($subreddit == null)
+	{
+		$subreddit = Subreddit::findOrCreate($name);
+	}
+
 	$usersearch = Usersearch::getSubreddit($subreddit->name);
 
 	$cache_key = strtolower(get_class($subreddit)).'_'.$usersearch->subreddit->id.'_processed_data';
