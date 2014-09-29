@@ -28,7 +28,7 @@ class Usersearch extends \Eloquent {
 
 		$subreddit = $sub;
 
-		if($subreddit->currently_updated == 0)
+		if($subreddit->currently_updating == 0)
 		{
 			if($subreddit->scraped == 0 || $subreddit->isStale())
 			{
