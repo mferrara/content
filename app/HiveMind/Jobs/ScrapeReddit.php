@@ -76,7 +76,7 @@ class ScrapeReddit {
 				{
 					ArticleProcessor::fire(\Subreddit::find($subreddit_id));
 					$job->delete();
-				}, 'redditprocessing');
+				}, null, 'redditprocessing');
 
 				$subreddit->cached = 0;
 				$subreddit->currently_updating = 0;
@@ -163,7 +163,7 @@ class ScrapeReddit {
 				{
 					ArticleProcessor::fire(\Searchquery::find($searchquery_id));
 					$job->delete();
-				}, 'redditprocessing');
+				}, null,'redditprocessing');
 
 				$query->cached = 0;
 				$query->currently_updating = 0;
