@@ -3,6 +3,7 @@
 	return [
 
 		//'cache_reddit_requests' => 86400,
+		'page_depth'	=> 5,
 		'cache_reddit_requests' => 3600,
 		'ignore_words'	=> [
 			"with",

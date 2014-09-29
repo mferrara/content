@@ -28,6 +28,7 @@ Route::get('/', function()
 		->with('total_authors', 	Author::count())
 		->with('total_subreddits', 	Subreddit::count())
 		->with('total_queries', 	Searchquery::count())
+		->with('total_domains',		Basedomain::count())
 		;
 });
 

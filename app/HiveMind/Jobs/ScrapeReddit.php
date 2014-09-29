@@ -34,10 +34,7 @@ class ScrapeReddit {
 		$time			= $data['time'];
 		$error 			= false;
 
-		if(\App::environment() == 'production')
-			$page_depth = 5;
-		else
-			$page_depth = 1;
+		$page_depth 	= \Config::get('hivemind.page_depth');
 
 		try{
 			\Log::error('Before Scraping...');
