@@ -2,8 +2,10 @@
 
 namespace HiveMind\Jobs;
 
+use Aws\CloudFront\Exception\Exception;
 use GuzzleHttp\Exception\ServerException;
 use HiveMind\Reddit;
+use HiveMind\ArticleProcessor;
 
 class ScrapeReddit {
 
@@ -54,8 +56,11 @@ class ScrapeReddit {
 				$scraper->Search($query, $page_depth, $search_type, $sort, $time, $subs);
 			}
 			\Log::error('After Scraping...');
+
+			$query->scraped = 1;
+			$query->save();
 		}
-		catch(\GuzzleHttp\Exception\ServerException $e)
+		catch(ServerException $e)
 		{
 			$error = true;
 			$job->release();
@@ -68,17 +73,43 @@ class ScrapeReddit {
 			// Queue up the processing of the articles
 			// This is after the model is saved because we're triggering the clearing
 			// of this cache by updating of the model
-			\HiveMind\ArticleProcessor::fire($query);
 
-			\Log::error('After Processing');
+			try{
 
-			$query->scraped = 1;
-			$query->currently_updating = 0;
-			$query->save();
+				ArticleProcessor::fire($query);
 
-			\Log::error('Query Saved - '.$query->name);
+				\Log::error('After Processing');
 
-			$job->delete();
+				$query->cached 				= 1;
+				$query->currently_updating 	= 0;
+				$query->save();
+
+				\Log::error('Query Saved - '.$query->name);
+
+			}
+			catch(Exception $e)
+			{
+				\Log::error('Processing Failed - Adding '.$query->name.' to queue');
+				\Log::error($e->getMessage());
+				
+				// queue it back up
+				$searchquery_id = $query->id;
+				\Queue::push(function($job) use($searchquery_id)
+				{
+					ArticleProcessor::fire(\Searchquery::find($searchquery_id));
+					$job->delete();
+				}, 'redditprocessing');
+
+				$query->cached = 0;
+				$query->currently_updating = 0;
+				$query->save();
+
+				\Log::error('Model saved, I\'m out.');
+
+				$job->delete();
+			}
 		}
+
+		$job->delete();
 	}
 } 
