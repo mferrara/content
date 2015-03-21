@@ -159,4 +159,4 @@ Route::get('domain/{name}', function($name)
 
 Route::get('admin/errors',              'AdminController@showErrors');
 
-Route::get('webhooks/kimono',           'WebhooksController@kimono');
+Route::post('webhooks/kimono',           'WebhooksController@kimono');
