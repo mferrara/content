@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    <h1>Subreddits</h1>
+    <h1>Subreddits <small>{{ number_format(Subreddit::count()) }}</small></h1>
     <hr/>
     <div class='row'>
         <div class='col-md-12 col-xs-12'>

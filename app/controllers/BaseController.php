@@ -4,16 +4,21 @@ class BaseController extends Controller {
 
     public function index()
     {
-        $searches = Searchquery::orderBy('updated_at', 'desc')
+        $recent_searches = Searchquery::orderBy('updated_at', 'desc')
             ->where('scraped', 1)
             ->take(10)
             ->get();
 
-        $subreddits = Subreddit::orderByRaw('rand()')
+        $recent_subreddits = Subreddit::orderBy('updated_at', 'DESC')
+            ->where('scraped', 1)
             ->take(10)
             ->get();
 
-        $authors = Author::orderByRaw('rand()')
+        $random_subreddits = Subreddit::orderByRaw('rand()')
+            ->take(10)
+            ->get();
+
+        $random_authors = Author::orderByRaw('rand()')
             ->take(10)
             ->get();
 
@@ -30,9 +35,10 @@ class BaseController extends Controller {
             ->get();
 
         return View::make('index')
-            ->with('searches', 			$searches)
-            ->with('subreddits', 		$subreddits)
-            ->with('authors', 			$authors)
+            ->with('recent_searches', 	$recent_searches)
+            ->with('recent_subreddits', $recent_subreddits)
+            ->with('random_subreddits', $random_subreddits)
+            ->with('random_authors',    $random_authors)
             ->with('top_subreddits',    $top_subreddits)
             ->with('top_domains',       $top_domains)
             ->with('top_authors',       $top_authors)

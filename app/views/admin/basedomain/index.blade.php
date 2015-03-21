@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    <h1>Domains</h1>
+    <h1>Domains  <small>{{ number_format(Basedomain::count()) }}</small></h1>
     <hr/>
     <div class='row'>
         <div class='col-md-12 col-xs-12'>

@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    <h1>Authors</h1>
+    <h1>Authors <small>{{ number_format(Author::count()) }}</small></h1>
     <hr/>
     <div class='row'>
         <div class='col-md-12 col-xs-12'>
