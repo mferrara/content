@@ -2,6 +2,11 @@
 
 class AdminController extends \BaseController {
 
+    public function showLastWebhook()
+    {
+        dd(Cache::get('last_webhook_payload'));
+    }
+
     public function showErrors()
     {
         $file = File::get(app_path().'/storage/logs/laravel.log');

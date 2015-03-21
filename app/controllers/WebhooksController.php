@@ -6,7 +6,7 @@ class WebhooksController extends \BaseController {
     {
         $input = Input::all();
 
-        Log::error(print_r($input));
+        Cache::put('last_webhook_payload', $input, 10);
 
         return 'woot!';
 	}
