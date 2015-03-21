@@ -43,7 +43,7 @@
 			@if($currently_updating == 1)
 				<strong>Now!</strong>
 			@else
-				{{ \Carbon\Carbon::createFromTimestamp(strtotime($aggregate_data['updated']) + Config::get('hivemind.cache_reddit_requests'))->diffForHumans() }}
+				{{ str_replace('ago', 'from now', \Carbon\Carbon::createFromTimestamp(strtotime($aggregate_data['updated']) + Config::get('hivemind.cache_reddit_requests'))->diffForHumans()) }}
 			@endif
 		</dd>
 	</dl>
