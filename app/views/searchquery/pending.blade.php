@@ -4,10 +4,10 @@
 
     {{ link_to('/', 'Home', ['class' => 'btn btn-primary']) }}
 
-    <h1>Pending Searches <small>{{ count($pending) }}</small></h1>
+    <h1>Pending Searches <small>{{ count($pending_queries) }}</small></h1>
 
     <dl class="dl-horizontal">
-        @foreach($pending as $search)
+        @foreach($pending_queries as $search)
             <dt>{{ link_to('search?q='.urlencode($search->name), $search->name) }}</dt>
             <dd>
                 @if($search->scraped == 0)
@@ -23,6 +23,25 @@
         @endforeach
     </dl>
 
-    <div class="text-center">{{ $pending->links() }}</div>
+    <hr/>
+
+    <h1>Pending Subreddits <small>{{ count($pending_subreddits) }}</small></h1>
+
+    <dl class="dl-horizontal">
+        @foreach($pending_subreddits as $subreddit)
+            <dt>{{ link_to('search?q='.urlencode($subreddit->name), $search->name) }}</dt>
+            <dd>
+                @if($subreddit->scraped == 0)
+                    <span class="label label-danger">Pending</span>
+                @elseif($subreddit->currently_updating == 1)
+                    <span class="label label-warning">Updating</span>
+                @elseif($subreddit->isStale())
+                    <span class="label label-default">Stale</span>
+                @else
+                    <span class="label label-success">Complete</span>
+                @endif
+            </dd>
+        @endforeach
+    </dl>
 
 @stop

@@ -18,11 +18,15 @@ class SearchqueryController extends \BaseController {
 
     public function pending()
     {
-        $pending = Searchquery::where('currently_updating', 1)
-                ->paginate(25);
+        $pending_queries = Searchquery::where('currently_updating', 1)
+                ->get();
+
+        $pending_subreddits = Subreddit::where('currently_updating', 1)
+                ->get();
 
         return View::make('searchquery.pending')
-                ->with('pending', $pending);
+                ->with('pending_queries', $pending_queries)
+                ->with('pending_subreddits', $pending_subreddits);
     }
 
 	/**
