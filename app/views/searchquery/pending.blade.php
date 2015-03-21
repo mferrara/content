@@ -5,7 +5,7 @@
     {{ link_to('/', 'Home', ['class' => 'btn btn-primary']) }}
 
     <div class="row">
-        <div class="col-md-6 col-xs-12 text-center">
+        <div class="col-md-6 col-xs-12">
             <h1>Pending Searches <small>{{ count($pending_queries) }}</small></h1>
 
             <dl class="dl-horizontal">
@@ -25,7 +25,7 @@
                 @endforeach
             </dl>
         </div>
-        <div class="col-md-6 col-xs-12 text-center">
+        <div class="col-md-6 col-xs-12">
             <h1>Pending Subreddits <small>{{ count($pending_subreddits) }}</small></h1>
 
             <dl class="dl-horizontal">
