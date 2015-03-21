@@ -5,6 +5,7 @@
 {{ link_to('/', 'Home', ['class' => 'btn btn-primary']) }}
 
 <h1>Subreddits searched <small>{{ count($subreddits) }}</small></h1>
+<hr/>
 
 <dl class="dl-horizontal">
 	@foreach($subreddits as $subreddit)
