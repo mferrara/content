@@ -43,7 +43,7 @@
 <div class="row">
 	<div class="col-md-4">
 		<div class="text-center">
-			<p class="lead">Recent searches</p>
+			<p class="lead">Recently Updated</p>
 			<ul class="list-unstyled">
 				@foreach($searches as $search)
 					<li>{{ link_to('search?q='.urlencode($search->name),$search->name) }}</li>

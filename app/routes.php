@@ -18,11 +18,18 @@ Route::get('test', function()
 
 Route::get('/', function()
 {
-	$searches = Searchquery::orderBy('id', 'desc')->take(10)->get();
+	$searches = Searchquery::orderBy('id', 'desc')
+                ->where('scraped', 1)
+                ->take(10)
+                ->get();
 
-	$subreddits = Subreddit::orderByRaw('rand()')->take(10)->get();
+	$subreddits = Subreddit::orderByRaw('rand()')
+                ->take(10)
+                ->get();
 
-	$authors = Author::orderByRaw('rand()')->take(10)->get();
+	$authors = Author::orderByRaw('rand()')
+                ->take(10)
+                ->get();
 
 	return View::make('index')
 		->with('searches', 			$searches)
