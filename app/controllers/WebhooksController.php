@@ -11,4 +11,9 @@ class WebhooksController extends \BaseController {
         return 'woot!';
 	}
 
+    public function showLastWebhook()
+    {
+        dd(Cache::get('last_webhook_payload'));
+    }
+
 }
