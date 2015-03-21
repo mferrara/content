@@ -7,7 +7,7 @@
 
         <div class="container-fluid">
             <div class="text-right">
-                {{ link_to('admin', 'admin') }}
+                {{ link_to('/', 'home') }}
             </div>
         </div>
 
@@ -15,7 +15,16 @@
 		<div class="container">
 			@include('flash::message')
 
-			@yield('content')
+            <div class="row">
+                <div class="col-md-2">
+                    <br/>
+                    <br/>
+                    @include('admin.partials.admin-menu')
+                </div>
+                <div class="col-md-10">
+                    @yield('content')
+                </div>
+            </div>
 		</div>
 
 		@include('layouts.includes.footer')

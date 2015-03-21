@@ -1,6 +1,12 @@
 <?php
 
+use \Laracasts\Presenter\PresentableTrait;
+
 class Searchquery extends \Eloquent {
+
+    use PresentableTrait;
+
+    protected $presenter = '\HiveMind\Presenters\SearchqueryPresenter';
 
 	protected $table = 'searchqueries';
 	protected $guarded = ['id'];

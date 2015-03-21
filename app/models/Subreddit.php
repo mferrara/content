@@ -1,6 +1,12 @@
 <?php
 
+use \Laracasts\Presenter\PresentableTrait;
+
 class Subreddit extends \Eloquent {
+
+    use PresentableTrait;
+
+    protected $presenter = '\HiveMind\Presenters\SubredditPresenter';
 
 	protected $guarded = ['id'];
 	protected $fillable = [];

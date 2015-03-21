@@ -1,6 +1,12 @@
 <?php
 
+use \Laracasts\Presenter\PresentableTrait;
+
 class Basedomain extends \Eloquent {
+
+    use PresentableTrait;
+
+    protected $presenter = '\HiveMind\Presenters\BasedomainPresenter';
 
 	protected $guarded = ['id'];
 	protected $fillable = [];

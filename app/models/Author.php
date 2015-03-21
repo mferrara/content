@@ -1,6 +1,12 @@
 <?php
 
+use \Laracasts\Presenter\PresentableTrait;
+
 class Author extends \Eloquent {
+
+    use PresentableTrait;
+
+    protected $presenter = '\HiveMind\Presenters\AuthorPresenter';
 
 	protected $guarded = ['id'];
 	protected $fillable = [];

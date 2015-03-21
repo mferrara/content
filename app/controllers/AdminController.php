@@ -2,6 +2,43 @@
 
 class AdminController extends \BaseController {
 
+    public function index()
+    {
+        return View::make('admin.index');
+    }
+
+    public function searchqueries()
+    {
+        $searches = Searchquery::paginate(25);
+
+        return View::make('admin.searchquery.index')
+                ->with('searches', $searches);
+    }
+
+    public function authors()
+    {
+        $authors = Author::paginate(25);
+
+        return View::make('admin.author.index')
+                ->with('authors', $authors);
+    }
+
+    public function domains()
+    {
+        $domains = Basedomain::paginate(25);
+
+        return View::make('admin.basedomain.index')
+                ->with('domains', $domains);
+    }
+
+    public function subreddits()
+    {
+        $subreddits = Subreddit::paginate(25);
+
+        return View::make('admin.subreddit.index')
+                ->with('subreddits', $subreddits);
+    }
+
     public function showErrors()
     {
         $file = File::get(app_path().'/storage/logs/laravel.log');

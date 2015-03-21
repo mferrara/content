@@ -32,7 +32,11 @@ Route::get('author/{name}',             'AuthorController@show');
 Route::get('domains',                   'BasedomainController@index');
 Route::get('domain/{name}',             'BasedomainController@show');
 
-
+Route::get('admin',                     'AdminController@index');
+Route::get('admin/searches',            'AdminController@searchqueries');
+Route::get('admin/authors',             'AdminController@authors');
+Route::get('admin/domains',             'AdminController@domains');
+Route::get('admin/subreddits',          'AdminController@subreddits');
 Route::get('admin/errors',              'AdminController@showErrors');
 
 Route::post('webhooks/kimono',          'WebhooksController@kimono');

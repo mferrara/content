@@ -23,7 +23,7 @@ body {
 /* Not required for template or sticky footer method. */
 
 body > .container-fluid {
-    padding: 70px 15px 0;
+    padding: 20px 15px 0;
 }
 
 .footer > .container .text-muted {
@@ -70,4 +70,29 @@ td.bg-success {
     display:inline-block;
     *display:inline; /* ie7 fix */
     zoom:1; /* hasLayout ie7 trigger */
+}
+
+#admin-menu-sidebar li
+{
+    margin: 0 6px 0 6px;
+    padding: 2px 4px 2px 4px;
+    font-weight: bold;
+}
+
+#admin-menu-sidebar li:hover
+{
+
+}
+
+#admin-menu-sidebar li:hover > a {
+    color: #2c3e50;
+}
+
+#admin-menu-sidebar li:nth-of-type(1)
+{
+    border-top: none;
+}
+
+#admin-menu-sidebar a {
+
 }

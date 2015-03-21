@@ -1,7 +1,7 @@
-@extends('layouts.default')
+@extends('layouts.admin')
 
 @section('title')
-    Admin->Errors - Lightweight Hiker
+    Admin Errors - keywords.legit.php
 @stop
 
 @section('content')

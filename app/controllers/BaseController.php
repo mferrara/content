@@ -4,7 +4,7 @@ class BaseController extends Controller {
 
     public function index()
     {
-        $searches = Searchquery::orderBy('id', 'desc')
+        $searches = Searchquery::orderBy('updated_at', 'desc')
             ->where('scraped', 1)
             ->take(10)
             ->get();
