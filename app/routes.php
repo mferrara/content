@@ -18,7 +18,7 @@ Route::get('test', function()
 
 Route::get('/',                         'BaseController@index');
 
-
+Route::get('pending',                   'SearchqueryController@pending');
 Route::get('searches',                  'SearchqueryController@index');
 Route::get('search',                    'BaseController@search');
 

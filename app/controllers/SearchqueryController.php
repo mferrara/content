@@ -16,6 +16,15 @@ class SearchqueryController extends \BaseController {
             ->with('searches', $searches);
 	}
 
+    public function pending()
+    {
+        $pending = Searchquery::where('currently_updating', 1)
+                ->paginate(25);
+
+        return View::make('searchquery.pending')
+                ->with('pending', $pending);
+    }
+
 	/**
 	 * Show the form for creating a new resource.
 	 * GET /searchquery/create

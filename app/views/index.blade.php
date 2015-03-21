@@ -172,7 +172,7 @@
 			<dd>{{ number_format($total_queries) }}</dd>
 			<dt>{{ link_to('subreddits', 'Subreddits dug into') }}</dt>
 			<dd>{{ number_format($scraped_subreddits) }}</dd>
-			<dt>Searches pending</dt>
+			<dt>{{ link_to('pending', 'Searches pending') }}</dt>
 			<dd>{{ number_format($pending_searches) }}</dd>
 		</dl>
 	</div>
