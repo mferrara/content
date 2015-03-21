@@ -155,3 +155,8 @@ Route::get('domain/{name}', function($name)
 			->with('domain', $domain)
 			->with('articles', $articles);
 });
+
+
+Route::get('admin/errors',              'AdminController@showErrors');
+
+Route::get('webhooks/kimono',           'WebhooksController@kimono');
