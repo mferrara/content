@@ -16,7 +16,7 @@
 			<p>By keyword</p>
 			{{ Form::open(['url' => '/search', 'method' => 'get']) }}
 			<div class="input-group">
-			  <input id="keyword-search" type="search" class="form-control" placeholder="Lakers">
+			  <input id="keyword-search" name="q" type="search" class="form-control" placeholder="Lakers">
 			  <span class="input-group-btn">
 				  <button id="keyword-search-submit" class="btn btn-default" type="button">Go!</button>
 				</span>
