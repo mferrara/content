@@ -2,10 +2,10 @@
 
 	return [
 
-		//'cache_reddit_requests' => 86400,
-		'reddit_sleep'	=> 2,
-		'page_depth'	=> 5,
-		'cache_reddit_requests' => 3600,
+		'reddit_sleep'	                    => 2,
+		'page_depth'	                    => 5,
+		'cache_reddit_search_requests'      => 3600 * 4,  // 4 hours for search queries
+		'cache_reddit_subreddit_requests'   => 3600 * 12, // 12 hours for subreddits
 		'ignore_words'	=> [
 			"with",
 			"or",

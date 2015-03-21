@@ -83,7 +83,7 @@ class Usersearch extends \Eloquent {
 				else
 					$data['time']			= ['all'];
 
-				// Set a flag that it's currently updating to further requests to this page won't spawn more
+				// Set a flag that it's currently updating so further requests to this page won't spawn more
 				// The job will set the flag back to false when it completes
 				$query->currently_updating = 1;
 				$query->save();

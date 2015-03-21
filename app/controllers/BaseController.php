@@ -4,33 +4,33 @@ class BaseController extends Controller {
 
     public function index()
     {
-        $recent_searches = Searchquery::orderBy('updated_at', 'desc')
+        $recent_searches        = Searchquery::orderBy('updated_at', 'desc')
             ->where('scraped', 1)
             ->take(10)
             ->get();
 
-        $recent_subreddits = Subreddit::orderBy('updated_at', 'DESC')
+        $recent_subreddits      = Subreddit::orderBy('updated_at', 'DESC')
             ->where('scraped', 1)
             ->take(10)
             ->get();
 
-        $random_subreddits = Subreddit::orderByRaw('rand()')
+        $random_subreddits      = Subreddit::orderByRaw('rand()')
             ->take(10)
             ->get();
 
-        $random_authors = Author::orderByRaw('rand()')
+        $random_authors         = Author::orderByRaw('rand()')
             ->take(10)
             ->get();
 
-        $top_subreddits = Subreddit::orderBy('article_count', 'DESC')
+        $top_subreddits         = Subreddit::orderBy('article_count', 'DESC')
             ->take(10)
             ->get();
 
-        $top_domains = Basedomain::orderBy('article_count', 'DESC')
+        $top_domains            = Basedomain::orderBy('article_count', 'DESC')
             ->take(10)
             ->get();
 
-        $top_authors = Author::orderBy('article_count', 'DESC')
+        $top_authors            = Author::orderBy('article_count', 'DESC')
             ->take(10)
             ->get();
 
@@ -70,7 +70,10 @@ class BaseController extends Controller {
             $aggregate_data = false;
 
         if($usersearch->searchquery->articles()->count() > 0)
-            $articles = $usersearch->searchquery->articles()->orderBy('score', 'DESC')->paginate(25);
+            $articles = $usersearch->searchquery
+                    ->articles()
+                    ->orderBy('score', 'DESC')
+                    ->paginate(25);
         else
             $articles = false;
 

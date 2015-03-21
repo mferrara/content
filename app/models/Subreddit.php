@@ -42,7 +42,7 @@ class Subreddit extends \Eloquent {
 	{
 		$seconds_since_last_update = strtotime(\Carbon\Carbon::now())- strtotime($this->updated_at);
 
-		if($seconds_since_last_update > Config::get('hivemind.cache_reddit_requests'))
+		if($seconds_since_last_update > Config::get('hivemind.cache_reddit_subreddit_requests'))
 			return true;
 
 		return false;
