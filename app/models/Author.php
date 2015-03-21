@@ -32,4 +32,9 @@ class Author extends \Eloquent {
 		return $model;
 	}
 
+    public function incrementArticleCount()
+    {
+        DB::table('authors')->where('id', $this->id)->increment('article_count');
+    }
+
 }

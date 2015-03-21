@@ -42,7 +42,7 @@
 <div class="row">
 	<div class="col-md-4">
 		<div class="text-center">
-			<p class="lead">Recently Updated</p>
+			<p class="lead">Recently Updated Searches</p>
 			<ul class="list-unstyled">
 				@foreach($searches as $search)
 					<li>{{ link_to('search?q='.urlencode($search->name),$search->name) }}</li>
@@ -71,6 +71,89 @@
 		</div>
 	</div>
 </div>
+<br/><br/>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Top Linked Domains <small>(By article count)</small></h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($top_domains as $domain)
+                        <tr>
+                            <td>{{ link_to('domain/'.$domain->name, $domain->name) }}</td>
+                            <td class="text-right">{{ number_format($domain->article_count) }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+        	  <div class="panel-heading">
+        			<h3 class="panel-title">Top Subreddits <small>(By article count)</small></h3>
+        	  </div>
+        	  <div class="panel-body">
+                <table class="table table-condensed">
+                	<thead>
+                		<tr>
+                			<th></th>
+                			<th></th>
+                		</tr>
+                	</thead>
+                	<tbody>
+                		@foreach($top_subreddits as $sub)
+                            <tr>
+                                <td>{{ link_to('sub/'.$sub->name, 'r/'.$sub->name) }}</td>
+                                <td class="text-right">{{ number_format($sub->article_count) }}</td>
+                            </tr>
+                        @endforeach
+                	</tbody>
+                </table>
+        	  </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Top Authors <small>(By article count)</small></h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($top_authors as $author)
+                        <tr>
+                            <td>{{ link_to('author/'.$author->name, $author->name) }}</td>
+                            <td class="text-right">{{ number_format($author->article_count) }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 <br/><br/>
 <div class="row">
 	<div class="col-md-4">&nbsp;</div>

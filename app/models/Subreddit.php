@@ -42,4 +42,9 @@ class Subreddit extends \Eloquent {
 		return false;
 	}
 
+    public function incrementArticleCount()
+    {
+        DB::table('subreddits')->where('id', $this->id)->increment('article_count');
+    }
+
 }

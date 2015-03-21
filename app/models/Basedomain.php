@@ -32,4 +32,9 @@ class Basedomain extends \Eloquent {
 		return $model;
 	}
 
+    public function incrementArticleCount()
+    {
+        DB::table('basedomains')->where('id', $this->id)->increment('article_count');
+    }
+
 }

@@ -310,6 +310,10 @@ class Reddit extends Scraper {
 					{
 						// Add this article to searchquery relationship
 						$article->searchqueries()->attach($query);
+
+                        $article->author->incrementArticleCount();
+                        $article->basedomain->incrementArticleCount();
+                        $article->subreddit->incrementArticleCount();
 					}
 
 					// Add to output array
