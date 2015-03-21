@@ -10,57 +10,37 @@ class GoogleTrends {
 		$return = [];
 
 		// API 1 - Top Charts (Updated Monthly)
-		$request = "https://www.kimonolabs.com/api/7klgm2uw?apikey=kfUE38PA7D0QmPetnOI2LjzAR63kjNBv";
-		$response = file_get_contents($request);
-		$results = json_decode($response, TRUE);
+		$urls[] = "https://www.kimonolabs.com/api/5zz6hkqg?apikey=kfUE38PA7D0QmPetnOI2LjzAR63kjNBv";
 
-		if(isset($results['results']['collection1']))
-		{
-			$results = $results['results']['collection1'];
+        // API 2 - Hot Trends (Updated Daily)
+        $urls[] = "https://www.kimonolabs.com/api/2f33sbd0?apikey=kfUE38PA7D0QmPetnOI2LjzAR63kjNBv";
 
-			$return = [];
-			foreach($results as $key => $array)
-			{
-				if(mb_strlen(str_replace('.', '', $array['keyword'])) > 2)
-					$return[] = $array['keyword'];
-			}
-		}
+        // API 3 - Google news top searches
+        $urls[] = "https://www.kimonolabs.com/api/2v9hkv1e?apikey=kfUE38PA7D0QmPetnOI2LjzAR63kjNBv";
 
-		// API 2 - Hot Trends (Updated Daily)
-		$request = "https://www.kimonolabs.com/api/8i72e5y2?apikey=kfUE38PA7D0QmPetnOI2LjzAR63kjNBv";
-		$response = file_get_contents($request);
-		$results = json_decode($response, TRUE);
+        foreach($urls as $url)
+        {
+            $response = file_get_contents($url);
+            $results = json_decode($response, TRUE);
 
-		if(isset($results['results']['collection1']))
-		{
-			$results = $results['results']['collection1'];
+            if($results['lastrunstatus'] !== 'success')
+            {
+                unset($api);
+                $api['api'] = $results['name'];
 
-			foreach($results as $key => $array)
-			{
-				foreach($array as $key => $data)
-				{
-					$return[] = $data['text'];
-				}
-			}
-		}
+                // API Failed
+            }
 
-		// API 3 - Google news top searches
-		$request = "https://www.kimonolabs.com/api/2v9hkv1e?apikey=kfUE38PA7D0QmPetnOI2LjzAR63kjNBv";
-		$response = file_get_contents($request);
-		$results = json_decode($response, TRUE);
+            if(isset($results['results']['keywords']))
+            {
+                $keywords = $results['results']['keywords'];
 
-		if(isset($results['results']['collection1']))
-		{
-			$results = $results['results']['collection1'];
-
-			foreach($results as $key => $array)
-			{
-				foreach($array as $key => $data)
-				{
-					$return[] = $data['text'];
-				}
-			}
-		}
+                foreach($keywords as $keyword)
+                {
+                    $return[] = $keyword['keyword']['text'];
+                }
+            }
+        }
 
 		return $return;
 	}

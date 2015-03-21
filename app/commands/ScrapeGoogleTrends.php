@@ -44,14 +44,14 @@ class ScrapeGoogleTrends extends ScheduledCommand {
 			$check = Searchquery::where('name', $keyword)->first();
 
 			if($check == null)
-				Usersearch::search($keyword);
+				Usersearch::getSearch($keyword);
 		}
 
 	}
 
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->everyHours(4);
+		return $scheduler->everyMinutes(28);
 	}
 
 }
