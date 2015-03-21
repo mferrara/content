@@ -29,7 +29,7 @@
 
     <dl class="dl-horizontal">
         @foreach($pending_subreddits as $subreddit)
-            <dt>{{ link_to('search?q='.urlencode($subreddit->name), $search->name) }}</dt>
+            <dt>{{ link_to('search?q='.urlencode($subreddit->name), $subreddit->name) }}</dt>
             <dd>
                 @if($subreddit->scraped == 0)
                     <span class="label label-danger">Pending</span>
