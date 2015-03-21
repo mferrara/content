@@ -6,14 +6,18 @@ class WebhooksController extends \BaseController {
     {
         $input = Input::all();
 
-        Cache::put('last_webhook_payload', $input, 10);
+        $array = Cache::get('webhook_payloads');
+
+        $array[] = $input;
+
+        Cache::put('webhook_payloads', $array, 1000);
 
         return 'woot!';
 	}
 
     public function showLastWebhook()
     {
-        dd(Cache::get('last_webhook_payload'));
+        dd(Cache::get('webhook_payloads'));
     }
 
 }
