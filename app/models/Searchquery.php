@@ -38,4 +38,24 @@ class Searchquery extends \Eloquent {
 		return false;
 	}
 
+    public function queueArticleProcessing()
+    {
+        $searchquery_id = $this->id;
+        \Queue::push(function($job) use($searchquery_id)
+        {
+            $query = \Searchquery::find($searchquery_id);
+
+            ArticleProcessor::fire($query);
+
+            $query->cached              = 1;
+            $query->currently_updated   = 0;
+            $query->save();
+
+            $job->delete();
+
+        }, null,'redditprocessing');
+
+        return true;
+    }
+
 }

@@ -52,40 +52,7 @@ class ScrapeReddit {
 			// This is after the model is saved because we're triggering the clearing
 			// of this cache by updating of the model
 
-			try{
-
-				ArticleProcessor::fire($subreddit);
-
-				\Log::error('After Processing');
-
-				$subreddit->cached 				= 1;
-				$subreddit->currently_updating 	= 0;
-				$subreddit->save();
-
-				\Log::error('Query Saved - '.$subreddit->name);
-
-			}
-			catch(Exception $e)
-			{
-				\Log::error('Processing Failed - Adding '.$subreddit->name.' to queue');
-				\Log::error($e->getMessage());
-
-				// queue it back up
-				$subreddit_id = $subreddit->id;
-				\Queue::push(function($job) use($subreddit_id)
-				{
-					ArticleProcessor::fire(\Subreddit::find($subreddit_id));
-					$job->delete();
-				}, null, 'redditprocessing');
-
-				$subreddit->cached = 0;
-				$subreddit->currently_updating = 0;
-				$subreddit->save();
-
-				\Log::error('Model saved, I\'m out.');
-
-				$job->delete();
-			}
+			$subreddit->queueArticleProcessing();
 		}
 
 		$job->delete();
@@ -139,40 +106,7 @@ class ScrapeReddit {
 			// This is after the model is saved because we're triggering the clearing
 			// of this cache by updating of the model
 
-			try{
-
-				ArticleProcessor::fire($query);
-
-				\Log::error('After Processing');
-
-				$query->cached 				= 1;
-				$query->currently_updating 	= 0;
-				$query->save();
-
-				\Log::error('Query Saved - '.$query->name);
-
-			}
-			catch(Exception $e)
-			{
-				\Log::error('Processing Failed - Adding '.$query->name.' to queue');
-				\Log::error($e->getMessage());
-
-				// queue it back up
-				$searchquery_id = $query->id;
-				\Queue::push(function($job) use($searchquery_id)
-				{
-					ArticleProcessor::fire(\Searchquery::find($searchquery_id));
-					$job->delete();
-				}, null,'redditprocessing');
-
-				$query->cached = 0;
-				$query->currently_updating = 0;
-				$query->save();
-
-				\Log::error('Model saved, I\'m out.');
-
-				$job->delete();
-			}
+			$query->queueArticleProcessing();
 		}
 
 		$job->delete();

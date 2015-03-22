@@ -53,4 +53,22 @@ class Subreddit extends \Eloquent {
         DB::table('subreddits')->where('id', $this->id)->increment('article_count');
     }
 
+    public function queueArticleProcessing()
+    {
+        $subreddit_id = $this->id;
+        \Queue::push(function($job) use($subreddit_id)
+        {
+            $subreddit = \Subreddit::find($subreddit_id);
+            ArticleProcessor::fire($subreddit);
+
+            $subreddit->cached 				= 1;
+            $subreddit->currently_updating 	= 0;
+            $subreddit->save();
+
+            $job->delete();
+        }, null, 'redditprocessing');
+
+        return true;
+    }
+
 }
