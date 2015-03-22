@@ -48,7 +48,7 @@ class Searchquery extends \Eloquent {
             \HiveMind\ArticleProcessor::fire($query);
 
             $query->cached              = 1;
-            $query->currently_updated   = 0;
+            $query->currently_updating  = 0;
             $query->save();
 
             $job->delete();
