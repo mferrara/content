@@ -43,7 +43,12 @@
 			@if($currently_updating == 1)
 				<strong>Now!</strong>
 			@else
-				{{ str_replace('ago', 'from now', \Carbon\Carbon::createFromTimestamp(strtotime($aggregate_data['updated']) + Config::get('hivemind.cache_reddit_requests'))->diffForHumans()) }}
+                @if(isset($subreddit))
+				    {{ str_replace('ago', 'from now', \Carbon\Carbon::createFromTimestamp(strtotime($aggregate_data['updated']) + Config::get('hivemind.cache_reddit_subreddit_requests'))->diffForHumans()) }}
+                @endif
+                @if(isset($usersearch))
+                        {{ str_replace('ago', 'from now', \Carbon\Carbon::createFromTimestamp(strtotime($aggregate_data['updated']) + Config::get('hivemind.cache_reddit_search_requests'))->diffForHumans()) }}
+                @endif
 			@endif
 		</dd>
 	</dl>
