@@ -94,13 +94,13 @@ class ArticleProcessor {
 		\Cache::forget($key);
 		// Create a new one
 
-        $cache_key = 'hivemind.cache_reddit_search_requests';
+        $configuration_key = 'hivemind.cache_reddit_search_requests';
         if(get_class($model) == 'Searchquery')
-            $cache_key = 'hivemind.cache_reddit_search_requests';
+            $configuration_key = 'hivemind.cache_reddit_search_requests';
         if(get_class($model) == 'Subreddit')
-            $cache_key = 'hivemind.cache_reddit_subreddit_requests';
+            $configuration_key = 'hivemind.cache_reddit_subreddit_requests';
 
-		\Cache::add($key, $cache, \Config::get($cache_key));
+		\Cache::add($key, $cache, \Config::get($configuration_key));
 
 	}
 
