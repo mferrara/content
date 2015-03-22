@@ -38,7 +38,7 @@ return array(
 			'driver' => 'beanstalkd',
 			'host'   => 'localhost',
 			'queue'  => 'keywords',
-			'ttr'    => 60,
+			'ttr'    => 6000,
 		),
 
 		'sqs' => array(
