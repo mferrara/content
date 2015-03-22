@@ -45,7 +45,7 @@ class Searchquery extends \Eloquent {
         {
             $query = \Searchquery::find($searchquery_id);
 
-            ArticleProcessor::fire($query);
+            \HiveMind\ArticleProcessor::fire($query);
 
             $query->cached              = 1;
             $query->currently_updated   = 0;

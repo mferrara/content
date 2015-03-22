@@ -59,7 +59,7 @@ class Subreddit extends \Eloquent {
         \Queue::push(function($job) use($subreddit_id)
         {
             $subreddit = \Subreddit::find($subreddit_id);
-            ArticleProcessor::fire($subreddit);
+            \HiveMind\ArticleProcessor::fire($subreddit);
 
             $subreddit->cached 				= 1;
             $subreddit->currently_updating 	= 0;
