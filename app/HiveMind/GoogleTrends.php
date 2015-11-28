@@ -37,7 +37,10 @@ class GoogleTrends {
 
                 foreach($keywords as $keyword)
                 {
-                    $return[] = $keyword['keyword']['text'];
+                    if(isset($keyword['keyword']['text']))
+                        $return[] = $keyword['keyword']['text'];
+                    else
+                        $return[] = $keyword['keyword'];
                 }
             }
         }
