@@ -118,6 +118,7 @@ class Reddit extends Scraper {
 			$this->time_parameter	.$search_time."&".
 			$this->limit_parameter	.$this->result_limit;
 
+        $sub = \Subreddit::where('name', $subreddit)->first();
 		$results = [];
 		$pages_completed = 0;
 		$after = false;
@@ -144,7 +145,7 @@ class Reddit extends Scraper {
 				{
 					if(count($content->data->children) > 0)
 					{
-						$results[] = $this->ExtractArticles($content);
+						$results[] = $this->ExtractArticles($content, null, $sub);
 					}
 				}
 			}
@@ -307,15 +308,19 @@ class Reddit extends Scraper {
 				{
 					$article = \Article::create($r);
 
-					if($query !== null)
+					if($query !== null || $subreddit !== null)
 					{
-						// Add this article to searchquery relationship
-						$article->searchqueries()->attach($query);
-
+                        // Increment various things
                         $article->author->incrementArticleCount();
                         $article->basedomain->incrementArticleCount();
                         $article->subreddit->incrementArticleCount();
 					}
+
+                    if($query !== null)
+                    {
+                        // Add this article to searchquery relationship
+                        $article->searchqueries()->attach($query);
+                    }
 
 					// Add to output array
 					$results[] = $r;
