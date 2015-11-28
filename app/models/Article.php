@@ -74,7 +74,10 @@ class Article extends \Eloquent {
 			else
 				return 'self.short';
 		}
-		elseif((stristr($content->url, "imgur.com/") ||
+		elseif(
+            (
+                stristr($content->url, "imgur.com/") ||
+                stristr($content->url, "vidble.com/") ||
 				stristr($content->url, "minus.com/") ||
 				stristr($content->url, "500px.org/") ||
 				stristr($content->url, "500px.com/") ||
@@ -83,7 +86,11 @@ class Article extends \Eloquent {
 				stristr($content->url, "upload.wikimedia.org/") ||
 				stristr($content->url, "media.tumblr.com/") ||
 				stristr($content->url, "fbcdn.net/") ||
-				stristr($content->url, "fbcdn."))
+				stristr($content->url, "fbcdn.") ||
+                strtolower(substr($content->url, -4)) === '.png' ||
+                strtolower(substr($content->url, -4)) === '.gif' ||
+                strtolower(substr($content->url, -4)) === '.jpg'
+            )
 		)
 		{
 			return 'image';
