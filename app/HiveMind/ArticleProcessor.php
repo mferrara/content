@@ -10,12 +10,12 @@ class ArticleProcessor {
 
 		// Loop through all content for counters
 		//$all_text = '';
-		$content_types = [];
-		$subreddits = [];
-		$base_domains = [];
-		$self_posts = 0;
-		$total_posts = 0;
-		$authors = [];
+		$content_types  = [];
+		$subreddits     = [];
+		$base_domains   = [];
+        $authors        = [];
+		$self_posts     = 0;
+		$total_posts    = 0;
 		foreach($model->articles as $art)
 		{
 			//$all_text .= $art->post_text;

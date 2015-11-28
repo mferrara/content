@@ -250,7 +250,7 @@ class Reddit extends Scraper {
 			else {
 				// Doesn't exist, add it
 				// Process text fields for basic classifying information
-				$character_count = strlen($post->data->selftext);
+				$character_count = mb_strlen($post->data->selftext);
 				if($character_count > 0)
 				{
 					$word_count = count(explode(" ", $post->data->selftext));
@@ -270,11 +270,11 @@ class Reddit extends Scraper {
 				$domain         = str_replace($remove, "", parse_url($post->data->url));
 				$base_domain    = $domain['host'];
 
-				if(stristr($base_domain, 'youtu.be'))       $base_domain = "youtube.com";
-				if(stristr($base_domain, 'tumblr.com'))     $base_domain = "tumblr.com";
-				if(stristr($base_domain, 'blogspot.com'))   $base_domain = "blogspot.com";
-				if(stristr($base_domain, 'tinypic.com'))    $base_domain = "tinypic.com";
-				if(stristr($base_domain, 'imgur.com'))      $base_domain = "imgur.com";
+				if(mb_stristr($base_domain, 'youtu.be'))       $base_domain = "youtube.com";
+				if(mb_stristr($base_domain, 'tumblr.com'))     $base_domain = "tumblr.com";
+				if(mb_stristr($base_domain, 'blogspot.com'))   $base_domain = "blogspot.com";
+				if(mb_stristr($base_domain, 'tinypic.com'))    $base_domain = "tinypic.com";
+				if(mb_stristr($base_domain, 'imgur.com'))      $base_domain = "imgur.com";
 
 				$r['reddit_id']			= $post->data->id;
 				$r['fullname']			= $post->data->name;
