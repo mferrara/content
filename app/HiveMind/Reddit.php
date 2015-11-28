@@ -300,6 +300,7 @@ class Reddit extends Scraper {
 				$r['title']				= $post->data->title;
 				$r['slug']				= \Str::slug($post->data->title);
 				$r['num_comments']		= $post->data->num_comments;
+                $r['data']              = $post->data;
 
 				$val = \Validator::make($r,\Article::$rules);
 				if($val->passes())

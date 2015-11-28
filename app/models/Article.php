@@ -37,6 +37,30 @@ class Article extends \Eloquent {
 		return $this->belongsToMany('Searchquery');
 	}
 
+    public function setDataAttribute($value)
+    {
+        if($value !== null)
+        {
+            $value = serialize($value);
+            // Double compress (http://stackoverflow.com/questions/10991035/best-way-to-compress-string-in-php)
+            $value = gzdeflate($value, 9);
+            $value = gzdeflate($value, 9);
+
+            $this->attributes['data'] = $value;
+        }
+        else
+            $this->attributes['data'] = null;
+    }
+
+    public function getDataAttribute($value)
+    {
+        if($value == null)
+            return $value;
+
+        // This string is an object that has been serialized then double gzdeflate()'d - see above - (http://stackoverflow.com/questions/10991035/best-way-to-compress-string-in-php)
+        return unserialize(gzinflate(gzinflate($value)));
+    }
+
 	public static function getContentType($content)
 	{
 
