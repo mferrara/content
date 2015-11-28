@@ -14,7 +14,7 @@ class AddIndexToBasedomainIdOnArticlesTable extends Migration {
 	{
 		Schema::table('articles', function(Blueprint $table)
 		{
-			$table->index('articles_basedomain_id_index');
+			$table->index('basedomain_id');
 		});
 	}
 
@@ -28,7 +28,7 @@ class AddIndexToBasedomainIdOnArticlesTable extends Migration {
 	{
 		Schema::table('articles', function(Blueprint $table)
 		{
-			$table->dropIndex('articles_basedomain_id_index');
+			$table->dropIndex('basedomain_id');
 		});
 	}
 
