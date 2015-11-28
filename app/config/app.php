@@ -127,6 +127,7 @@ return array(
 		'Indatus\Dispatcher\ServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'Laracasts\Utilities\UtilitiesServiceProvider',
+        'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
 	),
 
 	/*
@@ -196,7 +197,7 @@ return array(
 		'AWS' 			 	=> 'Aws\Laravel\AwsFacade',
 		'Flash' 		  	=> 'Laracasts\Flash\Flash',
 		'Sentry' 			=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
-
+        'Bugsnag'           => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
 	),
 
 );

@@ -15,7 +15,8 @@
         "guzzlehttp/guzzle": "~4.0",
         "cartalyst/sentry": "2.1.*",
         "pda/pheanstalk": "~2.0",
-        "yunait/forceutf8": "dev-master"
+        "yunait/forceutf8": "dev-master",
+		"bugsnag/bugsnag-laravel": "1.*"
 
     },
     "require-dev": {
