@@ -265,15 +265,15 @@ class Reddit extends Scraper {
 				$post->data->paragraph_count = $paragraph_count;
 
 				// Get base domain name
-				$remove = ["www."];
-				$domain = str_replace($remove, "", parse_url($post->data->url));
-				$base_domain = $domain['host'];
+				$remove         = ["www."];
+				$domain         = str_replace($remove, "", parse_url($post->data->url));
+				$base_domain    = $domain['host'];
 
-				if(stristr($base_domain, 'youtu.be')) $base_domain = "youtube.com";
-				if(stristr($base_domain, 'tumblr.com')) $base_domain = "tumblr.com";
-				if(stristr($base_domain, 'blogspot.com')) $base_domain = "blogspot.com";
-				if(stristr($base_domain, 'tinypic.com')) $base_domain = "tinypic.com";
-				if(stristr($base_domain, 'imgur.com')) $base_domain = "imgur.com";
+				if(stristr($base_domain, 'youtu.be'))       $base_domain = "youtube.com";
+				if(stristr($base_domain, 'tumblr.com'))     $base_domain = "tumblr.com";
+				if(stristr($base_domain, 'blogspot.com'))   $base_domain = "blogspot.com";
+				if(stristr($base_domain, 'tinypic.com'))    $base_domain = "tinypic.com";
+				if(stristr($base_domain, 'imgur.com'))      $base_domain = "imgur.com";
 
 				$r['reddit_id']			= $post->data->id;
 				$r['fullname']			= $post->data->name;

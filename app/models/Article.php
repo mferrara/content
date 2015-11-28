@@ -60,12 +60,6 @@ class Article extends \Eloquent {
 				stristr($content->url, "media.tumblr.com/") ||
 				stristr($content->url, "fbcdn.net/") ||
 				stristr($content->url, "fbcdn."))
-			&&
-			(
-				strtolower(substr($content->url, -4)) === '.jpg' ||
-				strtolower(substr($content->url, -4)) === '.gif' ||
-				strtolower(substr($content->url, -4)) === '.png'
-			)
 		)
 		{
 			return 'image';
