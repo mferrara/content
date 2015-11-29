@@ -6,34 +6,31 @@ use Aws\CloudFront\Exception\Exception;
 use GuzzleHttp\Exception\ServerException;
 use HiveMind\Reddit;
 use HiveMind\ArticleProcessor;
+use Config;
+use Subreddit;
+use Searchquery;
 
 class ScrapeReddit {
 
 	public function subreddit($job, $data)
 	{
 
-		$subreddit		= \Subreddit::find($data['subreddit_id']);
-		\Log::error('Job start - r/'.$subreddit->name);
+		$subreddit		= Subreddit::find($data['subreddit_id']);
 		$sort 			= $data['sort_type'];
 		$time			= $data['time'];
 		$error 			= false;
-
-		$page_depth 	= \Config::get('hivemind.page_depth');
+		$page_depth 	= Config::get('hivemind.page_depth');
 
 		try{
-			\Log::error('Before Scraping...');
-
 			$scraper = new Reddit();
 
-			foreach($time as $t)
+			foreach($time as $time_frame)
 			{
-				foreach($sort as $s)
+				foreach($sort as $sort_method)
 				{
-					$scraper->Subreddit($subreddit->name, $page_depth, $s, $t);
+					$scraper->Subreddit($subreddit->name, $page_depth, $sort_method, $time_frame);
 				}
 			}
-
-			\Log::error('After Scraping...');
 
 			$subreddit->scraped = 1;
 			$subreddit->save();
@@ -43,8 +40,6 @@ class ScrapeReddit {
 			$error = true;
 			$job->release();
 		}
-
-		\Log::error('Before Processing');
 
 		if($error == false)
 		{
@@ -61,33 +56,29 @@ class ScrapeReddit {
 
 	public function search($job, $data)
 	{
-		$query 			= \Searchquery::find($data['searchquery_id']);
-		\Log::error('Job start - '.$query->name);
-		$sort 			= $data['sort_type'];
+		$query 			= Searchquery::find($data['searchquery_id']);
+		$sort_method    = $data['sort_type'];
 		$subs 			= $data['subreddits'];
 		$search_type 	= $data['search_type'];
 		$time			= $data['time'];
 		$error 			= false;
-
-		$page_depth 	= \Config::get('hivemind.page_depth');
+		$page_depth 	= Config::get('hivemind.page_depth');
 
 		try{
-			\Log::error('Before Scraping...');
 
 			$scraper = new Reddit();
 
 			if(is_array($time))
 			{
-				foreach($time as $t)
+				foreach($time as $time_frame)
 				{
-					$scraper->Search($query, $page_depth, $search_type, $sort, $t, $subs);
+					$scraper->Search($query, $page_depth, $search_type, $sort_method, $time_frame, $subs);
 				}
 			}
 			else
 			{
-				$scraper->Search($query, $page_depth, $search_type, $sort, $time, $subs);
+				$scraper->Search($query, $page_depth, $search_type, $sort_method, $time, $subs);
 			}
-			\Log::error('After Scraping...');
 
 			$query->scraped = 1;
 			$query->save();
@@ -97,8 +88,6 @@ class ScrapeReddit {
 			$error = true;
 			$job->release();
 		}
-
-		\Log::error('Before Processing');
 
 		if($error == false)
 		{
