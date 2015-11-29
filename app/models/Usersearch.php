@@ -137,18 +137,18 @@ class Usersearch extends \Eloquent {
 
         $resulting_word_count = count(explode(' ', $text_output));
 
-        $output = json_encode([
+        $output = [
             'keyword'       => $this->searchquery->name,
             'content'       => $text_output,
             'word_count'    => $resulting_word_count,
             'images'        => $images_output,
             'videos'        => $videos_output
-        ]);
+        ];
 
         // Send webhook
-        $client = new GuzzleHttp\Client(['base_url' => $this->webhookurl->url]);
-        $client->post('/', [
-            'body'      => $output
+        $client = new GuzzleHttp\Client();
+        $client->post($this->webhookurl->url, [
+            'body' => $output
         ]);
 
         $this->webhook_sent = 1;
