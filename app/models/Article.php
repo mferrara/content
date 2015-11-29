@@ -79,6 +79,7 @@ class Article extends \Eloquent {
                 stristr($content->url, "imgur.com/") ||
                 stristr($content->url, "vidble.com/") ||
 				stristr($content->url, "minus.com/") ||
+				stristr($content->url, "twimg.com/") ||
 				stristr($content->url, "500px.org/") ||
 				stristr($content->url, "500px.com/") ||
 				stristr($content->url, "flickr.com/") ||
