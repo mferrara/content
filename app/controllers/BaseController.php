@@ -59,9 +59,8 @@ class BaseController extends Controller {
             return Redirect::to('/');
         }
 
-        $keyword = Input::get('q');
-
-        $usersearch = Usersearch::getSearch($keyword);
+        $search_keyword = Input::get('q');
+        $usersearch     = Usersearch::getSearch($search_keyword);
 
         $cache_key = 'searchquery_'.$usersearch->searchquery->id.'_processed_data';
         if(Cache::has($cache_key))

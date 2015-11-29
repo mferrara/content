@@ -82,6 +82,21 @@ class ScrapeReddit {
 
 			$query->scraped = 1;
 			$query->save();
+
+            // Are there any webhooks that need to be sent for this query?
+            $usersearches = $query->usersearches()
+                                    ->where('webhookurl_id', '>', 0)
+                                    ->where('webhook_sent', 0)
+                                    ->get();
+
+            if($usersearches->count() > 0)
+            {
+                foreach($usersearches as $usersearch)
+                {
+                    $usersearch->sendWebhook();
+                }
+            }
+
 		}
 		catch(ServerException $e)
 		{

@@ -1,0 +1,21 @@
+<?php
+
+class ApiController extends \BaseController {
+
+    public function search()
+    {
+        if( ! Request::has('query'))
+            return json_encode(['error' => 'No search query provided']);
+
+        $query      = urldecode(Request::get('query'));
+        $webhookurl = urldecode(Request::get('webhook_url'));
+        $usersearch = Usersearch::getSearch($query, 'plain', 'relevance', 'all', $webhookurl);
+
+        $return = [];
+        if($usersearch !== null)
+            $return = ['result' => true];
+
+        return $return;
+	}
+
+}

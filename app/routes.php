@@ -41,3 +41,5 @@ Route::get('admin/errors',              'AdminController@showErrors');
 
 Route::post('webhooks/kimono',          'WebhooksController@kimono');
 Route::get('webhooks/last',             'WebhooksController@showLastWebhook');
+
+Route::get('api/search',                'ApiController@search');
