@@ -38,6 +38,8 @@ class ScrapeReddit {
 		catch(ServerException $e)
 		{
 			$error = true;
+            \Log::error('Yo, something broke.');
+            \Log::error($e->getMessage());
 			$job->release();
 		}
 
@@ -101,6 +103,9 @@ class ScrapeReddit {
 		catch(ServerException $e)
 		{
 			$error = true;
+            \Log::error('Yo, something broke.');
+            \Log::error($e->getMessage());
+
 			$job->release();
 		}
 
