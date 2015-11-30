@@ -246,6 +246,14 @@ class Usersearch extends \Eloquent {
 				// Fire off the scraping job
 				Queue::push('\HiveMind\Jobs\ScrapeReddit@search', $data, 'redditscrape');
 			}
+            else // Has been scraped and isn't stale
+            {
+                // If it's an API request (with webhook url) let's check/send webhook
+                if($webhook_url !== null)
+                {
+                    $usersearch->sendWebhook();
+                }
+            }
 		}
 
 		return $usersearch;
