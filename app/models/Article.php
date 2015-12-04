@@ -39,20 +39,48 @@ class Article extends \Eloquent {
 
     public function setDataAttribute($value)
     {
+        $this->attributes['data'] = $this->compress($value);
+    }
+
+    public function getDataAttribute($value)
+    {
+        return $this->decompress($value);
+    }
+
+    public function setPostTextAttribute($value)
+    {
+        $this->attributes['post_text'] = $this->compress($value);
+    }
+
+    public function getPostTextAttribute($value)
+    {
+        return $this->decompress($value);
+    }
+
+    public function setPostTextHtmlAttribute($value)
+    {
+        $this->attributes['post_text_html'] = $this->compress($value);
+    }
+
+    public function getPostTextHtmlAttribute($value)
+    {
+        return $this->decompress($value);
+    }
+
+    public function compress($value)
+    {
         if($value !== null)
         {
             $value = serialize($value);
             // Double compress (http://stackoverflow.com/questions/10991035/best-way-to-compress-string-in-php)
             $value = gzdeflate($value, 9);
             $value = gzdeflate($value, 9);
-
-            $this->attributes['data'] = $value;
         }
-        else
-            $this->attributes['data'] = null;
+
+        return $value;
     }
 
-    public function getDataAttribute($value)
+    public function decompress($value)
     {
         if($value == null)
             return $value;
