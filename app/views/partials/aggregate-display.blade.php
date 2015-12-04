@@ -1,5 +1,6 @@
 <div class="row">
 	<div class="col-md-3">
+        <h5 class="text-center">Post breakdown</h5>
 		<dl class="dl-horizontal">
 		@foreach(array_slice($aggregate_data['content_types'], 0, 5) as $name => $count)
 			<dt>{{$name}}</dt>
@@ -10,6 +11,7 @@
 		</dl>
 	</div>
 	<div class="col-md-3">
+        <h5 class="text-center">Top Linked Domains</h5>
 		<dl class="dl-horizontal">
 			@foreach(array_slice($aggregate_data['base_domains'], 0, 7) as $name => $count)
 				<dt>{{ link_to('domain/'.$name, $name) }}</dt>
@@ -18,6 +20,7 @@
 		</dl>
 	</div>
 	<div class="col-md-3">
+        <h5 class="text-center">Top Subreddits</h5>
 		<dl class="dl-horizontal">
 		@foreach(array_slice($aggregate_data['subreddits'], 0, 7) as $name => $count)
 			<dt>{{ link_to('sub/'.$name, 'r/'.$name) }}</dt>
@@ -26,6 +29,7 @@
 		</dl>
 	</div>
 	<div class="col-md-3">
+        <h5 class="text-center">Top Authors</h5>
 		<dl class="dl-horizontal">
     		@foreach(array_slice($aggregate_data['authors'], 0, 7) as $name => $count)
     			<dt>{{ link_to('author/'.$name, 'u/'.$name) }}</dt>
