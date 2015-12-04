@@ -3,6 +3,7 @@
 namespace HiveMind;
 
 use Illuminate\Support\Facades\Validator;
+use Bugsnag;
 
 class Reddit extends Scraper {
 
@@ -268,7 +269,15 @@ class Reddit extends Scraper {
 				// Get base domain name
 				$remove         = ["www."];
 				$domain         = str_replace($remove, "", parse_url($post->data->url));
-				$base_domain    = $domain['host'];
+				if( ! isset($domain['host']))
+                {
+                    Bugsnag::notifyError("HostNotThere", "URL: ".$post->data->url);
+                    $base_domain    = 'error';
+                }
+                else
+                {
+                    $base_domain    = $domain['host'];
+                }
 
 				if(mb_stristr($base_domain, 'youtu.be'))       $base_domain = "youtube.com";
 				if(mb_stristr($base_domain, 'tumblr.com'))     $base_domain = "tumblr.com";
