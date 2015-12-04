@@ -251,15 +251,15 @@ class Reddit extends Scraper {
 			else {
 				// Doesn't exist, add it
 				// Process text fields for basic classifying information
-				$character_count = mb_strlen($post->data->selftext);
+				$character_count    = mb_strlen($post->data->selftext);
 				if($character_count > 0)
 				{
-					$word_count = count(explode(" ", $post->data->selftext));
+					$word_count     = count(explode(" ", $post->data->selftext));
 					$paragraph_count = count(explode("&lt;br/&gt;", $post->data->selftext_html));
 				}
 				else
 				{
-					$word_count = 0;
+					$word_count     = 0;
 					$paragraph_count = 0;
 				}
 
@@ -267,8 +267,8 @@ class Reddit extends Scraper {
 				$post->data->paragraph_count = $paragraph_count;
 
 				// Get base domain name
-				$remove         = ["www."];
-				$domain         = str_replace($remove, "", parse_url($post->data->url));
+				$remove             = ["www."];
+				$domain             = str_replace($remove, "", parse_url($post->data->url));
 				if( ! isset($domain['host']))
                 {
                     Bugsnag::notifyError("HostNotThere", "URL: ".$post->data->url);

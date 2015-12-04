@@ -10,7 +10,7 @@ class BasedomainController extends \BaseController {
 	 */
 	public function index()
 	{
-		$domains = Basedomain::orderBy('id', 'ASC')->paginate(25);
+		$domains = Basedomain::orderBy('article_count', 'DESC')->paginate(25);
 
         return View::make('domains.index')
             ->with('domains', $domains);

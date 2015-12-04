@@ -10,7 +10,9 @@ class AuthorController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$authors = Author::orderBy('article_count', 'DESC')->paginate(25);
+
+        return View::make('authors.index')->with('authors', $authors);
 	}
 
 	/**

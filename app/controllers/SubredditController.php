@@ -10,9 +10,10 @@ class SubredditController extends \BaseController {
 	 */
 	public function index()
 	{
-        $subreddits = Subreddit::where('scraped', 1)->paginate(25);
+        $subreddits = Subreddit::orderBy('article_count', 'DESC')
+            ->paginate(25);
 
-        return View::make('subreddits')
+        return View::make('subreddits.index')
             ->with('subreddits', $subreddits);
 	}
 

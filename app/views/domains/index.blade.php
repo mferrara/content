@@ -16,7 +16,7 @@
     	<tbody>
     		@foreach($domains as $domain)
                 <tr>
-                    <td>{{ $domain->name }}</td>
+                    <td>{{ $domain->present()->link() }}</td>
                     <td>{{ number_format($domain->articles()->count()) }}</td>
                 </tr>
             @endforeach

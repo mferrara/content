@@ -27,6 +27,7 @@ Route::get('sub/{name}',                'SubredditController@show');
 
 Route::get('post/{fullname}',           'ArticleController@show');
 
+Route::get('authors',                   'AuthorController@index');
 Route::get('author/{name}',             'AuthorController@show');
 
 Route::get('domains',                   'BasedomainController@index');

@@ -108,6 +108,9 @@
                     @endforeach
                     </tbody>
                 </table>
+                <p class="text-right">
+                    <a href="/domains">View All</a>
+                </p>
             </div>
         </div>
     </div>
@@ -134,6 +137,9 @@
                         @endforeach
                 	</tbody>
                 </table>
+                  <p class="text-right">
+                      <a href="/subreddits">View All</a>
+                  </p>
         	  </div>
         </div>
     </div>
@@ -160,6 +166,9 @@
                     @endforeach
                     </tbody>
                 </table>
+                <p class="text-right">
+                    <a href="/authors">View All</a>
+                </p>
             </div>
         </div>
     </div>
