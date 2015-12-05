@@ -31,28 +31,30 @@ class ScrapeReddit {
 					$scraper->Subreddit($subreddit->name, $page_depth, $sort_method, $time_frame);
 				}
 			}
-
-			$subreddit->scraped = 1;
-			$subreddit->save();
 		}
 		catch(ServerException $e)
 		{
 			$error = true;
             \Log::error('Yo, something broke.');
             \Log::error($e->getMessage());
+
+            // Something not-good happened, release the job
 			$job->release();
 		}
 
+        // If no errors were thrown, set as scraped and queue article processing.
 		if($error == false)
 		{
+            $subreddit->scraped = 1;
+            $subreddit->save();
+
 			// Queue up the processing of the articles
 			// This is after the model is saved because we're triggering the clearing
 			// of this cache by updating of the model
 
 			$subreddit->queueArticleProcessing();
+            $job->delete();
 		}
-
-		$job->delete();
 
 	}
 
