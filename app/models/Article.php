@@ -1,6 +1,11 @@
 <?php
 
+use Laracasts\Presenter\PresentableTrait;
+
 class Article extends \Eloquent {
+
+    use PresentableTrait;
+    protected $presenter = '\HiveMind\Presenters\ArticlePresenter';
 
 	protected $guarded 		= ['id'];
 	protected $fillable 	= [];

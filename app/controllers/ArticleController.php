@@ -48,7 +48,7 @@ class ArticleController extends \BaseController {
             ->with(['author', 'subreddit'])
             ->first();
 
-        return View::make('post')
+        return View::make('articles.show')
             ->with('article', $article);
 	}
 
