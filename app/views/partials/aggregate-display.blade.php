@@ -6,10 +6,10 @@
 			@if(isset($usersearch))
                 <dt><a href="/search?q={{ urlencode($usersearch->searchquery->name) }}&content_type={{$name}}">{{$name}}</a></dt>
             @else
-                <dt>{{$name}}</dt>
+                <dt>{{ $name }}</dt>
             @endif
 
-			<dd>{{$count}}</dd>
+			<dd>{{ number_format($count) }}</dd>
 		@endforeach
 			<dt>Self Posts</dt><dd>{{ $aggregate_data['self_posts'] }}</dd>
 			<dt>Total Posts</dt><dd>{{ $aggregate_data['total_posts'] }}</dd>
@@ -24,7 +24,7 @@
                 @else
                     <dt>{{ link_to('/domain/'.$name, $name) }}</dt>
                 @endif
-				<dd>{{ $count }}</dd>
+				<dd>{{ number_format($count) }}</dd>
 			@endforeach
 		</dl>
 	</div>
@@ -37,7 +37,7 @@
             @else
                 <dt>{{ link_to('/sub/'.$name, 'r/'.$name) }}</dt>
             @endif
-			<dd>{{ $count }}</dd>
+			<dd>{{ number_format($count) }}</dd>
 		@endforeach
 		</dl>
 	</div>
@@ -50,7 +50,7 @@
                 @else
                     <dt>{{ link_to('/author/'.$name, 'u/'.$name) }}</dt>
                 @endif
-    			<dd>{{ $count }}</dd>
+    			<dd>{{ number_format($count) }}</dd>
     		@endforeach
 		</dl>
 	</div>
@@ -82,7 +82,7 @@
 				    {{ str_replace('ago', 'from now', \Carbon\Carbon::createFromTimestamp(strtotime($aggregate_data['updated']) + Config::get('hivemind.cache_reddit_subreddit_requests'))->diffForHumans()) }}
                 @endif
                 @if(isset($usersearch))
-                        {{ str_replace('ago', 'from now', \Carbon\Carbon::createFromTimestamp(strtotime($aggregate_data['updated']) + Config::get('hivemind.cache_reddit_search_requests'))->diffForHumans()) }}
+                    {{ str_replace('ago', 'from now', \Carbon\Carbon::createFromTimestamp(strtotime($aggregate_data['updated']) + Config::get('hivemind.cache_reddit_search_requests'))->diffForHumans()) }}
                 @endif
 			@endif
 		</dd>
