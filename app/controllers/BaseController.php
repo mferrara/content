@@ -69,10 +69,65 @@ class BaseController extends Controller {
             $aggregate_data = false;
 
         if($usersearch->searchquery->articles()->count() > 0)
-            $articles = $usersearch->searchquery
+        {
+            if(Input::has('content_type'))
+            {
+                $articles = $usersearch->searchquery
+                    ->articles()
+                    ->where('content_type', Input::get('content_type'))
+                    ->orderBy('score', 'DESC')
+                    ->paginate(25);
+            }
+            elseif(Input::has('domain'))
+            {
+                $basedomain_id = Basedomain::where('name', Input::get('domain'))->first();
+                $basedomain_id = $basedomain_id->id;
+
+                if($basedomain_id !== null)
+                    $articles = $usersearch->searchquery
+                        ->articles()
+                        ->where('basedomain_id', $basedomain_id)
+                        ->orderBy('score', 'DESC')
+                        ->paginate(25);
+                else
+                    $articles = false;
+            }
+            elseif(Input::has('subreddit'))
+            {
+                $subreddit_id = Subreddit::where('name', Input::get('subreddit'))->first();
+                $subreddit_id = $subreddit_id->id;
+
+                if($subreddit_id !== null)
+                    $articles = $usersearch->searchquery
+                        ->articles()
+                        ->where('subreddit_id', $subreddit_id)
+                        ->orderBy('score', 'DESC')
+                        ->paginate(25);
+                else
+                    $articles = false;
+            }
+            elseif(Input::has('author'))
+            {
+                $author_id = Author::where('name', Input::get('author'))->first();
+                $author_id = $author_id->id;
+
+                if($author_id !== null)
+                    $articles = $usersearch->searchquery
+                        ->articles()
+                        ->where('author_id', $author_id)
+                        ->orderBy('score', 'DESC')
+                        ->paginate(25);
+                else
+                    $articles = false;
+            }
+            else
+            {
+                $articles = $usersearch->searchquery
                     ->articles()
                     ->orderBy('score', 'DESC')
                     ->paginate(25);
+            }
+        }
         else
             $articles = false;
 
