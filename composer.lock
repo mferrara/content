@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "50e9053b63b31a664a90755bd207696b",
-    "content-hash": "0fef70094b39cf50b5eb3ca209513260",
+    "hash": "47a103da931db5992bd8b85473cb1708",
+    "content-hash": "e2eb37997e6f3680cfb2e64b5faf7e82",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -368,6 +368,79 @@
                 "preload"
             ],
             "time": "2014-03-12 00:05:31"
+        },
+        {
+            "name": "crodas/languagedetector",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crodas/LanguageDetector.git",
+                "reference": "07aa8bb806cb71fe4e4352c12232a5c74bf416ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crodas/LanguageDetector/zipball/07aa8bb806cb71fe4e4352c12232a5c74bf416ed",
+                "reference": "07aa8bb806cb71fe4e4352c12232a5c74bf416ed",
+                "shasum": ""
+            },
+            "require-dev": {
+                "crodas/autoloader": "~0.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "LanguageDetector": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-4-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "César D. Rodas",
+                    "email": "crodas@php.net"
+                }
+            ],
+            "description": "simple library to classify texts",
+            "time": "2013-11-06 01:26:03"
+        },
+        {
+            "name": "crodas/text-rank",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crodas/TextRank.git",
+                "reference": "8c113c5b0cae3eeb853891ef5afdf27d678a5940"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crodas/TextRank/zipball/8c113c5b0cae3eeb853891ef5afdf27d678a5940",
+                "reference": "8c113c5b0cae3eeb853891ef5afdf27d678a5940",
+                "shasum": ""
+            },
+            "require": {
+                "crodas/languagedetector": "~0.1",
+                "ext-mbstring": "*"
+            },
+            "suggest": {
+                "ext-stem": "Improves keywords selection"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "César D. Rodas",
+                    "email": "crodas@php.net"
+                }
+            ],
+            "description": "Extract relevant keywords from a given text",
+            "time": "2013-12-08 07:56:52"
         },
         {
             "name": "d11wtq/boris",
@@ -2953,12 +3026,13 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "schickling/backup": 20,
-        "yunait/forceutf8": 20
+        "yunait/forceutf8": 20,
+        "crodas/text-rank": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": []

@@ -2,6 +2,9 @@
 
 namespace HiveMind;
 
+use \crodas\TextRank\Config;
+use \crodas\TextRank\TextRank;
+use \crodas\TextRank\Stopword;
 
 class ArticleProcessor {
 
@@ -9,7 +12,7 @@ class ArticleProcessor {
 	{
 
 		// Loop through all content for counters
-		//$all_text = '';
+		$all_text = '';
 		$content_types  = [];
 		$subreddits     = [];
 		$base_domains   = [];
@@ -18,7 +21,7 @@ class ArticleProcessor {
 		$total_posts    = 0;
 		foreach($model->articles as $art)
 		{
-			//$all_text .= $art->post_text;
+			$all_text .= $art->post_text;
 
 			if(isset($content_types[$art->content_type]))
 				$content_types[$art->content_type]++;
@@ -78,6 +81,24 @@ class ArticleProcessor {
 			$phrases = extractCommonPhrases(substr($all_text,0,1000), [2,3], 25);
 		*/
 
+        $config = new Config;
+        $config->addListener(new Stopword);
+
+        $textrank = new TextRank($config);
+        $text       = $all_text;
+        $text       = preg_replace('/[^a-zA-Z0-9 .,\'-]/', '', $text);
+        if(mb_strlen($text))
+            $keywords = $textrank->getKeywords($text);
+        else
+            $keywords = [];
+
+        foreach($keywords as $key => $keyword)
+        {
+            $count = mb_substr_count(mb_strtolower($text), mb_strtolower($keyword));
+            if($count < 2)
+                unset($keywords[$key]);
+        }
+
 		$cache = [
 			'content_types' => $content_types,
 			'subreddits' 	=> $subs,
@@ -85,7 +106,7 @@ class ArticleProcessor {
 			'base_domains'	=> $doms,
 			'self_posts' 	=> $self_posts,
 			'total_posts'	=> $total_posts,
-			//'phrases'		=> $phrases,
+			'keywords'		=> $keywords,
 			'updated'		=> \Carbon\Carbon::now()->toDateTimeString()
 		];
 

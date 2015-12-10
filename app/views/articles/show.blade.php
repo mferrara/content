@@ -107,6 +107,8 @@
     </div>
 
     @if($article->is_self)
+        <h3>Body</h3>
+        <hr>
         <p>{{ html_entity_decode($article->present()->body()) }}</p>
     @endif
 

@@ -39,6 +39,20 @@
 	</div>
 </div>
 <div class="row">
+    <div class="col-md-12">
+        @if(isset($aggregate_data['keywords']) && count($aggregate_data['keywords']) > 0)
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Keywords</h3>
+                </div>
+                <div class="panel-body">
+                    {{ var_dump($aggregate_data['keywords']) }}
+                </div>
+            </div>
+        @endif
+    </div>
+</div>
+<div class="row">
 <div class="col-md-6">
 	<dl class="dl-horizontal">
 		<dt>Last Updated</dt><dd>{{ \Carbon\Carbon::createFromTimestamp(strtotime($aggregate_data['updated']))->diffForHumans() }}</dd>
