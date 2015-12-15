@@ -11,8 +11,8 @@
 
 			<dd>{{ number_format($count) }}</dd>
 		@endforeach
-			<dt>Self Posts</dt><dd>{{ $aggregate_data['self_posts'] }}</dd>
-			<dt>Total Posts</dt><dd>{{ $aggregate_data['total_posts'] }}</dd>
+			<dt>Self Posts</dt><dd>{{ number_format($aggregate_data['self_posts']) }}</dd>
+			<dt>Total Posts</dt><dd>{{ number_format($aggregate_data['total_posts']) }}</dd>
 		</dl>
 	</div>
 	<div class="col-md-3">
