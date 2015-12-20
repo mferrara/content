@@ -10,7 +10,7 @@ class ArticleProcessor {
 
 	public static function fire($model)
 	{
-
+        \Log::error('ArticleProcessor@fire 0');
 		// Loop through all content for counters
 		$all_text = '';
 		$content_types  = [];
@@ -49,6 +49,8 @@ class ArticleProcessor {
 				$base_domains[$art->basedomain_id] = 1;
 		}
 
+        \Log::error('ArticleProcessor@fire 1');
+
 		// Convert subreddit_ids into names
 		$subs = [];
 		foreach($subreddits as $sub_id => $count)
@@ -67,6 +69,8 @@ class ArticleProcessor {
 		{
 			$doms[\Basedomain::find($basedomain_id)->name] = $count;
 		}
+
+        \Log::error('ArticleProcessor@fire 2');
 
 		// Reverse sort arrays
 		arsort($content_types);
@@ -91,6 +95,8 @@ class ArticleProcessor {
             $keywords = $textrank->getKeywords($text);
         else
             $keywords = [];
+
+        \Log::error('ArticleProcessor@fire 3');
 
         foreach($keywords as $key => $keyword)
         {
@@ -122,6 +128,8 @@ class ArticleProcessor {
             $configuration_key = 'hivemind.cache_reddit_subreddit_requests';
 
 		\Cache::add($key, $cache, \Config::get($configuration_key));
+
+        \Log::error('ArticleProcessor@fire 4');
 
 	}
 
