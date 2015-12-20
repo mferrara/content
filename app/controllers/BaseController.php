@@ -44,6 +44,7 @@ class BaseController extends Controller {
             ->with('top_authors',       $top_authors)
             ->with('pending_searches', 	Searchquery::where('currently_updating', 1)->orWhere('scraped', 0)->count() + Subreddit::where('currently_updating', 1)->count())
             ->with('total_articles', 	Article::count())
+            ->with('total_self',        Article::where('is_self', 1)->count())
             ->with('total_authors', 	Author::count())
             ->with('total_subreddits', 	Subreddit::count())
             ->with('total_queries', 	Searchquery::count())

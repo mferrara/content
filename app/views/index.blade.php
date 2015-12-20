@@ -46,6 +46,8 @@
         <dl class="dl-horizontal">
             <dt>Posts indexed</dt>
             <dd>{{ number_format($total_articles) }}</dd>
+            <dt>Text Posts</dt>
+            <dd>{{ number_format($total_self) }}</dd>
             <dt>Subreddits</dt>
             <dd>{{ number_format($total_subreddits) }}</dd>
             <dt>Post authors</dt>
