@@ -2,6 +2,7 @@
 
 namespace HiveMind;
 
+use Guzzle\Http\Exception\ServerErrorResponseException;
 use Illuminate\Support\Facades\Validator;
 use Bugsnag;
 
@@ -131,7 +132,19 @@ class Reddit extends Scraper {
 				$url .= "&"."after=".$after;
 
 			// Fetch results
-			$content = json_decode($this->GET($url));
+            try {
+                $content = json_decode($this->GET($url));
+            }
+            catch(ServerErrorResponseException $e)
+            {
+                // Did we get a 503? Let's wait a few seconds and try again
+                if($e->getResponse()->getStatusCode() == 503)
+                {
+                    sleep(3);
+                    $content = json_decode($this->GET($url));
+                    \Log::error('Something broke, so we\'re trying it again...');
+                }
+            }
 
 			// Acquire "after" parameter for next page request
 			if($page_depth > 1 && isset($content->data->after))
