@@ -85,16 +85,26 @@ class ArticleProcessor {
 			$phrases = extractCommonPhrases(substr($all_text,0,1000), [2,3], 25);
 		*/
 
-        $config = new Config;
-        $config->addListener(new Stopword);
+        try{
+            $config = new Config;
+            $config->addListener(new Stopword);
 
-        $textrank = new TextRank($config);
-        $text       = $all_text;
-        $text       = preg_replace('/[^a-zA-Z0-9 .,\'-]/', '', $text);
-        if(mb_strlen($text))
-            $keywords = $textrank->getKeywords($text);
-        else
-            $keywords = [];
+            $textrank = new TextRank($config);
+            $text       = $all_text;
+            $text       = preg_replace('/[^a-zA-Z0-9 .,\'-]/', '', $text);
+            if(mb_strlen($text))
+                $keywords = $textrank->getKeywords($text);
+            else
+                $keywords = [];
+        }
+        catch(\Exception $e)
+        {
+            \Log::error('ArticleProcessor@fire - '.$model->name);
+            \Log::error($e->getMessage());
+            \Log::error($e->getTraceAsString());
+
+            return false;
+        }
 
         \Log::error('ArticleProcessor@fire 3');
 
@@ -131,6 +141,7 @@ class ArticleProcessor {
 
         \Log::error('ArticleProcessor@fire 4');
 
+        return true;
 	}
 
 } 

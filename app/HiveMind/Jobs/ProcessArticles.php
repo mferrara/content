@@ -16,12 +16,20 @@ class ProcessArticles {
 
             $subreddit = Subreddit::find($subreddit_id);
             \Log::error('Starting processing for r/'.$subreddit->name);
-            ArticleProcessor::fire($subreddit);
+            $processed = ArticleProcessor::fire($subreddit);
 
-            $subreddit->cached 				= 1;
-            $subreddit->currently_updating 	= 0;
-            $subreddit->save();
-            \Log::error('Finished processing for '.$subreddit->name);
+            if($processed)
+            {
+                $subreddit->cached 				= 1;
+                $subreddit->currently_updating 	= 0;
+                $subreddit->save();
+                \Log::error('Finished processing for '.$subreddit->name);
+            }
+            else
+            {
+                $error = true;
+                $job->release();
+            }
         }
         catch(\Exception $e)
         {
@@ -51,12 +59,20 @@ class ProcessArticles {
 
             $searchquery = \Searchquery::find($searchquery_id);
             \Log::error('Starting processing for '.$searchquery->name.' try: '.$job->attempts());
-            ArticleProcessor::fire($searchquery);
+            $processed = ArticleProcessor::fire($searchquery);
 
-            $searchquery->cached              = 1;
-            $searchquery->currently_updating  = 0;
-            $searchquery->save();
-            \Log::error('Finished processing for '.$searchquery->name);
+            if($processed)
+            {
+                $searchquery->cached              = 1;
+                $searchquery->currently_updating  = 0;
+                $searchquery->save();
+                \Log::error('Finished processing for '.$searchquery->name);
+            }
+            else
+            {
+                $error = true;
+                $job->release();
+            }
         }
         catch(\Exception $e)
         {
