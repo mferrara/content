@@ -21,10 +21,11 @@ class ProcessArticles {
             $subreddit->cached 				= 1;
             $subreddit->currently_updating 	= 0;
             $subreddit->save();
+            \Log::error('Finished processing for '.$subreddit->name);
         }
         catch(\Exception $e)
         {
-            \Log::error('Yo, something broke. ProcessArticles@processSubreddit - '.$subreddit->name);
+            \Log::error('Yo, something broke. ProcessArticles@processSubreddit - '.$subreddit->name.' try: '.$job->attempts());
             \Log::error($e->getMessage());
             \Log::error($e->getTraceAsString());
 
@@ -49,12 +50,13 @@ class ProcessArticles {
             $searchquery_id = $data['searchquery_id'];
 
             $searchquery = \Searchquery::find($searchquery_id);
-            \Log::error('Starting processing for '.$searchquery->name);
+            \Log::error('Starting processing for '.$searchquery->name.' try: '.$job->attempts());
             ArticleProcessor::fire($searchquery);
 
             $searchquery->cached              = 1;
             $searchquery->currently_updating  = 0;
             $searchquery->save();
+            \Log::error('Finished processing for '.$searchquery->name);
         }
         catch(\Exception $e)
         {
