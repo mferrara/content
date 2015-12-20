@@ -36,7 +36,7 @@ class ScrapeReddit {
 		catch(ServerException $e)
 		{
 			$error = true;
-            \Log::error('Yo, something broke.');
+            \Log::error('Yo, something broke. ScrapeReddit@subreddit - '.$subreddit->name);
             \Log::error($e->getMessage());
 
             // Something not-good happened, release the job
@@ -106,7 +106,7 @@ class ScrapeReddit {
 		catch(ServerException $e)
 		{
 			$error = true;
-            \Log::error('Yo, something broke.');
+            \Log::error('Yo, something broke. - ScrapeReddit@search - '.$query->name);
             \Log::error($e->getMessage());
 
 			$job->release();
