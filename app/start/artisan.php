@@ -12,3 +12,4 @@
 */
 
 Artisan::add(new ScrapeGoogleTrends);
+Artisan::add(new ResetStuckUpdates);
