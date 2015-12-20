@@ -10,6 +10,7 @@ class ProcessArticles {
 
 	public function processSubreddit(Job $job, $data)
 	{
+        $error = false;
         try{
             $subreddit_id = $data['subreddit_id'];
 
@@ -19,8 +20,6 @@ class ProcessArticles {
             $subreddit->cached 				= 1;
             $subreddit->currently_updating 	= 0;
             $subreddit->save();
-
-            $job->delete();
         }
         catch(\Exception $e)
         {
@@ -31,12 +30,20 @@ class ProcessArticles {
             $subreddit->cached 				= 0;
             $subreddit->save();
 
+            $error = true;
+
             $job->release();
+        }
+
+        if($error === false)
+        {
+            $job->delete();
         }
 	}
 
     public function processSearchquery(Job $job, $data)
     {
+        $error = false;
         try{
             $searchquery_id = $data['searchquery_id'];
 
@@ -46,8 +53,6 @@ class ProcessArticles {
             $searchquery->cached              = 1;
             $searchquery->currently_updating  = 0;
             $searchquery->save();
-
-            $job->delete();
         }
         catch(\Exception $e)
         {
@@ -58,7 +63,14 @@ class ProcessArticles {
             $searchquery->cached              = 0;
             $searchquery->save();
 
+            $error = true;
+
             $job->release();
+        }
+
+        if($error === false)
+        {
+            $job->delete();
         }
     }
 

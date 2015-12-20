@@ -9,10 +9,11 @@ use HiveMind\ArticleProcessor;
 use Config;
 use Subreddit;
 use Searchquery;
+use Illuminate\Queue\Jobs\Job;
 
 class ScrapeReddit {
 
-	public function subreddit($job, $data)
+	public function subreddit(Job $job, $data)
 	{
 
 		$subreddit		= Subreddit::find($data['subreddit_id']);
@@ -58,7 +59,7 @@ class ScrapeReddit {
 
 	}
 
-	public function search($job, $data)
+	public function search(Job $job, $data)
 	{
 		$query 			= Searchquery::find($data['searchquery_id']);
 		$sort_method    = $data['sort_type'];
