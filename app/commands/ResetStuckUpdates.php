@@ -40,7 +40,7 @@ class ResetStuckUpdates extends Command {
 		$subreddits = Subreddit::where('currently_updating', 1)->get();
         foreach($subreddits as $sub)
         {
-            if($sub->updated_at->diffInMinutes(\Carbon\Carbon::now()) > 45)
+            if($sub->updated_at->diffInMinutes(\Carbon\Carbon::now()) > 25)
             {
                 $sub->currently_updating    = 0;
                 $sub->scraped               = 0;
@@ -57,7 +57,7 @@ class ResetStuckUpdates extends Command {
         $searchqueries = Searchquery::where('currently_updating', 1)->get();
         foreach($searchqueries as $query)
         {
-            if($query->updated_at->diffInMinutes(\Carbon\Carbon::now()) > 45)
+            if($query->updated_at->diffInMinutes(\Carbon\Carbon::now()) > 25)
             {
                 $query->currently_updating  = 0;
                 $query->scraped             = 0;
