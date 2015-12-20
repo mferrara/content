@@ -2,8 +2,7 @@
 
 namespace HiveMind;
 
-use Guzzle\Http\Exception\ServerErrorResponseException;
-use Illuminate\Support\Facades\Validator;
+use GuzzleHttp\Exception\ServerException;
 use Bugsnag;
 
 class Reddit extends Scraper {
@@ -135,7 +134,7 @@ class Reddit extends Scraper {
             try {
                 $content = json_decode($this->GET($url));
             }
-            catch(ServerErrorResponseException $e)
+            catch(ServerException $e)
             {
                 // Did we get a 503? Let's wait a few seconds and try again
                 if($e->getResponse()->getStatusCode() == 503)
@@ -214,7 +213,7 @@ class Reddit extends Scraper {
             try {
                 $content = json_decode($this->GET($url));
             }
-            catch(ServerErrorResponseException $e)
+            catch(ServerException $e)
             {
                 // Did we get a 503? Let's wait a few seconds and try again
                 if($e->getResponse()->getStatusCode() == 503)
