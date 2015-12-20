@@ -141,7 +141,7 @@ class Reddit extends Scraper {
                 {
                     sleep(3);
                     $content = json_decode($this->GET($url));
-                    \Log::error('Something broke, so we\'re trying it again...');
+                    \Log::error('Something broke, so we\'re trying it again... - r/'.$subreddit);
                 }
             }
 
@@ -220,7 +220,7 @@ class Reddit extends Scraper {
                 {
                     sleep(3);
                     $content = json_decode($this->GET($url));
-                    \Log::error('Something broke, so we\'re trying it again...');
+                    \Log::error('Something broke, so we\'re trying it again... - '.$query->name);
                 }
             }
 
