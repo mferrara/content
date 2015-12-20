@@ -15,6 +15,7 @@ class ProcessArticles {
             $subreddit_id = $data['subreddit_id'];
 
             $subreddit = Subreddit::find($subreddit_id);
+            \Log::error('Starting processing for r/'.$subreddit->name);
             ArticleProcessor::fire($subreddit);
 
             $subreddit->cached 				= 1;
@@ -48,6 +49,7 @@ class ProcessArticles {
             $searchquery_id = $data['searchquery_id'];
 
             $searchquery = \Searchquery::find($searchquery_id);
+            \Log::error('Starting processing for '.$searchquery->name);
             ArticleProcessor::fire($searchquery);
 
             $searchquery->cached              = 1;
