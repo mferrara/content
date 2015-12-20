@@ -15,48 +15,31 @@ class ScrapeReddit {
 
 	public function subreddit(Job $job, $data)
 	{
-
 		$subreddit		= Subreddit::find($data['subreddit_id']);
 		$sort 			= $data['sort_type'];
 		$time			= $data['time'];
-		$error 			= false;
 		$page_depth 	= Config::get('hivemind.page_depth');
 
-		try{
-			$scraper = new Reddit();
+        $scraper = new Reddit();
 
-			foreach($time as $time_frame)
-			{
-				foreach($sort as $sort_method)
-				{
-					$scraper->Subreddit($subreddit->name, $page_depth, $sort_method, $time_frame);
-				}
-			}
-		}
-		catch(ServerException $e)
-		{
-			$error = true;
-            \Log::error('Yo, something broke. ScrapeReddit@subreddit - '.$subreddit->name);
-            \Log::error($e->getMessage());
+        foreach($time as $time_frame)
+        {
+            foreach($sort as $sort_method)
+            {
+                $scraper->Subreddit($subreddit->name, $page_depth, $sort_method, $time_frame);
+            }
+        }
 
-            // Something not-good happened, release the job
-			$job->release();
-		}
+        // Queue up the processing of the articles
+        // This is after the model is saved because we're triggering the clearing
+        // of this cache by updating of the model
 
-        // If no errors were thrown, set as scraped and queue article processing.
-		if($error == false)
-		{
-            $subreddit->scraped = 1;
-            $subreddit->save();
+        $subreddit->queueArticleProcessing();
 
-			// Queue up the processing of the articles
-			// This is after the model is saved because we're triggering the clearing
-			// of this cache by updating of the model
+        $subreddit->scraped = 1;
+        $subreddit->save();
 
-			$subreddit->queueArticleProcessing();
-            $job->delete();
-		}
-
+        $job->delete();
 	}
 
 	public function search(Job $job, $data)
@@ -66,60 +49,39 @@ class ScrapeReddit {
 		$subs 			= $data['subreddits'];
 		$search_type 	= $data['search_type'];
 		$time			= $data['time'];
-		$error 			= false;
 		$page_depth 	= Config::get('hivemind.page_depth');
 
-		try{
+        $scraper = new Reddit();
 
-			$scraper = new Reddit();
-
-			if(is_array($time))
-			{
-				foreach($time as $time_frame)
-				{
-					$scraper->Search($query, $page_depth, $search_type, $sort_method, $time_frame, $subs);
-				}
-			}
-			else
-			{
-				$scraper->Search($query, $page_depth, $search_type, $sort_method, $time, $subs);
-			}
-
-			$query->scraped = 1;
-			$query->save();
-
-            // Are there any webhooks that need to be sent for this query?
-            $usersearches = $query->usersearches()
-                                    ->where('webhookurl_id', '>', 0)
-                                    ->where('webhook_sent', 0)
-                                    ->get();
-
-            if($usersearches->count() > 0)
+        if(is_array($time))
+        {
+            foreach($time as $time_frame)
             {
-                foreach($usersearches as $usersearch)
-                {
-                    $usersearch->sendWebhook();
-                }
+                $scraper->Search($query, $page_depth, $search_type, $sort_method, $time_frame, $subs);
             }
+        }
+        else
+        {
+            $scraper->Search($query, $page_depth, $search_type, $sort_method, $time, $subs);
+        }
 
-		}
-		catch(ServerException $e)
-		{
-			$error = true;
-            \Log::error('Yo, something broke. - ScrapeReddit@search - '.$query->name);
-            \Log::error($e->getMessage());
+        // Are there any webhooks that need to be sent for this query?
+        $usersearches = $query->usersearches()
+            ->where('webhookurl_id', '>', 0)
+            ->where('webhook_sent', 0)
+            ->get();
+        if($usersearches->count() > 0)
+        {
+            foreach($usersearches as $usersearch)
+            {
+                $usersearch->sendWebhook();
+            }
+        }
 
-			$job->release();
-		}
+        $query->queueArticleProcessing();
 
-		if($error == false)
-		{
-			// Queue up the processing of the articles
-			// This is after the model is saved because we're triggering the clearing
-			// of this cache by updating of the model
-
-			$query->queueArticleProcessing();
-		}
+        $query->scraped = 1;
+        $query->save();
 
 		$job->delete();
 	}
