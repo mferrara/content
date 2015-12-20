@@ -8,7 +8,7 @@ use Subreddit;
 
 class ProcessArticles {
 
-	public function processSubreddit($job, $data)
+	public function processSubreddit(Job $job, $data)
 	{
         try{
             $subreddit_id = $data['subreddit_id'];
@@ -27,6 +27,9 @@ class ProcessArticles {
             \Log::error('Yo, something broke. ProcessArticles@processSubreddit - '.$subreddit->name);
             \Log::error($e->getMessage());
             \Log::error($e->getTraceAsString());
+
+            $subreddit->cached 				= 0;
+            $subreddit->save();
 
             $job->release();
         }
@@ -51,6 +54,9 @@ class ProcessArticles {
             \Log::error('Yo, something broke. ProcessArticles@processSearchquery - '.$searchquery->name);
             \Log::error($e->getMessage());
             \Log::error($e->getTraceAsString());
+
+            $searchquery->cached              = 0;
+            $searchquery->save();
 
             $job->release();
         }
