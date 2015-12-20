@@ -40,20 +40,9 @@ class Searchquery extends \Eloquent {
 
     public function queueArticleProcessing()
     {
-        $searchquery_id = $this->id;
-        \Queue::push(function($job) use($searchquery_id)
-        {
-            $query = \Searchquery::find($searchquery_id);
-
-            \HiveMind\ArticleProcessor::fire($query);
-
-            $query->cached              = 1;
-            $query->currently_updating  = 0;
-            $query->save();
-
-            $job->delete();
-
-        }, null,'redditprocessing');
+        $searchquery_id         = $this->id;
+        $data['searchquery_id'] = $searchquery_id;
+        Queue::push('\HiveMind\Jobs\ProcessArticles@processSearchquery', $data, 'redditprocessing');
 
         return true;
     }

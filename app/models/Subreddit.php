@@ -54,18 +54,9 @@ class Subreddit extends \Eloquent {
 
     public function queueArticleProcessing()
     {
-        $subreddit_id = $this->id;
-        \Queue::push(function($job) use($subreddit_id)
-        {
-            $subreddit = \Subreddit::find($subreddit_id);
-            \HiveMind\ArticleProcessor::fire($subreddit);
-
-            $subreddit->cached 				= 1;
-            $subreddit->currently_updating 	= 0;
-            $subreddit->save();
-
-            $job->delete();
-        }, null, 'redditprocessing');
+        $subreddit_id           = $this->id;
+        $data['subreddit_id']   = $subreddit_id;
+        Queue::push('\HiveMind\Jobs\ProcessArticles@processSubreddit', $data, 'redditprocessing');
 
         return true;
     }
