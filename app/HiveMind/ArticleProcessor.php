@@ -5,12 +5,12 @@ namespace HiveMind;
 use \crodas\TextRank\Config;
 use \crodas\TextRank\TextRank;
 use \crodas\TextRank\Stopword;
+use ForceUTF8\Encoding;
 
 class ArticleProcessor {
 
-	public static function fire($model)
+	public static function fire($model, $no_keywords = false)
 	{
-        \Log::error('ArticleProcessor@fire 0');
 		// Loop through all content for counters
 		$all_text = '';
 		$content_types  = [];
@@ -49,8 +49,6 @@ class ArticleProcessor {
 				$base_domains[$art->basedomain_id] = 1;
 		}
 
-        \Log::error('ArticleProcessor@fire 1');
-
 		// Convert subreddit_ids into names
 		$subs = [];
 		foreach($subreddits as $sub_id => $count)
@@ -70,8 +68,6 @@ class ArticleProcessor {
 			$doms[\Basedomain::find($basedomain_id)->name] = $count;
 		}
 
-        \Log::error('ArticleProcessor@fire 2');
-
 		// Reverse sort arrays
 		arsort($content_types);
 		arsort($subs);
@@ -84,35 +80,37 @@ class ArticleProcessor {
 		else
 			$phrases = extractCommonPhrases(substr($all_text,0,1000), [2,3], 25);
 		*/
-
-        try{
-            $config = new Config;
-            $config->addListener(new Stopword);
-
-            $textrank = new TextRank($config);
-            $text       = $all_text;
-            $text       = preg_replace('/[^a-zA-Z0-9 .,\'-]/', '', $text);
-            if(mb_strlen($text))
-                $keywords = $textrank->getKeywords($text);
-            else
-                $keywords = [];
-        }
-        catch(\Exception $e)
+        $keywords = [];
+        if($no_keywords === false)
         {
-            \Log::error('ArticleProcessor@fire - '.$model->name);
-            \Log::error($e->getMessage());
-            \Log::error($e->getTraceAsString());
+            try{
+                $config     = new Config;
+                $config->addListener(new Stopword);
+                $textrank   = new TextRank($config);
+                $text       = Encoding::toUTF8($all_text);
+                $text       = preg_replace('/[^a-zA-Z0-9 .,\'-]/', '', $text);
+                if(mb_strlen($text))
+                    $keywords = $textrank->getKeywords($text);
 
-            return false;
+                foreach($keywords as $key => $keyword)
+                {
+                    $count = mb_substr_count(mb_strtolower($text), mb_strtolower($keyword));
+                    if($count < 2)
+                        unset($keywords[$key]);
+                }
+            }
+            catch(\Exception $e)
+            {
+                \Log::error('ArticleProcessor@fire - '.$model->name);
+                \Log::error($e->getMessage());
+                \Log::error($e->getTraceAsString());
+
+                return false;
+            }
         }
-
-        \Log::error('ArticleProcessor@fire 3');
-
-        foreach($keywords as $key => $keyword)
+        else
         {
-            $count = mb_substr_count(mb_strtolower($text), mb_strtolower($keyword));
-            if($count < 2)
-                unset($keywords[$key]);
+            \Log::error('Running article processing with no-keywords flag due to previous error');
         }
 
 		$cache = [

@@ -42,13 +42,22 @@ class ResetStuckUpdates extends Command {
         {
             if($sub->updated_at->diffInMinutes(\Carbon\Carbon::now()) > 25)
             {
-                $sub->currently_updating    = 0;
-                $sub->scraped               = 0;
-                $sub->cached                = 0;
-                $sub->save();
-
                 $data['subreddit_id']   = $sub->id;
-                Queue::push('\HiveMind\Jobs\ScrapeReddit@subreddit', $data, 'redditscrape');
+
+                if($sub->scraped == 1)
+                {
+                    // Looks like scraping finished, but processing failed, re-queue the processing
+                    Queue::push('\HiveMind\Jobs\ProcessArticles@processSubreddit', $data, 'redditprocess');
+                }
+                else
+                {
+                    $sub->currently_updating    = 0;
+                    $sub->scraped               = 0;
+                    $sub->cached                = 0;
+                    $sub->save();
+
+                    Queue::push('\HiveMind\Jobs\ScrapeReddit@subreddit', $data, 'redditscrape');
+                }
 
                 echo 'Added '.$sub->name." back to queue.\r\n";
             }
@@ -59,13 +68,22 @@ class ResetStuckUpdates extends Command {
         {
             if($query->updated_at->diffInMinutes(\Carbon\Carbon::now()) > 25)
             {
-                $query->currently_updating  = 0;
-                $query->scraped             = 0;
-                $query->cached              = 0;
-                $query->save();
+                if($query->scraped == 1)
+                {
+                    $data['searchquery_id'] = $query->id;
+                    // Looks like scraping finished, but processing failed, re-queue the processing
+                    Queue::push('\HiveMind\Jobs\ProcessArticles@processSearchquery', $data, 'redditprocessing');
+                }
+                else
+                {
+                    $query->currently_updating  = 0;
+                    $query->scraped             = 0;
+                    $query->cached              = 0;
+                    $query->save();
 
-                // Re-queue the search
-                Usersearch::getSearch($query->name);
+                    // Re-queue the search
+                    Usersearch::getSearch($query->name);
+                }
 
                 echo 'Added '.$query->name." back to queue.\r\n";
             }
