@@ -30,14 +30,13 @@ class ScrapeReddit {
             }
         }
 
+        $subreddit->scraped = 1;
+        $subreddit->save();
+
         // Queue up the processing of the articles
         // This is after the model is saved because we're triggering the clearing
         // of this cache by updating of the model
-
         $subreddit->queueArticleProcessing();
-
-        $subreddit->scraped = 1;
-        $subreddit->save();
 
         $job->delete();
 	}
@@ -78,10 +77,13 @@ class ScrapeReddit {
             }
         }
 
-        $query->queueArticleProcessing();
-
         $query->scraped = 1;
         $query->save();
+
+        // Queue up the processing of the articles
+        // This is after the model is saved because we're triggering the clearing
+        // of this cache by updating of the model
+        $query->queueArticleProcessing();
 
 		$job->delete();
 	}
