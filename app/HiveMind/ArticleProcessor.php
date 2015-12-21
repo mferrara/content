@@ -137,8 +137,6 @@ class ArticleProcessor {
 
 		\Cache::add($key, $cache, \Config::get($configuration_key));
 
-        \Log::error('ArticleProcessor@fire 4');
-
         return true;
 	}
 
