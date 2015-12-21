@@ -8,12 +8,12 @@ App::error(function(\HiveMind\Exceptions\NoContent $exception)
     if(isset($job))
         $job->release();
 
-    if(isset($query))
+    if(isset($query) && is_object($query))
     {
         return 'Failure to get content for '.$query->name.'.';
     }
 
-    if(isset($sub))
+    if(isset($sub) && is_object($sub))
     {
         return 'Failure to get content for '.$sub->name.'.';
     }
