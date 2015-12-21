@@ -110,7 +110,7 @@ class ArticleProcessor {
         }
         else
         {
-            \Log::error('Running article processing with no-keywords flag due to previous error');
+            \Log::error('Running article processing with no-keywords flag due to previous error: '.$model->name);
         }
 
 		$cache = [
