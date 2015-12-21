@@ -90,3 +90,14 @@ require app_path().'/filters.php';
 */
 
 require app_path().'/events.php';
+
+/*
+|--------------------------------------------------------------------------
+| Require The Exception Handlers File
+|--------------------------------------------------------------------------
+|
+|
+|
+*/
+
+require app_path().'/errors.php';
