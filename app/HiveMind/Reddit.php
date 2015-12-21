@@ -131,19 +131,10 @@ class Reddit extends Scraper {
 				$url .= "&"."after=".$after;
 
 			// Fetch results
-            try {
-                $content = json_decode($this->GET($url));
-            }
-            catch(ServerException $e)
-            {
-                // Did we get a 503? Let's wait a few seconds and try again
-                if($e->getResponse()->getStatusCode() == 503)
-                {
-                    sleep(3);
-                    $content = json_decode($this->GET($url));
-                    \Log::error('503 on - r/'.$subreddit);
-                }
-            }
+            $content = json_decode($this->GET($url));
+
+            if($content == false)
+                throw new Exceptions\NoContent('No content while trying to scrape subreddit - '.$subreddit);
 
 			// Acquire "after" parameter for next page request
 			if($page_depth > 1 && isset($content->data->after))
@@ -210,19 +201,10 @@ class Reddit extends Scraper {
 				$url .= "&"."after=".$after;
 
             // Fetch results
-            try {
-                $content = json_decode($this->GET($url));
-            }
-            catch(ServerException $e)
-            {
-                // Did we get a 503? Let's wait a few seconds and try again
-                if($e->getResponse()->getStatusCode() == 503)
-                {
-                    sleep(3);
-                    $content = json_decode($this->GET($url));
-                    \Log::error('503 on - '.$query->name);
-                }
-            }
+            $content = json_decode($this->GET($url));
+
+            if($content == false)
+                throw new Exceptions\NoContent('No content while trying to scrape search query - '.$query->name);
 
 			// Acquire "after" parameter for next page request
 			if($page_depth > 1 && isset($content->data->after))
