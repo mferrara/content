@@ -162,7 +162,6 @@ class Reddit extends Scraper {
 			else
 				$request_count = 0;
 
-			//usleep(500000);
 			sleep(\Config::get('hivemind.reddit_sleep'));
 		}
 
@@ -232,7 +231,6 @@ class Reddit extends Scraper {
 			else
 				$request_count = 0;
 
-			//usleep(500000);
 			sleep(\Config::get('hivemind.reddit_sleep'));
 		}
 
