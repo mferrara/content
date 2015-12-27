@@ -24,7 +24,7 @@
                             <span class="label label-success">Complete</span>
                         @endif
                     </div>
-        @if($key == 24 || $key == 49 || $key == 74 || $key == 99)
+        @if($key == 24 || $key == 49 || $key == 74 || $key == count($searches) - 1)
                 </div>
             </div>
         @endif
