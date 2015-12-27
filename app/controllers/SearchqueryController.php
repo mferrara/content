@@ -10,7 +10,7 @@ class SearchqueryController extends \BaseController {
 	 */
 	public function index()
 	{
-        $searches = Searchquery::orderBy('name', 'asc')->paginate(25);
+        $searches = Searchquery::orderBy('name', 'asc')->paginate(100);
 
         return View::make('searches')
             ->with('searches', $searches);
