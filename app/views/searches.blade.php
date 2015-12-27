@@ -8,7 +8,7 @@
 
 <div class="row">
 	@foreach($searches as $key => $search)
-        @if($key == 0 || $key == 25 || $key == count($searches))
+        @if($key == 0 || $key == 25 || $key == 50 || $key == 75)
             <div class="col-md-4">
                 <div class="row">
         @endif
@@ -24,7 +24,7 @@
                             <span class="label label-success">Complete</span>
                         @endif
                     </div>
-        @if($key == 24 || $key == 49 || $key == count($searches) - 1)
+        @if($key == 24 || $key == 49 || $key == 74 || $key == 99)
                 </div>
             </div>
         @endif
