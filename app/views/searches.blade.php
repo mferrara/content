@@ -9,7 +9,7 @@
 <div class="row">
 	@foreach($searches as $key => $search)
         @if($key == 0 || $key == 25 || $key == 50 || $key == 75)
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="row">
         @endif
                     <div class="col-md-8 text-right">{{ link_to('search?q='.urlencode($search->name), $search->name) }}</div>
