@@ -4,7 +4,7 @@
 namespace HiveMind\Exceptions;
 
 
-class NoContent extends \Exception
+class NoContentException extends \Exception
 {
 
 }

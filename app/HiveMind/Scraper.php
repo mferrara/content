@@ -7,10 +7,10 @@ use GuzzleHttp\Client;
 
 class Scraper {
 
-	public function GET($url)
+	public function GET($url, $source_name)
 	{
 		// Check cache for this search
-		$key = 'reddit_search_'.md5($url);
+		$key = $source_name.'_search_'.md5($url);
 		if(\Cache::has($key))
 			return \Cache::get($key);
 

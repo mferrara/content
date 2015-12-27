@@ -1,6 +1,6 @@
 <?php
 
-App::error(function(\HiveMind\Exceptions\NoContent $exception)
+App::error(function(\HiveMind\Exceptions\NoContentException $exception)
 {
     Log::error($exception);
 

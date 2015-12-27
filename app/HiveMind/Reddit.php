@@ -35,7 +35,7 @@ class Reddit extends Scraper {
 			$this->sort_parameter	.$sort."&".
 			$this->limit_parameter	.$limit;
 
-		$content = json_decode($this->GET($url, $proxy));
+		$content = json_decode($this->GET($url, get_class($this)));
 
 		$comments = [];
 		if(count($content) > 0)
@@ -131,10 +131,10 @@ class Reddit extends Scraper {
 				$url .= "&"."after=".$after;
 
 			// Fetch results
-            $content = json_decode($this->GET($url));
+            $content = json_decode($this->GET($url, get_class($this)));
 
             if($content == false)
-                throw new Exceptions\NoContent('No content while trying to scrape subreddit - '.$subreddit);
+                throw new Exceptions\NoContentException('No content while trying to scrape subreddit - '.$subreddit);
 
 			// Acquire "after" parameter for next page request
 			if($page_depth > 1 && isset($content->data->after))
@@ -200,10 +200,10 @@ class Reddit extends Scraper {
 				$url .= "&"."after=".$after;
 
             // Fetch results
-            $content = json_decode($this->GET($url));
+            $content = json_decode($this->GET($url, get_class($this)));
 
             if($content == false)
-                throw new Exceptions\NoContent('No content while trying to scrape search query - '.$query->name);
+                throw new Exceptions\NoContentException('No content while trying to scrape search query - '.$query->name);
 
 			// Acquire "after" parameter for next page request
 			if($page_depth > 1 && isset($content->data->after))
