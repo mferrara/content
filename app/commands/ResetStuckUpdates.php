@@ -47,7 +47,7 @@ class ResetStuckUpdates extends Command {
                 if($sub->scraped == 1)
                 {
                     // Looks like scraping finished, but processing failed, re-queue the processing
-                    Queue::push('\HiveMind\Jobs\ProcessArticles@processSubreddit', $data, 'redditprocess');
+                    Queue::push('\HiveMind\Jobs\ProcessArticles@processSubreddit', $data, 'redditprocessing');
                 }
                 else
                 {
