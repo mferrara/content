@@ -2,6 +2,7 @@
 
 	return [
 
+	    'useragent'                         => 'RedditCaseStudy/0.1a',
 		'reddit_sleep'	                    => 4,
         '503_sleep'                         => 3,
 		'page_depth'	                    => 5,

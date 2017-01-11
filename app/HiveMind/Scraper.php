@@ -4,6 +4,7 @@ namespace HiveMind;
 
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Client;
+use Config;
 
 class Scraper {
 
@@ -17,7 +18,7 @@ class Scraper {
         $browser = new Client();
         // Fetch results (make up to 3 attempts)
         try {
-            $result = $browser->get($url);
+            $result = $browser->get($url, ['headers' => ['User-Agent' => Config::get('hivemind.useragent')]]);
         }
         catch(ServerException $e)
         {
@@ -28,7 +29,7 @@ class Scraper {
                 \Log::error('Trying again...');
                 sleep(\Config::get('hivemind.503_sleep'));
                 try{
-                    $result = $browser->get($url);
+                    $result = $browser->get($url, ['headers' => ['User-Agent' => Config::get('hivemind.useragent')]]);
                 }
                 catch(ServerException $e)
                 {
@@ -38,7 +39,7 @@ class Scraper {
                         \Log::error('2nd 503 on - '.$url);
                         \Log::error('Trying again...');
                         sleep(\Config::get('hivemind.503_sleep'));
-                        $result = $browser->get($url);
+                        $result = $browser->get($url, ['headers' => ['User-Agent' => Config::get('hivemind.useragent')]]);
                     }
                 }
             }
