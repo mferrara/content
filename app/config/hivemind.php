@@ -2,7 +2,7 @@
 
 	return [
 
-		'reddit_sleep'	                    => 2,
+		'reddit_sleep'	                    => 4,
         '503_sleep'                         => 3,
 		'page_depth'	                    => 5,
 		'cache_reddit_search_requests'      => 3600 * 4,  // 4 hours for search queries
