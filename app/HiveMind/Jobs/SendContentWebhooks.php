@@ -10,6 +10,7 @@ class SendContentWebhooks {
 
     public function send(Job $job, $data)
     {
+        \Log::debug('Starting webhook send Job');
         $error = false;
         try{
 
@@ -22,12 +23,13 @@ class SendContentWebhooks {
                 ->where('webhookurl_id', '>', 0)
                 ->where('webhook_sent', 0)
                 ->get();
-
+            \Log::debug('Sending '.$usersearches->count().' webhooks.');
             // If so, send them
             if($usersearches->count() > 0)
             {
                 foreach($usersearches as $usersearch)
                 {
+                    \Log::debug('Sending webhook for '.$usersearch->searchquery->name);
                     $usersearch->sendWebhook();
                 }
             }
