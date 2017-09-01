@@ -47,4 +47,13 @@ class Searchquery extends \Eloquent {
         return true;
     }
 
+    public function queueWebhooks()
+    {
+        $searchquery_id         = $this->id;
+        $data['searchquery_id'] = $searchquery_id;
+        Queue::push('\HiveMind\Jobs\SendContentWebhooks@send', $data, 'webhooks');
+
+        return true;
+    }
+
 }
