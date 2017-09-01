@@ -40,7 +40,7 @@ class CreateArticlesTable extends Migration {
 			$table->string('slug', 2083);
 			$table->integer('num_comments');
 			$table->boolean('comments_scraped')->default(false);
-			$table->timestamps();
+			$table->nullableTimestamps();
 			$table->softDeletes();
 
 			$table->index('base_domain');
@@ -48,7 +48,6 @@ class CreateArticlesTable extends Migration {
 			$table->index('is_self');
 		});
 	}
-
 
 	/**
 	 * Reverse the migrations.

@@ -19,7 +19,7 @@ class CreateArticleSearchqueryTable extends Migration {
 			$table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
 			$table->integer('searchquery_id')->unsigned()->index();
 			$table->foreign('searchquery_id')->references('id')->on('searchqueries')->onDelete('cascade');
-			$table->timestamps();
+			$table->nullableTimestamps();
 		});
 	}
 

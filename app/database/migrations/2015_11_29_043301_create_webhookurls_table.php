@@ -16,7 +16,7 @@ class CreateWebhookurlsTable extends Migration {
 		{
 			$table->increments('id');
             $table->string('url')->index();
-			$table->timestamps();
+			$table->nullableTimestamps();
 		});
 	}
 

@@ -14,11 +14,9 @@ class CreateUsersearchesTable extends Migration {
 	{
 		Schema::create('usersearches', function(Blueprint $table)
 		{
-
 			$table->increments('id');
 			$table->integer('searchquery_id')->unsigned()->indexed();
-			$table->timestamps();
-
+			$table->nullableTimestamps();
 		});
 	}
 

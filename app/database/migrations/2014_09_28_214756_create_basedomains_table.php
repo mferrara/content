@@ -14,10 +14,9 @@ class CreateBasedomainsTable extends Migration {
 	{
 		Schema::create('basedomains', function(Blueprint $table)
 		{
-
 			$table->increments('id');
 			$table->string('name')->unique();
-			$table->timestamps();
+			$table->nullableTimestamps();
 
 		});
 	}

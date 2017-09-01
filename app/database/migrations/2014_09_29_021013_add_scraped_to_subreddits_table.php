@@ -15,9 +15,9 @@ class AddScrapedToSubredditsTable extends Migration {
 		Schema::table('subreddits', function(Blueprint $table)
 		{
 
-			$table->boolean('currently_updating')->after('name');
-			$table->boolean('scraped')->after('currently_updating');
-			$table->boolean('cached')->after('scraped');
+			$table->boolean('currently_updating')->after('name')->default(0);
+			$table->boolean('scraped')->after('currently_updating')->default(0);
+			$table->boolean('cached')->after('scraped')->default(0);
 
 		});
 	}

@@ -14,7 +14,6 @@ class CreateCommentsTable extends Migration {
 	{
 		Schema::create('comments', function(Blueprint $table)
 		{
-
 			$table->increments('id')->unsigned();
 			$table->integer('subreddit_id')->unsigned()->index();
 			$table->integer('author_id')->unsigned()->index();
@@ -29,15 +28,13 @@ class CreateCommentsTable extends Migration {
 			$table->integer('article_id')->unsigned()->index();
 			$table->integer('gilded');
 			$table->bigInteger('created');
-			$table->timestamps();
+			$table->nullableTimestamps();
 
 			$table->unique('reddit_id');
 			$table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
 			$table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
-
 		});
 	}
-
 
 	/**
 	 * Reverse the migrations.

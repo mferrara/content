@@ -15,7 +15,7 @@ class AddCachedToSearchqueriesTable extends Migration {
 		Schema::table('searchqueries', function(Blueprint $table)
 		{
 
-			$table->boolean('cached')->after('scraped')->index();
+			$table->boolean('cached')->after('scraped')->index()->default(0);
 
 		});
 	}
