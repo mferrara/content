@@ -6,7 +6,8 @@ namespace HiveMind\Presenters;
 use \Laracasts\Presenter\Presenter;
 use Carbon\Carbon;
 
-class ArticlePresenter extends Presenter {
+class ArticlePresenter extends Presenter
+{
 
     public function link()
     {
@@ -17,5 +18,4 @@ class ArticlePresenter extends Presenter {
     {
         return $this->post_text_html;
     }
-
 }

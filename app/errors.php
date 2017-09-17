@@ -1,23 +1,20 @@
 <?php
 
-App::error(function(\HiveMind\Exceptions\NoContentException $exception)
-{
+App::error(function (\HiveMind\Exceptions\NoContentException $exception) {
     Log::error($exception);
 
     // If we're on a queue job - release it.
-    if(isset($job))
+    if (isset($job)) {
         $job->release();
+    }
 
-    if(isset($query) && is_object($query))
-    {
+    if (isset($query) && is_object($query)) {
         return 'Failure to get content for '.$query->name.'.';
     }
 
-    if(isset($sub) && is_object($sub))
-    {
+    if (isset($sub) && is_object($sub)) {
         return 'Failure to get content for '.$sub->name.'.';
     }
 
     return 'Failure to get content.';
 });
-

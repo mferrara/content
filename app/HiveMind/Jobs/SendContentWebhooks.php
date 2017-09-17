@@ -6,14 +6,14 @@ use HiveMind\ArticleProcessor;
 use Illuminate\Queue\Jobs\Job;
 use Subreddit;
 
-class SendContentWebhooks {
+class SendContentWebhooks
+{
 
     public function send(Job $job, $data)
     {
         \Log::debug('Starting webhook send Job');
         $error = false;
-        try{
-
+        try {
             // Get the Searchquery
             $searchquery_id     = $data['searchquery_id'];
             $searchquery        = \Searchquery::find($searchquery_id);
@@ -25,17 +25,13 @@ class SendContentWebhooks {
                 ->get();
             \Log::debug('Sending '.$usersearches->count().' webhooks.');
             // If so, send them
-            if($usersearches->count() > 0)
-            {
-                foreach($usersearches as $usersearch)
-                {
+            if ($usersearches->count() > 0) {
+                foreach ($usersearches as $usersearch) {
                     \Log::debug('Sending webhook for '.$usersearch->searchquery->name);
                     $usersearch->sendWebhook();
                 }
             }
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             \Log::error('Yo, something broke. SendContentWebhooks@send');
             \Log::error($e->getMessage());
             \Log::error($e->getTraceAsString());
@@ -45,10 +41,8 @@ class SendContentWebhooks {
             $job->release();
         }
 
-        if($error === false)
-        {
+        if ($error === false) {
             $job->delete();
         }
     }
-
-} 
+}

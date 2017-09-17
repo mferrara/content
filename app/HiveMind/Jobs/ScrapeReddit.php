@@ -11,21 +11,20 @@ use Subreddit;
 use Searchquery;
 use Illuminate\Queue\Jobs\Job;
 
-class ScrapeReddit {
+class ScrapeReddit
+{
 
-	public function subreddit(Job $job, $data)
-	{
-		$subreddit		= Subreddit::find($data['subreddit_id']);
-		$sort 			= $data['sort_type'];
-		$time			= $data['time'];
-		$page_depth 	= Config::get('hivemind.page_depth');
+    public function subreddit(Job $job, $data)
+    {
+        $subreddit      = Subreddit::find($data['subreddit_id']);
+        $sort           = $data['sort_type'];
+        $time           = $data['time'];
+        $page_depth     = config('hivemind.page_depth');
 
         $scraper = new Reddit();
 
-        foreach($time as $time_frame)
-        {
-            foreach($sort as $sort_method)
-            {
+        foreach ($time as $time_frame) {
+            foreach ($sort as $sort_method) {
                 $scraper->Subreddit($subreddit->name, $page_depth, $sort_method, $time_frame);
             }
         }
@@ -39,28 +38,24 @@ class ScrapeReddit {
         $subreddit->queueArticleProcessing();
 
         $job->delete();
-	}
+    }
 
-	public function search(Job $job, $data)
-	{
-		$query 			= Searchquery::find($data['searchquery_id']);
-		$sort_method    = $data['sort_type'];
-		$subs 			= $data['subreddits'];
-		$search_type 	= $data['search_type'];
-		$time			= $data['time'];
-		$page_depth 	= Config::get('hivemind.page_depth');
+    public function search(Job $job, $data)
+    {
+        $query          = Searchquery::find($data['searchquery_id']);
+        $sort_method    = $data['sort_type'];
+        $subs           = $data['subreddits'];
+        $search_type    = $data['search_type'];
+        $time           = $data['time'];
+        $page_depth     = config('hivemind.page_depth');
 
         $scraper = new Reddit();
 
-        if(is_array($time))
-        {
-            foreach($time as $time_frame)
-            {
+        if (is_array($time)) {
+            foreach ($time as $time_frame) {
                 $scraper->Search($query, $page_depth, $search_type, $sort_method, $time_frame, $subs);
             }
-        }
-        else
-        {
+        } else {
             $scraper->Search($query, $page_depth, $search_type, $sort_method, $time, $subs);
         }
 
@@ -76,6 +71,6 @@ class ScrapeReddit {
         // Send the webhooks associated with this Searchquery
         $query->queueWebhooks();
 
-		$job->delete();
-	}
-} 
+        $job->delete();
+    }
+}
