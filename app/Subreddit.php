@@ -2,50 +2,52 @@
 
 use \Laracasts\Presenter\PresentableTrait;
 
-class Subreddit extends \Eloquent {
+class Subreddit extends \Eloquent
+{
 
     use PresentableTrait;
     protected $presenter = '\HiveMind\Presenters\SubredditPresenter';
 
-	protected $guarded = ['id'];
-	protected $fillable = [];
+    protected $guarded = ['id'];
+    protected $fillable = [];
 
-	public static $rules = [
+    public static $rules = [
 
-		'name' => ['unique:subreddits']
+        'name' => ['unique:subreddits']
 
-	];
+    ];
 
-	public function articles()
-	{
-		return $this->hasMany('Article');
-	}
+    public function articles()
+    {
+        return $this->hasMany('Article');
+    }
 
-	public static function findOrCreate($name)
-	{
-		$model = self::where('name', $name)->first();
+    public static function findOrCreate($name)
+    {
+        $model = self::where('name', $name)->first();
 
-		if($model === null)
-		{
-			$val = Validator::make(['name' => $name], self::$rules);
-			if($val->passes())
-				$model = self::create(['name' => $name]);
-			else
-				dd(get_called_class().' not valid on insert');
-		}
+        if ($model === null) {
+            $val = Validator::make(['name' => $name], self::$rules);
+            if ($val->passes()) {
+                $model = self::create(['name' => $name]);
+            } else {
+                dd(get_called_class().' not valid on insert');
+            }
+        }
 
-		return $model;
-	}
+        return $model;
+    }
 
-	public function isStale()
-	{
-		$seconds_since_last_update = strtotime(\Carbon\Carbon::now())- strtotime($this->updated_at);
+    public function isStale()
+    {
+        $seconds_since_last_update = strtotime(\Carbon\Carbon::now())- strtotime($this->updated_at);
 
-		if($seconds_since_last_update > Config::get('hivemind.cache_reddit_subreddit_requests'))
-			return true;
+        if ($seconds_since_last_update > Config::get('hivemind.cache_reddit_subreddit_requests')) {
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
     public function incrementArticleCount()
     {
@@ -60,5 +62,4 @@ class Subreddit extends \Eloquent {
 
         return true;
     }
-
 }

@@ -1,7 +1,7 @@
 <?php
 
-	return array(
+    return array(
 
-		'default' => 'sync',
+        'default' => 'sync',
 
-	);
+    );

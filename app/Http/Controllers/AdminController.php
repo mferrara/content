@@ -1,6 +1,7 @@
 <?php
 
-class AdminController extends \BaseController {
+class AdminController extends \BaseController
+{
 
     public function index()
     {
@@ -49,23 +50,18 @@ class AdminController extends \BaseController {
 
         $errors = array();
         $id = 0;
-        foreach($file as $line)
-        {
-            if(stristr($line, 'Route:'))
-            {
+        foreach ($file as $line) {
+            if (stristr($line, 'Route:')) {
                 $line = str_replace("Route:", "Route:<strong>", $line);
                 $line = $line."</strong>";
 
                 $errors[$id]['error'] = $line;
                 $errors[$id]['stack_trace'] = '';
                 $id++;
-            }
-            else
-            {
+            } else {
                 $line = explode("#0", $line);
 
-                if(count($line) > 1)
-                {
+                if (count($line) > 1) {
                     $stack_trace = str_replace("#", "<br />", $line[1]);
                     $error = str_replace("Stack trace:", "", $line[0]);
                     $error = str_replace(" in ", " in <strong>", $error)."</strong>";
@@ -79,6 +75,5 @@ class AdminController extends \BaseController {
 
         return View::make('admin.errors')
             ->with('errors', $errors);
-	}
-
+    }
 }

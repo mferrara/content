@@ -2,7 +2,7 @@
 
 return array(
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Application Debug Mode
 	|--------------------------------------------------------------------------
@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+    'debug' => true,
 
     'providers' => append_config([
         'Way\Generators\GeneratorsServiceProvider',

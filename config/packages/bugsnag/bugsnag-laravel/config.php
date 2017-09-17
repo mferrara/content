@@ -2,7 +2,7 @@
 
 return array(
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| API Key
 	|--------------------------------------------------------------------------
@@ -13,9 +13,9 @@ return array(
 	| which should receive your application's uncaught exceptions.
 	|
 	*/
-	'api_key' => getenv('BUGSNAG_API_KEY'),
+    'api_key' => getenv('BUGSNAG_API_KEY'),
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Notify Release Stages
 	|--------------------------------------------------------------------------
@@ -25,9 +25,9 @@ return array(
 	| Example: array('development', 'production')
 	|
 	*/
-	'notify_release_stages' => null,
+    'notify_release_stages' => null,
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Endpoint
 	|--------------------------------------------------------------------------
@@ -37,9 +37,9 @@ return array(
 	| this should be the URL to your Bugsnag instance.
 	|
 	*/
-	'endpoint' => null,
+    'endpoint' => null,
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Filters
 	|--------------------------------------------------------------------------
@@ -49,9 +49,9 @@ return array(
 	| contain these strings will be filtered.
 	|
 	*/
-	'filters' => array('password'),
+    'filters' => array('password'),
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Proxy
 	|--------------------------------------------------------------------------
@@ -72,6 +72,6 @@ return array(
 	|     )
 	|
 	*/
-	'proxy' => null
+    'proxy' => null
 
 );

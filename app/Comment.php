@@ -1,20 +1,20 @@
 <?php
 
-class Comment extends \Eloquent {
+class Comment extends \Eloquent
+{
 
-	protected $guarded 		= ['id'];
-	protected $fillable 	= [];
-	protected $softDelete	= true;
+    protected $guarded      = ['id'];
+    protected $fillable     = [];
+    protected $softDelete   = true;
 
-	public static $rules = [
+    public static $rules = [
 
-		'fullname' => ['unqiue']
+        'fullname' => ['unqiue']
 
-	];
+    ];
 
-	public function article()
-	{
-		return $this->belongsTo('Article');
-	}
-
+    public function article()
+    {
+        return $this->belongsTo('Article');
+    }
 }

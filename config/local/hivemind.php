@@ -1,6 +1,6 @@
 <?php
 
-	return [
-		'page_depth'	=> 1,
-		'reddit_sleep'	=> 1,
-	];
+    return [
+        'page_depth'    => 1,
+        'reddit_sleep'  => 1,
+    ];

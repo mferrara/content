@@ -1,6 +1,7 @@
 <?php
 
-class Webhookurl extends \Eloquent {
+class Webhookurl extends \Eloquent
+{
 
     protected $fillable = [];
     protected $guarded  = ['id', 'created_at'];
@@ -9,5 +10,4 @@ class Webhookurl extends \Eloquent {
     {
         return $this->hasMany(Usersearch::class);
     }
-
 }

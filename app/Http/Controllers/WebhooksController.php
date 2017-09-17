@@ -1,6 +1,7 @@
 <?php
 
-class WebhooksController extends \BaseController {
+class WebhooksController extends \BaseController
+{
 
     public function kimono()
     {
@@ -13,11 +14,10 @@ class WebhooksController extends \BaseController {
         Cache::put('webhook_payloads', $array, 1000);
 
         return 'woot!';
-	}
+    }
 
     public function showLastWebhook()
     {
         dd(Cache::get('webhook_payloads'));
     }
-
 }
