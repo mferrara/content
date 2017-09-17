@@ -6,6 +6,7 @@ use \crodas\TextRank\Config;
 use \crodas\TextRank\TextRank;
 use \crodas\TextRank\Stopword;
 use ForceUTF8\Encoding;
+use HiveMind\Helpers\ContentHelper;
 
 class ArticleProcessor
 {
@@ -78,9 +79,9 @@ class ArticleProcessor
 
         /*
 		if(\App::environment() == 'production')
-			$phrases = extractCommonPhrases($all_text, [2,3], 25);
+			$phrases = ContentHelper::extractCommonPhrases($all_text, [2,3], 25);
 		else
-			$phrases = extractCommonPhrases(substr($all_text,0,1000), [2,3], 25);
+			$phrases = ContentHelper::extractCommonPhrases(substr($all_text,0,1000), [2,3], 25);
 		*/
         $keywords = [];
         if ($no_keywords === false) {
