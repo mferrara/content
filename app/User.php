@@ -1,11 +1,12 @@
 <?php
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Auth\Authenticatable;
 
 
-class User extends Eloquent implements AuthenticatableContract, CanResetPasswordContract
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
 
     use Authenticatable, CanResetPassword;

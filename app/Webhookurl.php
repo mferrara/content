@@ -1,6 +1,7 @@
 <?php
+use Illuminate\Database\Eloquent\Model;
 
-class Webhookurl extends \Eloquent
+class Webhookurl extends Model
 {
 
     protected $fillable = [];

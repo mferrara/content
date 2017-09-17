@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
 use \Laracasts\Presenter\PresentableTrait;
 
-class Searchquery extends \Eloquent
+class Searchquery extends Model
 {
 
     use PresentableTrait;

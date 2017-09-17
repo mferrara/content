@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
 use \Laracasts\Presenter\PresentableTrait;
 
-class Author extends \Eloquent
+class Author extends Model
 {
 
     use PresentableTrait;

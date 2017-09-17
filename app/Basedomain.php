@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
 use \Laracasts\Presenter\PresentableTrait;
 
-class Basedomain extends \Eloquent
+class Basedomain extends Model
 {
 
     use PresentableTrait;

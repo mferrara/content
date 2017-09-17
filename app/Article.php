@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
 
-class Article extends \Eloquent
+class Article extends Model
 {
 
     use PresentableTrait;

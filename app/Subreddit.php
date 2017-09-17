@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
 use \Laracasts\Presenter\PresentableTrait;
 
-class Subreddit extends \Eloquent
+class Subreddit extends Model
 {
 
     use PresentableTrait;
