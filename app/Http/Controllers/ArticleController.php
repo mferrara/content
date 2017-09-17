@@ -1,6 +1,6 @@
 <?php
 
-class ArticleController extends \BaseController
+class ArticleController extends Controller
 {
 
     /**

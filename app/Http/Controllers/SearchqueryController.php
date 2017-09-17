@@ -1,6 +1,6 @@
 <?php
 
-class SearchqueryController extends \BaseController
+class SearchqueryController extends Controller
 {
 
     /**

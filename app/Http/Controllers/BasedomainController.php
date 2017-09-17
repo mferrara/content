@@ -1,6 +1,6 @@
 <?php
 
-class BasedomainController extends \BaseController
+class BasedomainController extends Controller
 {
 
     /**

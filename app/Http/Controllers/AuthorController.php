@@ -1,6 +1,6 @@
 <?php
 
-class AuthorController extends \BaseController
+class AuthorController extends Controller
 {
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-class WebhooksController extends \BaseController
+class WebhooksController extends Controller
 {
 
     public function kimono()

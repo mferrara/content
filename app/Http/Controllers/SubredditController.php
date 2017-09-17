@@ -1,6 +1,6 @@
 <?php
 
-class SubredditController extends \BaseController
+class SubredditController extends Controller
 {
 
     /**
