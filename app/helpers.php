@@ -9,7 +9,7 @@ function make_comparer()
     foreach ($criteria as $index => $criterion) {
         $criteria[$index] = is_array($criterion)
             ? array_pad($criterion, 3, null)
-            : array($criterion, SORT_ASC, null);
+            : [$criterion, SORT_ASC, null];
     }
 
     return function ($first, $second) use (&$criteria) {
@@ -143,7 +143,7 @@ function remove_urls($string)
 function remove_long_words($string, $max_length)
 {
     $snippet = explode(" ", $string);
-    $array = array();
+    $array = [];
     foreach ($snippet as $key => $string) {
         if (strlen($string) <= $max_length) {
             $array[] = $string;

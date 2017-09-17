@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
 	|--------------------------------------------------------------------------
@@ -49,7 +49,7 @@ return array(
 	| contain these strings will be filtered.
 	|
 	*/
-    'filters' => array('password'),
+    'filters' => ['password'],
 
     /*
 	|--------------------------------------------------------------------------
@@ -74,4 +74,4 @@ return array(
 	*/
     'proxy' => null
 
-);
+];

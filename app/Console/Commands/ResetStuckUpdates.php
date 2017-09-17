@@ -88,9 +88,9 @@ class ResetStuckUpdates extends Command
      */
     protected function getArguments()
     {
-        return array(
+        return [
 
-        );
+        ];
     }
 
     /**
@@ -100,8 +100,8 @@ class ResetStuckUpdates extends Command
      */
     protected function getOptions()
     {
-        return array(
+        return [
 
-        );
+        ];
     }
 }

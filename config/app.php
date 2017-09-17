@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-    'providers' => array(
+    'providers' => [
 
         'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
@@ -128,7 +128,7 @@ return array(
         'Cartalyst\Sentry\SentryServiceProvider',
         'Laracasts\Utilities\UtilitiesServiceProvider',
         'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
-    ),
+    ],
 
     /*
 	|--------------------------------------------------------------------------
@@ -154,7 +154,7 @@ return array(
 	|
 	*/
 
-    'aliases' => array(
+    'aliases' => [
 
         'App'               => 'Illuminate\Support\Facades\App',
         'Artisan'           => 'Illuminate\Support\Facades\Artisan',
@@ -198,6 +198,6 @@ return array(
         'Flash'             => 'Laracasts\Flash\Flash',
         'Sentry'            => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
         'Bugsnag'           => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
-    ),
+    ],
 
-);
+];

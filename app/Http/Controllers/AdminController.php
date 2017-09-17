@@ -48,7 +48,7 @@ class AdminController extends \BaseController
         rsort($file);
         $file = array_slice($file, 1, 200);
 
-        $errors = array();
+        $errors = [];
         $id = 0;
         foreach ($file as $line) {
             if (stristr($line, 'Route:')) {
