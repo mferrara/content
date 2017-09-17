@@ -1,5 +1,14 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Author;
+use App\Basedomain;
+use App\Searchquery;
+use App\Subreddit;
+use Illuminate\Support\Facades\File;
+
+
 class AdminController extends Controller
 {
 

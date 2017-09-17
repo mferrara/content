@@ -1,5 +1,11 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Input;
+
+
 class WebhooksController extends Controller
 {
 

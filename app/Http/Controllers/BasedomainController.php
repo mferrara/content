@@ -1,5 +1,10 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Basedomain;
+
+
 class BasedomainController extends Controller
 {
 

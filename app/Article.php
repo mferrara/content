@@ -1,7 +1,11 @@
 <?php
 
+namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
+
+
 
 class Article extends Model
 {
@@ -21,27 +25,27 @@ class Article extends Model
 
     public function comments()
     {
-        return $this->hasMany('Comment');
+        return $this->hasMany('App\Comment');
     }
 
     public function author()
     {
-        return $this->belongsTo('Author');
+        return $this->belongsTo('App\Author');
     }
 
     public function subreddit()
     {
-        return $this->belongsTo('Subreddit');
+        return $this->belongsTo('App\Subreddit');
     }
 
     public function basedomain()
     {
-        return $this->belongsTo('Basedomain');
+        return $this->belongsTo('App\Basedomain');
     }
 
     public function searchqueries()
     {
-        return $this->belongsToMany('Searchquery');
+        return $this->belongsToMany('App\Searchquery');
     }
 
     public function setDataAttribute($value)

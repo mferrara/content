@@ -1,8 +1,14 @@
 <?php
 
-use Indatus\Dispatcher\Scheduling\ScheduledCommand;
-use Indatus\Dispatcher\Scheduling\Schedulable;
+namespace App\Console\Commands;
+
+use App\Searchquery;
+use App\Usersearch;
 use Indatus\Dispatcher\Drivers\Cron\Scheduler;
+use Indatus\Dispatcher\Scheduling\Schedulable;
+use Indatus\Dispatcher\Scheduling\ScheduledCommand;
+
+
 
 class ScrapeGoogleTrends extends ScheduledCommand
 {

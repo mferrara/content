@@ -1,5 +1,11 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Http\Requests\Request;
+use App\Usersearch;
+
+
 class ApiController extends Controller
 {
 

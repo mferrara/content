@@ -1,7 +1,13 @@
 <?php
 
+namespace App;
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use \Laracasts\Presenter\PresentableTrait;
+
+
 
 class Basedomain extends Model
 {
@@ -21,7 +27,7 @@ class Basedomain extends Model
 
     public function articles()
     {
-        return $this->hasMany('Article');
+        return $this->hasMany('App\Article');
     }
 
     public static function findOrCreate($name)

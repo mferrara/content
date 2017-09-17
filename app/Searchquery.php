@@ -1,7 +1,12 @@
 <?php
 
+namespace App;
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Queue;
 use \Laracasts\Presenter\PresentableTrait;
+
+
 
 class Searchquery extends Model
 {
@@ -22,12 +27,12 @@ class Searchquery extends Model
 
     public function usersearches()
     {
-        return $this->hasMany('Usersearch');
+        return $this->hasMany('App\Usersearch');
     }
 
     public function articles()
     {
-        return $this->belongsToMany('Article');
+        return $this->belongsToMany('App\Article');
     }
 
     public function isStale()
