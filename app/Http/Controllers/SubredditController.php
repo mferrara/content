@@ -14,7 +14,7 @@ class SubredditController extends Controller
         $subreddits = Subreddit::orderBy('article_count', 'DESC')
             ->paginate(25);
 
-        return View::make('subreddits.index')
+        return view('subreddits.index')
             ->with('subreddits', $subreddits);
     }
 
@@ -77,7 +77,7 @@ class SubredditController extends Controller
             $currently_updating = false;
         }
 
-        return View::make('subreddit')
+        return view('subreddit')
             ->with('articles', $articles)
             ->with('subreddit', $subreddit)
             ->with('aggregate_data', $aggregate_data)

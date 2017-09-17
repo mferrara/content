@@ -13,7 +13,7 @@ class BasedomainController extends Controller
     {
         $domains = Basedomain::orderBy('article_count', 'DESC')->paginate(25);
 
-        return View::make('domains.index')
+        return view('domains.index')
             ->with('domains', $domains);
     }
 
@@ -54,7 +54,7 @@ class BasedomainController extends Controller
                 ->orderBy('score', 'DESC')
                 ->paginate(25);
 
-        return View::make('domain')
+        return view('domain')
             ->with('domain', $domain)
             ->with('articles', $articles);
     }

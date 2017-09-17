@@ -13,7 +13,7 @@ class AuthorController extends Controller
     {
         $authors = Author::orderBy('article_count', 'DESC')->paginate(25);
 
-        return View::make('authors.index')->with('authors', $authors);
+        return view('authors.index')->with('authors', $authors);
     }
 
     /**
@@ -52,7 +52,7 @@ class AuthorController extends Controller
 
         $articles = $author->articles()->orderBy('score', 'DESC')->paginate(25);
 
-        return View::make('author')
+        return view('author')
             ->with('articles', $articles)
             ->with('author', $author);
     }

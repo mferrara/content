@@ -135,7 +135,7 @@ class ArticleProcessor
             $configuration_key = 'hivemind.cache_reddit_subreddit_requests';
         }
 
-        \Cache::add($key, $cache, \Config::get($configuration_key));
+        \Cache::add($key, $cache, \config($configuration_key));
 
         return true;
     }

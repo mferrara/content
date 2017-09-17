@@ -159,7 +159,7 @@ function extractCommonPhrases($text, $num_words_array, $num_results)
 
     if (is_array($num_words_array)) {
         foreach ($num_words_array as $num) {
-            $phrases[$num] = extract_phrases($text, \Config::get('hivemind.ignore_words'), $num, 50);
+            $phrases[$num] = extract_phrases($text, \config('hivemind.ignore_words'), $num, 50);
         }
     }
 

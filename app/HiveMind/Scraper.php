@@ -20,22 +20,22 @@ class Scraper
         $browser = new Client();
         // Fetch results (make up to 3 attempts)
         try {
-            $result = $browser->get($url, ['headers' => ['User-Agent' => Config::get('hivemind.useragent')]]);
+            $result = $browser->get($url, ['headers' => ['User-Agent' => config('hivemind.useragent')]]);
         } catch (ServerException $e) {
             // Did we get a 503? Let's wait a few seconds and try again
             if ($e->getResponse()->getStatusCode() == 503) {
                 \Log::error('503 on - '.$url);
                 \Log::error('Trying again...');
-                sleep(\Config::get('hivemind.503_sleep'));
+                sleep(\config('hivemind.503_sleep'));
                 try {
-                    $result = $browser->get($url, ['headers' => ['User-Agent' => Config::get('hivemind.useragent')]]);
+                    $result = $browser->get($url, ['headers' => ['User-Agent' => config('hivemind.useragent')]]);
                 } catch (ServerException $e) {
                     // Did we get a 503? Let's wait a few seconds and try again
                     if ($e->getResponse()->getStatusCode() == 503) {
                         \Log::error('2nd 503 on - '.$url);
                         \Log::error('Trying again...');
-                        sleep(\Config::get('hivemind.503_sleep'));
-                        $result = $browser->get($url, ['headers' => ['User-Agent' => Config::get('hivemind.useragent')]]);
+                        sleep(\config('hivemind.503_sleep'));
+                        $result = $browser->get($url, ['headers' => ['User-Agent' => config('hivemind.useragent')]]);
                     }
                 }
             }

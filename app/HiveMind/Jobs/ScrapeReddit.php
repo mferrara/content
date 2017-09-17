@@ -19,7 +19,7 @@ class ScrapeReddit
         $subreddit      = Subreddit::find($data['subreddit_id']);
         $sort           = $data['sort_type'];
         $time           = $data['time'];
-        $page_depth     = Config::get('hivemind.page_depth');
+        $page_depth     = config('hivemind.page_depth');
 
         $scraper = new Reddit();
 
@@ -47,7 +47,7 @@ class ScrapeReddit
         $subs           = $data['subreddits'];
         $search_type    = $data['search_type'];
         $time           = $data['time'];
-        $page_depth     = Config::get('hivemind.page_depth');
+        $page_depth     = config('hivemind.page_depth');
 
         $scraper = new Reddit();
 

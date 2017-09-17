@@ -34,7 +34,7 @@ class Searchquery extends Model
     {
         $seconds_since_last_update = strtotime(\Carbon\Carbon::now())- strtotime($this->updated_at);
 
-        if ($seconds_since_last_update > Config::get('hivemind.cache_reddit_search_requests')) {
+        if ($seconds_since_last_update > config('hivemind.cache_reddit_search_requests')) {
             return true;
         }
 

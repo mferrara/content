@@ -153,7 +153,7 @@ class Reddit extends Scraper
                 $request_count = 0;
             }
 
-            sleep(\Config::get('hivemind.reddit_sleep'));
+            sleep(\config('hivemind.reddit_sleep'));
         }
 
         return $results;
@@ -222,7 +222,7 @@ class Reddit extends Scraper
                 $request_count = 0;
             }
 
-            sleep(\Config::get('hivemind.reddit_sleep'));
+            sleep(\config('hivemind.reddit_sleep'));
         }
 
         return $results;
@@ -305,7 +305,7 @@ class Reddit extends Scraper
                 $r['created']           = $post->data->created;
                 $r['is_self']           = $post->data->is_self;
                 $r['title']             = $post->data->title;
-                $r['slug']              = \Str::slug($post->data->title);
+                $r['slug']              = \str_slug($post->data->title);
                 $r['num_comments']      = $post->data->num_comments;
                 $r['data']              = $post->data;
 

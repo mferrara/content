@@ -13,7 +13,7 @@ class SearchqueryController extends Controller
     {
         $searches = Searchquery::orderBy('name', 'asc')->paginate(100);
 
-        return View::make('searches')
+        return view('searches')
             ->with('searches', $searches);
     }
 
@@ -25,7 +25,7 @@ class SearchqueryController extends Controller
         $pending_subreddits = Subreddit::where('currently_updating', 1)
                 ->get();
 
-        return View::make('searchquery.pending')
+        return view('searchquery.pending')
                 ->with('pending_queries', $pending_queries)
                 ->with('pending_subreddits', $pending_subreddits);
     }

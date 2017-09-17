@@ -41,7 +41,7 @@ abstract class Controller extends BaseController
             ->take(10)
             ->get();
 
-        return View::make('index')
+        return view('index')
             ->with('recent_searches', $recent_searches)
             ->with('recent_subreddits', $recent_subreddits)
             ->with('random_subreddits', $random_subreddits)
@@ -63,7 +63,7 @@ abstract class Controller extends BaseController
     public function search()
     {
         if (!Input::has('q')) {
-            return Redirect::to('/');
+            return redirect('/');
         }
 
         $search_keyword = Input::get('q');
@@ -138,7 +138,7 @@ abstract class Controller extends BaseController
             $currently_updating = false;
         }
 
-        return View::make('searchresults')
+        return view('searchresults')
             ->with('usersearch', $usersearch)
             ->with('articles', $articles)
             ->with('aggregate_data', $aggregate_data)

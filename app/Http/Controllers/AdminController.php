@@ -5,14 +5,14 @@ class AdminController extends Controller
 
     public function index()
     {
-        return View::make('admin.index');
+        return view('admin.index');
     }
 
     public function searchqueries()
     {
         $searches = Searchquery::paginate(25);
 
-        return View::make('admin.searchquery.index')
+        return view('admin.searchquery.index')
                 ->with('searches', $searches);
     }
 
@@ -20,7 +20,7 @@ class AdminController extends Controller
     {
         $authors = Author::paginate(25);
 
-        return View::make('admin.author.index')
+        return view('admin.author.index')
                 ->with('authors', $authors);
     }
 
@@ -28,7 +28,7 @@ class AdminController extends Controller
     {
         $domains = Basedomain::paginate(25);
 
-        return View::make('admin.basedomain.index')
+        return view('admin.basedomain.index')
                 ->with('domains', $domains);
     }
 
@@ -36,7 +36,7 @@ class AdminController extends Controller
     {
         $subreddits = Subreddit::paginate(25);
 
-        return View::make('admin.subreddit.index')
+        return view('admin.subreddit.index')
                 ->with('subreddits', $subreddits);
     }
 
@@ -73,7 +73,7 @@ class AdminController extends Controller
             }
         }
 
-        return View::make('admin.errors')
+        return view('admin.errors')
             ->with('errors', $errors);
     }
 }
