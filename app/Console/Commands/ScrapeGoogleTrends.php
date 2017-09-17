@@ -8,8 +8,6 @@ use Indatus\Dispatcher\Drivers\Cron\Scheduler;
 use Indatus\Dispatcher\Scheduling\Schedulable;
 use Indatus\Dispatcher\Scheduling\ScheduledCommand;
 
-
-
 class ScrapeGoogleTrends extends ScheduledCommand
 {
 

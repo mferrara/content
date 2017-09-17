@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Queue;
 use \Laracasts\Presenter\PresentableTrait;
 
-
-
 class Searchquery extends Model
 {
 

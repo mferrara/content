@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Searchquery;
 use App\Subreddit;
 
-
 class SearchqueryController extends Controller
 {
 

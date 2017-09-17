@@ -6,7 +6,6 @@ use App\Subreddit;
 use App\Usersearch;
 use Illuminate\Support\Facades\Cache;
 
-
 class SubredditController extends Controller
 {
 

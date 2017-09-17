@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Validator;
 use \Laracasts\Presenter\PresentableTrait;
 
-
-
 class Subreddit extends Model
 {
 

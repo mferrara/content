@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Queue;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-
-
 class ResetStuckUpdates extends Command
 {
 
