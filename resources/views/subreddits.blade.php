@@ -24,6 +24,6 @@
 	@endforeach
 </dl>
 
-<div class="text-center">{!! $subreddits->links() !!}</div>
+<div class="text-center">{!! $subreddits->render() !!}</div>
 
 @stop

@@ -31,6 +31,6 @@
 	@endforeach
 </div>
 
-<div class="text-center">{!! $searches->links() !!}</div>
+<div class="text-center">{!! $searches->render() !!}</div>
 
 @stop

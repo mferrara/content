@@ -34,9 +34,9 @@
 	</tbody>
 </table>
 @if(isset($usersearch))
-	<div class="text-center">{!! $articles->appends(['q' => $usersearch->searchquery->name])->links() !!}</div>
+	<div class="text-center">{!! $articles->appends(['q' => $usersearch->searchquery->name])->render() !!}</div>
 @else
-	<div class="text-center">{!! $articles->links() !!}</div>
+	<div class="text-center">{!! $articles->render() !!}</div>
 @endif
 
 @endif

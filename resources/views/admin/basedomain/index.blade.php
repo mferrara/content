@@ -31,7 +31,7 @@
                     </tbody>
                 </table>
 
-                <div class="text-center">{!! $domains->links() !!}</div>
+                <div class="text-center">{!! $domains->render() !!}</div>
             @endif
         </div>
     </div>

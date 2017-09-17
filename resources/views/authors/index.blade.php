@@ -23,6 +23,6 @@
         </tbody>
     </table>
 
-    <div class="text-center">{!! $authors->links() !!}</div>
+    <div class="text-center">{!! $authors->render() !!}</div>
 
 @stop

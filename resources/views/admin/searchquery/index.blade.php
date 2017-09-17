@@ -33,7 +33,7 @@
                     </tbody>
                 </table>
 
-                <div class="text-center">{!! $searches->links() !!}</div>
+                <div class="text-center">{!! $searches->render() !!}</div>
             @endif
         </div>
     </div>
