@@ -2,9 +2,9 @@
 
 @section('content')
 
-    {{ link_to('/', 'Home', ['class' => 'btn btn-primary']) }}
+    {!! link_to('/', 'Home', ['class' => 'btn btn-primary']) !!}
 
-    <h1>{{ $article->title }}</h1>
+    <h1>{!! $article->title !!}</h1>
     <hr/>
     
     <div class="row">
@@ -24,39 +24,39 @@
             				<tbody>
             					<tr>
             						<td><strong>Type</strong></td>
-            						<td>{{ $article->content_type }}</td>
+            						<td>{!! $article->content_type !!}</td>
             					</tr>
                                 <tr>
                                     <td><strong>Word Count</strong></td>
-                                    <td>{{ number_format($article->word_count) }}</td>
+                                    <td>{!! number_format($article->word_count) !!}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Character Count</strong></td>
-                                    <td>{{ number_format($article->character_count) }}</td>
+                                    <td>{!! number_format($article->character_count) !!}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Paragraph Count</strong></td>
-                                    <td>{{ number_format($article->paragraph_count) }}</td>
+                                    <td>{!! number_format($article->paragraph_count) !!}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Upvotes</strong></td>
-                                    <td>{{ number_format($article->ups) }}</td>
+                                    <td>{!! number_format($article->ups) !!}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Downvotes</strong></td>
-                                    <td>{{ number_format($article->downs) }}</td>
+                                    <td>{!! number_format($article->downs) !!}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Score</strong></td>
-                                    <td>{{ number_format($article->score) }}</td>
+                                    <td>{!! number_format($article->score) !!}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Comment Count</strong></td>
-                                    <td>{{ number_format($article->num_comments) }}</td>
+                                    <td>{!! number_format($article->num_comments) !!}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>NSFW</strong></td>
-                                    <td>{{ $article->nsfw == 1 ? 'Yes' : 'No' }}</td>
+                                    <td>{!! $article->nsfw == 1 ? 'Yes' : 'No' !!}</td>
                                 </tr>
             				</tbody>
             			</table>
@@ -79,11 +79,11 @@
                         <tbody>
                         <tr>
                             <td><strong>Subreddit</strong></td>
-                            <td>{{ $article->subreddit->present()->link() }}</td>
+                            <td>{!! $article->subreddit->present()->link() !!}</td>
                         </tr>
                         <tr>
                             <td><strong>Author</strong></td>
-                            <td>{{ $article->author->present()->link() }}</td>
+                            <td>{!! $article->author->present()->link() !!}</td>
                         </tr>
                         <tr>
                             <td><strong></strong></td>
@@ -99,9 +99,9 @@
             </div>
         </div>
         <div class="col-md-4 text-right">
-            <a href="http://reddit.com{{ $article->permalink }}" class="btn btn-primary">View on Reddit</a>
+            <a href="http://reddit.com{!! $article->permalink !!}" class="btn btn-primary">View on Reddit</a>
             @if($article->is_self == 0)
-                <a href="{{ $article->url }}" class="btn btn-primary">View Linked Page</a>
+                <a href="{!! $article->url !!}" class="btn btn-primary">View Linked Page</a>
             @endif
         </div>
     </div>
@@ -109,7 +109,7 @@
     @if($article->is_self)
         <h3>Body</h3>
         <hr>
-        <p>{{ html_entity_decode($article->present()->body()) }}</p>
+        <p>{!! html_entity_decode($article->present()->body()) !!}</p>
     @endif
 
 @stop

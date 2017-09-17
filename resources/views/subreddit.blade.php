@@ -2,9 +2,9 @@
 
 @section('content')
 
-{{ link_to('/', 'Home', ['class' => 'btn btn-primary']) }}
+{!! link_to('/', 'Home', ['class' => 'btn btn-primary']) !!}
 
-<h1>Subreddit <small>{{ $subreddit->name }}</small></h1>
+<h1>Subreddit <small>{!! $subreddit->name !!}</small></h1>
 <hr/>
 
 @if($aggregate_data != false)

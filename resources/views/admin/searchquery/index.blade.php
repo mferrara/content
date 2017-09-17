@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    <h1>Searchqueries  <small>{{ number_format(Searchquery::count()) }}</small></h1>
+    <h1>Searchqueries  <small>{!! number_format(Searchquery::count()) !!}</small></h1>
     <hr/>
     <div class='row'>
         <div class='col-md-12 col-xs-12'>
@@ -23,17 +23,17 @@
                     <tbody>
                     @foreach($searches as $query)
                         <tr>
-                            <td class="text-center">{{ $query->id }}</td>
-                            <td>{{ $query->present()->link() }}</td>
-                            <td class="text-center">{{ $query->currently_updating == 1 ? 'Yes' : 'No' }}</td>
-                            <td class="text-center">{{ $query->scraped == 1 ? 'Yes' : 'No' }}</td>
-                            <td class="text-right">{{ $query->updated_at->diffForHumans() }}</td>
+                            <td class="text-center">{!! $query->id !!}</td>
+                            <td>{!! $query->present()->link() !!}</td>
+                            <td class="text-center">{!! $query->currently_updating == 1 ? 'Yes' : 'No' !!}</td>
+                            <td class="text-center">{!! $query->scraped == 1 ? 'Yes' : 'No' !!}</td>
+                            <td class="text-right">{!! $query->updated_at->diffForHumans() !!}</td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
 
-                <div class="text-center">{{ $searches->links() }}</div>
+                <div class="text-center">{!! $searches->links() !!}</div>
             @endif
         </div>
     </div>

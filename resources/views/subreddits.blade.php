@@ -2,14 +2,14 @@
 
 @section('content')
 
-{{ link_to('/', 'Home', ['class' => 'btn btn-primary']) }}
+{!! link_to('/', 'Home', ['class' => 'btn btn-primary']) !!}
 
-<h1>Subreddits searched <small>{{ count($subreddits) }}</small></h1>
+<h1>Subreddits searched <small>{!! count($subreddits) !!}</small></h1>
 <hr/>
 
 <dl class="dl-horizontal">
 	@foreach($subreddits as $subreddit)
-		<dt>{{ link_to('sub/'.$subreddit->name, $subreddit->name) }}</dt>
+		<dt>{!! link_to('sub/'.$subreddit->name, $subreddit->name) !!}</dt>
 		<dd>
 			@if($subreddit->scraped == 0)
 				<span class="label label-danger">Pending</span>
@@ -24,6 +24,6 @@
 	@endforeach
 </dl>
 
-<div class="text-center">{{ $subreddits->links() }}</div>
+<div class="text-center">{!! $subreddits->links() !!}</div>
 
 @stop

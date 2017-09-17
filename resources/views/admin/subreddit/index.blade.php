@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    <h1>Subreddits <small>{{ number_format(Subreddit::count()) }}</small></h1>
+    <h1>Subreddits <small>{!! number_format(Subreddit::count()) !!}</small></h1>
     <hr/>
     <div class='row'>
         <div class='col-md-12 col-xs-12'>
@@ -24,18 +24,18 @@
                     <tbody>
                     @foreach($subreddits as $subreddit)
                         <tr>
-                            <td class="text-center">{{ $subreddit->id }}</td>
-                            <td>{{ $subreddit->present()->link() }}</td>
-                            <td class="text-right">{{ number_format($subreddit->article_count) }}</td>
-                            <td class="text-center">{{ $subreddit->currently_updating == 1 ? 'Yes' : 'No' }}</td>
-                            <td class="text-center">{{ $subreddit->scraped == 1 ? 'Yes' : 'No' }}</td>
-                            <td class="text-right">{{ $subreddit->updated_at->diffForHumans() }}</td>
+                            <td class="text-center">{!! $subreddit->id !!}</td>
+                            <td>{!! $subreddit->present()->link() !!}</td>
+                            <td class="text-right">{!! number_format($subreddit->article_count) !!}</td>
+                            <td class="text-center">{!! $subreddit->currently_updating == 1 ? 'Yes' : 'No' !!}</td>
+                            <td class="text-center">{!! $subreddit->scraped == 1 ? 'Yes' : 'No' !!}</td>
+                            <td class="text-right">{!! $subreddit->updated_at->diffForHumans() !!}</td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
 
-                <div class="text-center">{{ $subreddits->links() }}</div>
+                <div class="text-center">{!! $subreddits->links() !!}</div>
             @endif
         </div>
     </div>

@@ -2,9 +2,9 @@
 
 @section('content')
 
-{{ link_to('/', 'Home', ['class' => 'btn btn-primary']) }}
+{!! link_to('/', 'Home', ['class' => 'btn btn-primary']) !!}
 
-<h1>Searches <small>{{ count($searches) }}</small></h1>
+<h1>Searches <small>{!! count($searches) !!}</small></h1>
 
 <div class="row">
 	@foreach($searches as $key => $search)
@@ -12,7 +12,7 @@
             <div class="col-md-3">
                 <div class="row">
         @endif
-                    <div class="col-md-8 text-right">{{ link_to('search?q='.urlencode($search->name), $search->name) }}</div>
+                    <div class="col-md-8 text-right">{!! link_to('search?q='.urlencode($search->name), $search->name) !!}</div>
                     <div class="col-md-4 text-left">
                         @if($search->scraped == 0)
                             <span class="label label-danger">Pending</span>
@@ -31,6 +31,6 @@
 	@endforeach
 </div>
 
-<div class="text-center">{{ $searches->links() }}</div>
+<div class="text-center">{!! $searches->links() !!}</div>
 
 @stop

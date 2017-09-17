@@ -18,25 +18,25 @@
 	@foreach($articles as $article)
 		<tr>
 			<td>
-                {{ link_to('post/'.$article->fullname, $article->title) }}
+                {!! link_to('post/'.$article->fullname, $article->title) !!}
                 @if($article->nsfw == 1)
                     <span class="pull-right label label-warning">NSFW</span>
                 @endif
             </td>
-			<td>{{ link_to($article->url, '>>', ['target' => '_blank', 'class' => 'btn btn-default btn-xs']) }}</td>
-			<td>{{ $article->content_type }}</td>
-			<td class="text-right">{{ number_format($article->score) }}</td>
-			<td>{{ link_to('sub/'.$article->subreddit->name, $article->subreddit->name) }}</td>
-			<td>{{ link_to('author/'.$article->author->name, $article->author->name) }}</td>
-			<td class="text-right">{{ \Carbon\Carbon::createFromTimeStamp($article->created)->toFormattedDateString() }}</td>
+			<td>{!! link_to($article->url, '>>', ['target' => '_blank', 'class' => 'btn btn-default btn-xs']) !!}</td>
+			<td>{!! $article->content_type !!}</td>
+			<td class="text-right">{!! number_format($article->score) !!}</td>
+			<td>{!! link_to('sub/'.$article->subreddit->name, $article->subreddit->name) !!}</td>
+			<td>{!! link_to('author/'.$article->author->name, $article->author->name) !!}</td>
+			<td class="text-right">{!! \Carbon\Carbon::createFromTimeStamp($article->created)->toFormattedDateString() !!}</td>
 		</tr>
 	@endforeach
 	</tbody>
 </table>
 @if(isset($usersearch))
-	<div class="text-center">{{ $articles->appends(['q' => $usersearch->searchquery->name])->links() }}</div>
+	<div class="text-center">{!! $articles->appends(['q' => $usersearch->searchquery->name])->links() !!}</div>
 @else
-	<div class="text-center">{{ $articles->links() }}</div>
+	<div class="text-center">{!! $articles->links() !!}</div>
 @endif
 
 @endif

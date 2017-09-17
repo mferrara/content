@@ -9,14 +9,14 @@
                 <p class="lead">Add search to queue</p>
             </div>
 
-			{{ Form::open(['url' => '/search', 'method' => 'get']) }}
+			{!! Form::open(['url' => '/search', 'method' => 'get']) !!}
 			<div class="input-group">
 			  <input id="keyword-search" name="q" type="search" class="form-control" placeholder="Lakers">
 			  <span class="input-group-btn">
 				  <button id="keyword-search-submit" class="btn btn-default" type="button">Go!</button>
 				</span>
 			</div>
-			{{ Form::close() }}
+			{!! Form::close() !!}
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -25,7 +25,7 @@
                 <p class="lead">Dig into a subreddit</p>
             </div>
 
-			{{ Form::open(['url' => '/', 'method' => 'get']) }}
+			{!! Form::open(['url' => '/', 'method' => 'get']) !!}
 			<div class="input-group">
               <span class="input-group-addon">r/</span>
               <input id="subreddit-search" type="search" class="form-control" placeholder="worldnews">
@@ -33,7 +33,7 @@
 				  <button id="subreddit-search-submit" class="btn btn-default" type="button">Go!</button>
 				</span>
             </div>
-			{{ Form::close() }}
+			{!! Form::close() !!}
 		</div>
 	</div>
 </div>
@@ -45,22 +45,22 @@
         <p class="lead text-center">Aggregate Stats</p>
         <dl class="dl-horizontal">
             <dt>Posts indexed</dt>
-            <dd>{{ number_format($total_articles) }}</dd>
+            <dd>{!! number_format($total_articles) !!}</dd>
             <dt>Text Posts</dt>
-            <dd>{{ number_format($total_self) }}</dd>
+            <dd>{!! number_format($total_self) !!}</dd>
             <dt>Subreddits</dt>
-            <dd>{{ number_format($total_subreddits) }}</dd>
+            <dd>{!! number_format($total_subreddits) !!}</dd>
             <dt>Post authors</dt>
-            <dd>{{ number_format($total_authors) }}</dd>
+            <dd>{!! number_format($total_authors) !!}</dd>
             <dt>Linked domains</dt>
-            <dd>{{ number_format($total_domains) }}</dd>
+            <dd>{!! number_format($total_domains) !!}</dd>
             <dt>&nbsp;</dt><dd>&nbsp;</dd>
-            <dt>{{ link_to('searches', 'Keywords searched') }}</dt>
-            <dd>{{ number_format($total_queries) }}</dd>
-            <dt>{{ link_to('subreddits', 'Subreddits dug into') }}</dt>
-            <dd>{{ number_format($scraped_subreddits) }}</dd>
-            <dt>{{ link_to('pending', 'Searches pending') }}</dt>
-            <dd>{{ number_format($pending_searches) }}</dd>
+            <dt>{!! link_to('searches', 'Keywords searched') !!}</dt>
+            <dd>{!! number_format($total_queries) !!}</dd>
+            <dt>{!! link_to('subreddits', 'Subreddits dug into') !!}</dt>
+            <dd>{!! number_format($scraped_subreddits) !!}</dd>
+            <dt>{!! link_to('pending', 'Searches pending') !!}</dt>
+            <dd>{!! number_format($pending_searches) !!}</dd>
         </dl>
     </div>
     <div class="col-md-4 col-xs-12">
@@ -68,7 +68,7 @@
             <p class="lead">Recently Updated Searches</p>
             <ul class="list-unstyled">
                 @foreach($recent_searches as $search)
-                    <li>{{ link_to('search?q='.urlencode($search->name),$search->name) }}</li>
+                    <li>{!! link_to('search?q='.urlencode($search->name),$search->name) !!}</li>
                 @endforeach
             </ul>
         </div>
@@ -78,7 +78,7 @@
             <p class="lead">Recently Updated Subreddits</p>
             <ul class="list-unstyled">
                 @foreach($recent_subreddits as $subreddit)
-                    <li>{{ link_to('sub/'.$subreddit->name, 'r/'.$subreddit->name) }}</li>
+                    <li>{!! link_to('sub/'.$subreddit->name, 'r/'.$subreddit->name) !!}</li>
                 @endforeach
             </ul>
         </div>
@@ -104,8 +104,8 @@
                     <tbody>
                     @foreach($top_domains as $domain)
                         <tr>
-                            <td>{{ link_to('domain/'.$domain->name, $domain->name) }}</td>
-                            <td class="text-right">{{ number_format($domain->article_count) }}</td>
+                            <td>{!! link_to('domain/'.$domain->name, $domain->name) !!}</td>
+                            <td class="text-right">{!! number_format($domain->article_count) !!}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -133,8 +133,8 @@
                 	<tbody>
                 		@foreach($top_subreddits as $sub)
                             <tr>
-                                <td>{{ link_to('sub/'.$sub->name, 'r/'.$sub->name) }}</td>
-                                <td class="text-right">{{ number_format($sub->article_count) }}</td>
+                                <td>{!! link_to('sub/'.$sub->name, 'r/'.$sub->name) !!}</td>
+                                <td class="text-right">{!! number_format($sub->article_count) !!}</td>
                             </tr>
                         @endforeach
                 	</tbody>
@@ -162,8 +162,8 @@
                     <tbody>
                     @foreach($top_authors as $author)
                         <tr>
-                            <td>{{ link_to('author/'.$author->name, $author->name) }}</td>
-                            <td class="text-right">{{ number_format($author->article_count) }}</td>
+                            <td>{!! link_to('author/'.$author->name, $author->name) !!}</td>
+                            <td class="text-right">{!! number_format($author->article_count) !!}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -185,7 +185,7 @@
             <p class="lead">Random subreddits</p>
             <ul class="list-unstyled">
                 @foreach($random_subreddits as $subreddit)
-                    <li>{{ link_to('sub/'.$subreddit->name, 'r/'.$subreddit->name) }}</li>
+                    <li>{!! link_to('sub/'.$subreddit->name, 'r/'.$subreddit->name) !!}</li>
                 @endforeach
             </ul>
         </div>
@@ -195,7 +195,7 @@
             <p class="lead">Random authors</p>
             <ul class="list-unstyled">
                 @foreach($random_authors as $author)
-                    <li>{{ link_to('author/'.$author->name, 'u/'.$author->name) }}</li>
+                    <li>{!! link_to('author/'.$author->name, 'u/'.$author->name) !!}</li>
                 @endforeach
             </ul>
         </div>

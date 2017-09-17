@@ -2,9 +2,9 @@
 
 @section('content')
 
-    {{ link_to('/', 'Home', ['class' => 'btn btn-primary']) }}
+    {!! link_to('/', 'Home', ['class' => 'btn btn-primary']) !!}
 
-    <h1>Subreddits <small>{{ number_format(Subreddit::count()) }} total</small></h1>
+    <h1>Subreddits <small>{!! number_format(Subreddit::count()) !!} total</small></h1>
 
     <table class="table table-condensed">
         <thead>
@@ -17,14 +17,14 @@
         <tbody>
         @foreach($subreddits as $subreddit)
             <tr class=" @if($subreddit->scraped == 1) success @endif " >
-                <td>{{ $subreddit->present()->link() }}</td>
-                <td class="text-center">{{ $subreddit->scraped == 1 ? 'Yes' : 'No' }}</td>
-                <td>{{ number_format($subreddit->articles()->count()) }}</td>
+                <td>{!! $subreddit->present()->link() !!}</td>
+                <td class="text-center">{!! $subreddit->scraped == 1 ? 'Yes' : 'No' !!}</td>
+                <td>{!! number_format($subreddit->articles()->count()) !!}</td>
             </tr>
         @endforeach
         </tbody>
     </table>
 
-    <div class="text-center">{{ $subreddits->links() }}</div>
+    <div class="text-center">{!! $subreddits->links() !!}</div>
 
 @stop

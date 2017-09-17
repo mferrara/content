@@ -28,8 +28,8 @@
 			</ul>
 			@else
 			<ul class="nav navbar-nav navbar-right">
-				<li class="pull-right">{{ HTML::link('login', 'Login', ['class' => 'fade-out']) }}</li>
-				<li class="pull-right">{{ HTML::link('register', 'Sign up', ['class' => 'fade-out']) }}</li>
+				<li class="pull-right">{!! HTML::link('login', 'Login', ['class' => 'fade-out']) !!}</li>
+				<li class="pull-right">{!! HTML::link('register', 'Sign up', ['class' => 'fade-out']) !!}</li>
 			</ul>
 			@endif
 		</div><!--/.nav-collapse -->

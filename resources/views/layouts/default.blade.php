@@ -7,7 +7,7 @@
 
         <div class="container-fluid">
             <div class="text-right">
-                {{ link_to('admin', 'admin') }}
+                {!! link_to('admin', 'admin') !!}
             </div>
         </div>
 

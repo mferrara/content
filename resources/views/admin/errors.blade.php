@@ -19,8 +19,8 @@
                     @foreach($errors as $error)
                         <tr>
                             <td>
-                                <div>{{ $error['error'] }}</div>
-                                <div style='display: none;'>{{ $error['stack_trace'] }}</div>
+                                <div>{!! $error['error'] !!}</div>
+                                <div style='display: none;'>{!! $error['stack_trace'] !!}</div>
                             </td>
                         </tr>
                     @endforeach

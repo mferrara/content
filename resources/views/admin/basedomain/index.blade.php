@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    <h1>Domains  <small>{{ number_format(Basedomain::count()) }}</small></h1>
+    <h1>Domains  <small>{!! number_format(Basedomain::count()) !!}</small></h1>
     <hr/>
     <div class='row'>
         <div class='col-md-12 col-xs-12'>
@@ -22,16 +22,16 @@
                     <tbody>
                     @foreach($domains as $domain)
                         <tr>
-                            <td class="text-center">{{ $domain->id }}</td>
-                            <td>{{ $domain->present()->link() }}</td>
-                            <td class="text-right">{{ number_format($domain->article_count) }}</td>
-                            <td class="text-right">{{ $domain->updated_at->diffForHumans() }}</td>
+                            <td class="text-center">{!! $domain->id !!}</td>
+                            <td>{!! $domain->present()->link() !!}</td>
+                            <td class="text-right">{!! number_format($domain->article_count) !!}</td>
+                            <td class="text-right">{!! $domain->updated_at->diffForHumans() !!}</td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
 
-                <div class="text-center">{{ $domains->links() }}</div>
+                <div class="text-center">{!! $domains->links() !!}</div>
             @endif
         </div>
     </div>
