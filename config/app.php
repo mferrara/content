@@ -80,9 +80,9 @@ return [
 	|
 	*/
 
-    'key' => '5SgrlUpMighDnwq4h1cUOwHJRUvBBXO5',
+    'key' => env('APP_KEY'),
 
-    'cipher' => MCRYPT_RIJNDAEL_128,
+    'cipher' => 'AES-256-CBC',
 
     /*
 	|--------------------------------------------------------------------------
@@ -115,12 +115,8 @@ return [
         'Illuminate\Translation\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
-        'Aws\Laravel\AwsServiceProvider',
-        'Schickling\Backup\BackupServiceProvider',
         'Laracasts\Flash\FlashServiceProvider',
-        'Indatus\Dispatcher\ServiceProvider',
-        'Cartalyst\Sentry\SentryServiceProvider',
-        'Laracasts\Utilities\UtilitiesServiceProvider',
+        'Laracasts\Utilities\JavaScript\JavaScriptServiceProvider',
         'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
         'Illuminate\Bus\BusServiceProvider',
         'Illuminate\Foundation\Providers\FoundationServiceProvider',
@@ -193,11 +189,11 @@ return [
         'Flash'             => 'Laracasts\Flash\Flash',
         'Sentry'            => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
         'Bugsnag'           => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
-        'Bus' => 'Illuminate\Support\Facades\Bus',
-        'Inspiring' => 'Illuminate\Foundation\Inspiring',
-        'Storage' => 'Illuminate\Support\Facades\Storage',
-        'Form' => 'Collective\Html\FormFacade',
-        'Html' => 'Collective\Html\HtmlFacade',
+        'Bus'               => 'Illuminate\Support\Facades\Bus',
+        'Inspiring'         => 'Illuminate\Foundation\Inspiring',
+        'Storage'           => 'Illuminate\Support\Facades\Storage',
+        'Form'              => 'Collective\Html\FormFacade',
+        'HTML'              => 'Collective\Html\HtmlFacade',
     ],
 
 ];

@@ -147,7 +147,7 @@ class Usersearch extends Model
         ];
 
         // Send webhook
-        $client = new GuzzleHttp\Client();
+        $client = new \GuzzleHttp\Client();
         $client->post($this->webhookurl->url, [
             'body' => $output
         ]);
@@ -170,7 +170,7 @@ class Usersearch extends Model
 
         if ($subreddit->currently_updating == 0) {
             if ($subreddit->scraped == 0 || $subreddit->isStale()) {
-                if (App::environment() == 'production') {
+                if (\App::environment() == 'production') {
                     $data['sort_type']      = ['hot', 'new', 'top'];
                     $data['time']           = ['all', 'year', 'month', 'week'];
                 } else {
@@ -230,7 +230,7 @@ class Usersearch extends Model
                 $data['sort_type']      = $sort_by;
                 $data['subreddits']     = $subreddits;
 
-                if (App::environment() == 'production') {
+                if (\App::environment() == 'production') {
                     $data['time']           = ['all', 'year', 'month', 'week'];
                 } else {
                     $data['time']           = ['all'];
