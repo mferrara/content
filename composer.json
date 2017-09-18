@@ -14,11 +14,10 @@
         "laracasts/utilities": "~3.0",
         "guzzlehttp/guzzle": "~6.0",
         "pda/pheanstalk": "~2.0",
-        "yunait/forceutf8": "dev-master",
         "bugsnag/bugsnag-laravel": "^2.0",
         "crodas/text-rank": "dev-master",
         "laravelcollective/html": "5.1.*",
-        "php": ">=5.5.9",
+        "php": ">=7.0.0",
         "doctrine/dbal": "^2.6"
     },
     "require-dev": {
