@@ -13,7 +13,6 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\ScrapeGoogleTrends::class,
-        \App\Console\Commands\Inspire::class,
         \App\Console\Commands\ResetStuckUpdates::class,
     ];
 
@@ -25,7 +24,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')
-                 ->hourly();
+        $schedule->command('hivemind:scrapegoogletrends')
+                 ->twiceDaily(1, 13)
+                 ->withoutOverlapping();
+        $schedule->command('hivemind:resetstuckupdates')
+                 ->hourly()
+                 ->withoutOverlapping();
     }
 }

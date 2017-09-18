@@ -7,8 +7,6 @@ use App\Subreddit;
 use App\Usersearch;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Queue;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 class ResetStuckUpdates extends Command
 {
@@ -42,7 +40,7 @@ class ResetStuckUpdates extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $subreddits = Subreddit::where('currently_updating', 1)->get();
         foreach ($subreddits as $sub) {
@@ -87,27 +85,4 @@ class ResetStuckUpdates extends Command
         }
     }
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-
-        ];
-    }
 }

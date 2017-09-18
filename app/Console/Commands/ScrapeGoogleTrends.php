@@ -4,11 +4,9 @@ namespace App\Console\Commands;
 
 use App\Searchquery;
 use App\Usersearch;
-use Indatus\Dispatcher\Drivers\Cron\Scheduler;
-use Indatus\Dispatcher\Scheduling\Schedulable;
-use Indatus\Dispatcher\Scheduling\ScheduledCommand;
+use Illuminate\Console\Command;
 
-class ScrapeGoogleTrends extends ScheduledCommand
+class ScrapeGoogleTrends extends Command
 {
 
     /**
@@ -40,7 +38,7 @@ class ScrapeGoogleTrends extends ScheduledCommand
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $trends = \HiveMind\GoogleTrends::getTrends();
 
@@ -53,8 +51,4 @@ class ScrapeGoogleTrends extends ScheduledCommand
         }
     }
 
-    public function schedule(Schedulable $scheduler)
-    {
-        return $scheduler->everyHours(12);
-    }
 }
