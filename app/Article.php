@@ -5,6 +5,75 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
 
+/**
+ * Class Article
+ *
+ * @package App
+ * @mixin \Eloquent
+ * @property int $id
+ * @property string $reddit_id
+ * @property string $fullname
+ * @property string $type
+ * @property string $content_type
+ * @property int $subreddit_id
+ * @property int|null $character_count
+ * @property int|null $word_count
+ * @property int|null $paragraph_count
+ * @property mixed|null $data
+ * @property mixed|null $post_text
+ * @property mixed|null $post_text_html
+ * @property int $author_id
+ * @property int $score
+ * @property int $ups
+ * @property int $downs
+ * @property int $nsfw
+ * @property string $permalink
+ * @property string $url
+ * @property int $basedomain_id
+ * @property int $created
+ * @property int $is_self
+ * @property string $title
+ * @property string $slug
+ * @property int $num_comments
+ * @property int $comments_scraped
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read \App\Author $author
+ * @property-read \App\Basedomain $basedomain
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Searchquery[] $searchqueries
+ * @property-read \App\Subreddit $subreddit
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereAuthorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereBasedomainId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereCharacterCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereCommentsScraped($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereContentType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereCreated($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereDowns($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereFullname($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereIsSelf($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereNsfw($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereNumComments($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereParagraphCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article wherePermalink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article wherePostText($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article wherePostTextHtml($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereRedditId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereSubredditId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereUps($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereWordCount($value)
+ */
 class Article extends Model
 {
 

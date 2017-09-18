@@ -5,6 +5,29 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Queue;
 
+/**
+ * Class Usersearch
+ *
+ * @package App
+ * @mixin \Eloquent
+ * @property int $id
+ * @property int $searchquery_id
+ * @property int|null $subreddit_id
+ * @property int|null $webhookurl_id
+ * @property int $webhook_sent
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \App\Searchquery $searchquery
+ * @property-read \App\Subreddit|null $subreddit
+ * @property-read \App\Webhookurl|null $webhookurl
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Usersearch whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Usersearch whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Usersearch whereSearchqueryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Usersearch whereSubredditId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Usersearch whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Usersearch whereWebhookSent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Usersearch whereWebhookurlId($value)
+ */
 class Usersearch extends Model
 {
 

@@ -10,6 +10,12 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class User
+ *
+ * @package App
+ * @mixin \Eloquent
+ */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
 

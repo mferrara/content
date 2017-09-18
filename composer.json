@@ -18,7 +18,8 @@
         "bugsnag/bugsnag-laravel": "1.*",
         "crodas/text-rank": "dev-master",
         "laravelcollective/html": "5.1.*",
-        "php": ">=5.5.9"
+        "php": ">=5.5.9",
+        "doctrine/dbal": "^2.6"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "2.*",
@@ -45,6 +46,8 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan ide-helper:generate",
+            "php artisan ide-helper:models",
+            "php artisan ide-helper:meta",
             "php artisan optimize"
         ],
         "post-create-project-cmd": [

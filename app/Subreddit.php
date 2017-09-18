@@ -8,6 +8,29 @@ use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Validator;
 use \Laracasts\Presenter\PresentableTrait;
 
+/**
+ * Class Subreddit
+ *
+ * @package App
+ * @mixin \Eloquent
+ * @property int $id
+ * @property string $name
+ * @property int $article_count
+ * @property int $currently_updating
+ * @property int $scraped
+ * @property int $cached
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Article[] $articles
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Subreddit whereArticleCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Subreddit whereCached($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Subreddit whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Subreddit whereCurrentlyUpdating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Subreddit whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Subreddit whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Subreddit whereScraped($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Subreddit whereUpdatedAt($value)
+ */
 class Subreddit extends Model
 {
 

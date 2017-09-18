@@ -7,6 +7,23 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use \Laracasts\Presenter\PresentableTrait;
 
+/**
+ * Class Basedomain
+ *
+ * @package App
+ * @mixin \Eloquent
+ * @property int $id
+ * @property string $name
+ * @property int $article_count
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Article[] $articles
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Basedomain whereArticleCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Basedomain whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Basedomain whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Basedomain whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Basedomain whereUpdatedAt($value)
+ */
 class Basedomain extends Model
 {
 
