@@ -1,7 +1,7 @@
 <?php
 
-    use Illuminate\Database\Migrations\Migration;
-    use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class AddBasedomainIdToArticlesTable extends Migration
 {
@@ -21,7 +21,7 @@ class AddBasedomainIdToArticlesTable extends Migration
         }
 
         // Run through the existing records migrating the data to the new column
-        Article::where('basedomain_id', 0)->chunk(200, function ($articles) {
+        App\Article::where('basedomain_id', 0)->chunk(200, function ($articles) {
             foreach ($articles as $article) {
                 $article->basedomain_id = Basedomain::findOrCreate($article->base_domain)->id;
                 $article->save();
