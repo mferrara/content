@@ -3,7 +3,6 @@
 
 namespace HiveMind\Helpers;
 
-
 class ContentHelper
 {
     public static function extract_phrases($string, $ignore_words = [], $num_words_in_phrase = 2, $number_of_phrases = 10)

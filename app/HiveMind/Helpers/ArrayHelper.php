@@ -3,7 +3,6 @@
 
 namespace HiveMind\Helpers;
 
-
 class ArrayHelper
 {
 
