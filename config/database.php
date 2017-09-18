@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-    'default' => 'mysql',
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
 	|--------------------------------------------------------------------------
@@ -61,6 +61,7 @@ return [
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
+            'strict'    => false
         ],
 
         'pgsql' => [
@@ -81,6 +82,8 @@ return [
             'username' => 'root',
             'password' => '',
             'prefix'   => '',
+            'charset'  => 'utf8',
+            'prefix'   => ''
         ],
 
     ],

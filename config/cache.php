@@ -12,6 +12,7 @@ return [
 	| not explicitly specified when executing a given caching function.
 	|
 	*/
+
     'default' => env('CACHE_DRIVER', 'database'),
 
     /*
@@ -24,22 +25,28 @@ return [
     | same cache driver to group types of items stored in your caches.
     |
     */
+
     'stores' => [
+
         'apc' => [
             'driver' => 'apc'
         ],
+
         'array' => [
             'driver' => 'array'
         ],
+
         'database' => [
             'driver' => 'database',
             'table'  => 'cache',
             'connection' => null,
         ],
+
         'file' => [
             'driver' => 'file',
             'path'   => storage_path().'/framework/cache',
         ],
+
         'memcached' => [
             'driver'  => 'memcached',
             'servers' => [
@@ -48,10 +55,12 @@ return [
                 ],
             ],
         ],
+
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
         ],
+
     ],
 
     /*
