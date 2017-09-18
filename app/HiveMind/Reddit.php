@@ -2,7 +2,11 @@
 
 namespace HiveMind;
 
-use GuzzleHttp\Exception\ServerException;
+use App\Article;
+use App\Author;
+use App\Basedomain;
+use App\Searchquery;
+use App\Subreddit;
 use Bugsnag;
 
 class Reddit extends Scraper
@@ -112,7 +116,7 @@ class Reddit extends Scraper
             $this->time_parameter   .$search_time."&".
             $this->limit_parameter  .$this->result_limit;
 
-        $sub = \Subreddit::where('name', $subreddit)->first();
+        $sub = Subreddit::where('name', $subreddit)->first();
         $results = [];
         $pages_completed = 0;
         $after = false;
@@ -124,9 +128,11 @@ class Reddit extends Scraper
             }
 
             // Fetch results
-            $content = json_decode($this->GET($url, get_class($this)));
+            $result = $this->GET($url, get_class($this));
+            $content = json_decode($result);
 
             if ($content == false) {
+                dd($result);
                 throw new Exceptions\NoContentException('No content while trying to scrape subreddit - '.$subreddit);
             }
 
@@ -159,7 +165,7 @@ class Reddit extends Scraper
         return $results;
     }
 
-    public function Search(\Searchquery $query, $page_depth = 1, $search_syntax = 'plain', $search_sort = 'relevance', $search_time = 'all', $subreddits = "all")
+    public function Search(Searchquery $query, $page_depth = 1, $search_syntax = 'plain', $search_sort = 'relevance', $search_time = 'all', $subreddits = "all")
     {
         $replace = [' ', ','];
         $subreddits = str_replace($replace, "+", $subreddits);
@@ -228,13 +234,13 @@ class Reddit extends Scraper
         return $results;
     }
 
-    public function ExtractArticles($content, \Searchquery $query = null, \Subreddit $subreddit = null)
+    public function ExtractArticles($content, Searchquery $query = null, Subreddit $subreddit = null)
     {
         $results = [];
 
         foreach ($content->data->children as $post) {
             // Check to see if this article already exists
-            $article = \Article::whereFullname($post->data->name)->first();
+            $article = Article::whereFullname($post->data->name)->first();
             if ($article !== null && $query !== null) {
                 // Exists, add the search query pivot value
                 $check = $article->searchqueries()->where('searchquery_id', $query->id)->first();
@@ -285,11 +291,11 @@ class Reddit extends Scraper
                 $r['reddit_id']         = $post->data->id;
                 $r['fullname']          = $post->data->name;
                 $r['type']              = $this->search_result_types[$post->kind];
-                $r['content_type']      = \Article::getContentType($post->data);
+                $r['content_type']      = Article::getContentType($post->data);
 
-                $r['subreddit_id']      = \Subreddit::findOrCreate($post->data->subreddit)->id;
-                $r['author_id']         = \Author::findOrCreate($post->data->author)->id;
-                $r['basedomain_id']     = \Basedomain::findOrCreate($base_domain)->id;
+                $r['subreddit_id']      = Subreddit::findOrCreate($post->data->subreddit)->id;
+                $r['author_id']         = Author::findOrCreate($post->data->author)->id;
+                $r['basedomain_id']     = Basedomain::findOrCreate($base_domain)->id;
 
                 $r['character_count']   = $character_count;
                 $r['word_count']        = $word_count;
@@ -309,9 +315,9 @@ class Reddit extends Scraper
                 $r['num_comments']      = $post->data->num_comments;
                 $r['data']              = $post->data;
 
-                $val = \Validator::make($r, \Article::$rules);
+                $val = \Validator::make($r, Article::$rules);
                 if ($val->passes()) {
-                    $article = \Article::create($r);
+                    $article = Article::create($r);
 
                     if ($query !== null || $subreddit !== null) {
                         // Increment various things

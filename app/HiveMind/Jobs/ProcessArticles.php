@@ -4,7 +4,8 @@ namespace HiveMind\Jobs;
 
 use HiveMind\ArticleProcessor;
 use Illuminate\Queue\Jobs\Job;
-use Subreddit;
+use App\Subreddit;
+use App\Searchquery;
 
 class ProcessArticles
 {
@@ -52,7 +53,7 @@ class ProcessArticles
         $error = false;
         try {
             $searchquery_id = $data['searchquery_id'];
-            $searchquery    = \Searchquery::find($searchquery_id);
+            $searchquery    = Searchquery::find($searchquery_id);
             $no_keywords    = false;
             if ($job->attempts() > 1) {
                 $no_keywords = true;

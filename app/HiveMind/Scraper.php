@@ -4,7 +4,6 @@ namespace HiveMind;
 
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Client;
-use Config;
 
 class Scraper
 {

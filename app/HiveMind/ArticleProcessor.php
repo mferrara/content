@@ -2,11 +2,13 @@
 
 namespace HiveMind;
 
+use App\Author;
+use App\Basedomain;
+use App\Subreddit;
 use \crodas\TextRank\Config;
 use \crodas\TextRank\TextRank;
 use \crodas\TextRank\Stopword;
 use ForceUTF8\Encoding;
-use HiveMind\Helpers\ContentHelper;
 
 class ArticleProcessor
 {
@@ -58,17 +60,17 @@ class ArticleProcessor
         // Convert subreddit_ids into names
         $subs = [];
         foreach ($subreddits as $sub_id => $count) {
-            $subs[\Subreddit::find($sub_id)->name] = $count;
+            $subs[Subreddit::find($sub_id)->name] = $count;
         }
 
         $auths = [];
         foreach ($authors as $author_id => $count) {
-            $auths[\Author::find($author_id)->name] = $count;
+            $auths[Author::find($author_id)->name] = $count;
         }
 
         $doms = [];
         foreach ($base_domains as $basedomain_id => $count) {
-            $doms[\Basedomain::find($basedomain_id)->name] = $count;
+            $doms[Basedomain::find($basedomain_id)->name] = $count;
         }
 
         // Reverse sort arrays

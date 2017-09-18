@@ -2,13 +2,9 @@
 
 namespace HiveMind\Jobs;
 
-use Aws\CloudFront\Exception\Exception;
-use GuzzleHttp\Exception\ServerException;
 use HiveMind\Reddit;
-use HiveMind\ArticleProcessor;
-use Config;
-use Subreddit;
-use Searchquery;
+use App\Subreddit;
+use App\Searchquery;
 use Illuminate\Queue\Jobs\Job;
 
 class ScrapeReddit
