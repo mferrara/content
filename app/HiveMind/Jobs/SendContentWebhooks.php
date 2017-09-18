@@ -2,9 +2,8 @@
 
 namespace HiveMind\Jobs;
 
-use HiveMind\ArticleProcessor;
 use Illuminate\Queue\Jobs\Job;
-use Subreddit;
+use App\Searchquery;
 
 class SendContentWebhooks
 {
@@ -16,7 +15,7 @@ class SendContentWebhooks
         try {
             // Get the Searchquery
             $searchquery_id     = $data['searchquery_id'];
-            $searchquery        = \Searchquery::find($searchquery_id);
+            $searchquery        = Searchquery::find($searchquery_id);
 
             // Are there any webhooks that need to be sent for this query?
             $usersearches       = $searchquery->usersearches()
