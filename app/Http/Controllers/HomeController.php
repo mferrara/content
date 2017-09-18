@@ -93,7 +93,7 @@ class HomeController extends Controller
         $search_keyword = Input::get('q');
         $usersearch     = Usersearch::getSearch($search_keyword);
 
-        $cache_key = 'searchquery_'.$usersearch->searchquery->id.'_processed_data';
+        $cache_key = 'app\searchquery_'.$usersearch->searchquery->id.'_processed_data';
         if (Cache::has($cache_key)) {
             $aggregate_data = Cache::get($cache_key);
         } else {
