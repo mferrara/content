@@ -25,7 +25,7 @@ class Basedomain extends Model
 
     public function articles()
     {
-        return $this->hasMany('App\Article');
+        return $this->hasMany(\App\Article::class);
     }
 
     public static function findOrCreate($name)

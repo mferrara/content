@@ -23,27 +23,27 @@ class Article extends Model
 
     public function comments()
     {
-        return $this->hasMany('App\Comment');
+        return $this->hasMany(\App\Comment::class);
     }
 
     public function author()
     {
-        return $this->belongsTo('App\Author');
+        return $this->belongsTo(\App\Author::class);
     }
 
     public function subreddit()
     {
-        return $this->belongsTo('App\Subreddit');
+        return $this->belongsTo(\App\Subreddit::class);
     }
 
     public function basedomain()
     {
-        return $this->belongsTo('App\Basedomain');
+        return $this->belongsTo(\App\Basedomain::class);
     }
 
     public function searchqueries()
     {
-        return $this->belongsToMany('App\Searchquery');
+        return $this->belongsToMany(\App\Searchquery::class);
     }
 
     public function setDataAttribute($value)

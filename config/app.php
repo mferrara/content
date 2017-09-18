@@ -124,9 +124,9 @@ return [
         'Illuminate\Pipeline\PipelineServiceProvider',
         'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
         'Collective\Html\HtmlServiceProvider',
-        'App\Providers\AppServiceProvider',
-        'App\Providers\EventServiceProvider',
-        'App\Providers\RouteServiceProvider'
+        App\Providers\AppServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class
     ],
 
     /*

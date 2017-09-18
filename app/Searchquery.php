@@ -25,12 +25,12 @@ class Searchquery extends Model
 
     public function usersearches()
     {
-        return $this->hasMany('App\Usersearch');
+        return $this->hasMany(\App\Usersearch::class);
     }
 
     public function articles()
     {
-        return $this->belongsToMany('App\Article');
+        return $this->belongsToMany(\App\Article::class);
     }
 
     public function isStale()

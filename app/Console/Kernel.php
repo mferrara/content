@@ -12,9 +12,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\ScrapeGoogleTrends',
-        'App\Console\Commands\Inspire',
-        'App\Console\Commands\ResetStuckUpdates',
+        \App\Console\Commands\ScrapeGoogleTrends::class,
+        \App\Console\Commands\Inspire::class,
+        \App\Console\Commands\ResetStuckUpdates::class,
     ];
 
     /**

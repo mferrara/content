@@ -16,7 +16,7 @@ class Kernel extends HttpKernel
         'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
         'Illuminate\Session\Middleware\StartSession',
         'Illuminate\View\Middleware\ShareErrorsFromSession',
-        'App\Http\Middleware\VerifyCsrfToken',
+        \App\Http\Middleware\VerifyCsrfToken::class,
     ];
 
     /**
@@ -25,9 +25,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => 'App\Http\Middleware\Authenticate',
+        'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-        'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
-        'csrf' => 'App\Http\Middleware\VerifyCsrfToken',
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'csrf' => \App\Http\Middleware\VerifyCsrfToken::class,
     ];
 }
