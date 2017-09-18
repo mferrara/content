@@ -18,7 +18,8 @@
         "crodas/text-rank": "dev-master",
         "laravelcollective/html": "5.1.*",
         "php": ">=7.0.0",
-        "doctrine/dbal": "^2.6"
+        "doctrine/dbal": "^2.6",
+        "neitanod/forceutf8": "~2.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "2.*",
