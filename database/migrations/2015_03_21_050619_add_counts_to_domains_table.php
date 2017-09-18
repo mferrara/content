@@ -17,7 +17,7 @@ class AddCountsToDomainsTable extends Migration
             $table->integer('article_count')->after('name')->default(0);
         });
 
-        Basedomain::chunk(500, function ($collection) {
+        App\Basedomain::chunk(500, function ($collection) {
             foreach ($collection as $model) {
                 $model->article_count = $model->articles()->count();
                 $model->save();
@@ -28,7 +28,7 @@ class AddCountsToDomainsTable extends Migration
             $table->integer('article_count')->after('name')->default(0);
         });
 
-        Author::chunk(500, function ($collection) {
+        App\Author::chunk(500, function ($collection) {
             foreach ($collection as $model) {
                 $model->article_count = $model->articles()->count();
                 $model->save();
@@ -39,7 +39,7 @@ class AddCountsToDomainsTable extends Migration
             $table->integer('article_count')->after('name')->default(0);
         });
 
-        Subreddit::chunk(500, function ($collection) {
+        App\Subreddit::chunk(500, function ($collection) {
             foreach ($collection as $model) {
                 $model->article_count = $model->articles()->count();
                 $model->save();
