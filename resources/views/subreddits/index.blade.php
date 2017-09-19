@@ -4,7 +4,7 @@
 
     {!! link_to('/', 'Home', ['class' => 'btn btn-primary']) !!}
 
-    <h1>Subreddits <small>{!! number_format(Subreddit::count()) !!} total</small></h1>
+    <h1>Subreddits <small>{!! number_format(App\Subreddit::count()) !!} total</small></h1>
 
     <table class="table table-condensed">
         <thead>
