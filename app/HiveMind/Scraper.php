@@ -17,7 +17,8 @@ class Scraper
             return \Cache::get($key);
         }
 
-        $browser = new Client();
+        $result     = false;
+        $browser    = new Client();
         // Fetch results (make up to 3 attempts)
         try {
             $result = $browser->get($url, ['headers' => ['User-Agent' => config('hivemind.useragent')]]);
@@ -42,11 +43,12 @@ class Scraper
         }
 
         $body = false;
-        if (isset($result)) {
+        if ($result !== false) {
+
             $body = $result->getBody();
 
             // Cache the result if there was one
-            if (mb_strlen($body)) {
+            if (mb_strlen($body) > 0) {
                 \Cache::add($key, $body, 30);
             }
             else
@@ -54,6 +56,10 @@ class Scraper
                 // No content was returned for this $url so let's throw an exception
                 throw new NoContentException('No content on request for URL: '.$url);
             }
+        }
+        else
+        {
+            throw new \Exception('No response on request. URL: '.$url);
         }
 
         return $body;
