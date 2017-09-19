@@ -4,6 +4,7 @@ namespace HiveMind;
 
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Client;
+use HiveMind\Exceptions\NoContentException;
 
 class Scraper
 {
@@ -40,13 +41,19 @@ class Scraper
             }
         }
 
-        if (isset($result)) {
-            \Cache::add($key, $result->getBody(), 30);
-        }
-
         $body = false;
         if (isset($result)) {
             $body = $result->getBody();
+
+            // Cache the result if there was one
+            if (mb_strlen($body)) {
+                \Cache::add($key, $body, 30);
+            }
+            else
+            {
+                // No content was returned for this $url so let's throw an exception
+                throw new NoContentException('No content on request for URL: '.$url);
+            }
         }
 
         return $body;
