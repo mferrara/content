@@ -132,8 +132,9 @@ class Reddit extends Scraper
             $content = json_decode($result);
 
             if ($content == false) {
-                dd($result);
-                throw new Exceptions\NoContentException('No content while trying to scrape subreddit - '.$subreddit);
+                \Log::debug('No content while trying to scrape subreddit - '.$subreddit);
+                \Log::debug($result);
+                throw new Exceptions\NoContentException('No content while trying to scrape subreddit - '.$subreddit.' - Result: '.$result);
             }
 
             // Acquire "after" parameter for next page request
@@ -199,9 +200,12 @@ class Reddit extends Scraper
             }
 
             // Fetch results
-            $content = json_decode($this->GET($url, get_class($this)));
+            $result = $this->GET($url, get_class($this));
+            $content = json_decode($result);
 
             if ($content == false) {
+                \Log::debug('No content while trying to scrape search query - '.$query->name);
+                \Log::debug($result);
                 throw new Exceptions\NoContentException('No content while trying to scrape search query - '.$query->name);
             }
 
