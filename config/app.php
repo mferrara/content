@@ -118,7 +118,7 @@ return [
         'Illuminate\View\ViewServiceProvider',
         'Laracasts\Flash\FlashServiceProvider',
         'Laracasts\Utilities\JavaScript\JavaScriptServiceProvider',
-        'Bugsnag\BugsnagLaravel\BugsnagServiceProvider',
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         'Illuminate\Bus\BusServiceProvider',
         'Illuminate\Foundation\Providers\FoundationServiceProvider',
         'Illuminate\Pipeline\PipelineServiceProvider',
