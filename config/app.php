@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-    'debug' => false,
+    'debug' => env('APP_DEBUG', false),
 
     'log' => 'daily',
 
@@ -28,7 +28,7 @@ return [
 	|
 	*/
 
-    'url' => 'http://localhost',
+    'url' => env('APP_URL', 'http://localhost'),
 
     /*
 	|--------------------------------------------------------------------------
