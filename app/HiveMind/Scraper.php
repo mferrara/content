@@ -68,7 +68,6 @@ class Scraper
 
             // Cache the result if there was one
             if (mb_strlen($body) > 0) {
-                \Log::debug('Caching response - mb_strlen: '.mb_strlen($body));
                 \Cache::add($key, $body, 30);
             }
             else
@@ -81,8 +80,7 @@ class Scraper
         {
             throw new \Exception('No response on request. URL: '.$url);
         }
-
-        \Log::debug('Returning body with mb_strlen: '.mb_strlen($body));
+        
         return $body;
     }
 }
