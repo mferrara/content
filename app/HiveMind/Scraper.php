@@ -14,8 +14,12 @@ class Scraper
         // Check cache for this request
         $key = 'request_'.md5($url);
         if (\Cache::has($key)) {
+
             \Log::debug('Request returned from cache - '.$url);
-            return \Cache::get($key);
+            $cached_value = \Cache::get($key);
+            $cached_value = json_encode($cached_value);
+
+            return $cached_value;
         }
 
         \Log::debug('Requesting URL: '.$url);
