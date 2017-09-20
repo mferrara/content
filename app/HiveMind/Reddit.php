@@ -143,7 +143,7 @@ class Reddit extends Scraper
             }
 
             // Add to output array
-            if (is_object($content) && is_object($content->data)) {
+            if (is_object($content) && isset($content->data) && is_object($content->data)) {
                 if (isset($content->data->children)) {
                     if (count($content->data->children) > 0) {
                         $results[] = $this->ExtractArticles($content, null, $sub);
@@ -154,7 +154,7 @@ class Reddit extends Scraper
             $pages_completed++;
 
             // Update count of results, to be checked before running through the loop again
-            if (isset($content->data->children) && count($content->data->children) > 0) {
+            if (isset($content->data) && isset($content->data->children) && count($content->data->children) > 0) {
                 $request_count = count($content->data->children);
             } else {
                 $request_count = 0;
