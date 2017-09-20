@@ -204,10 +204,10 @@ class Reddit extends Scraper
             $content = json_decode($result);
 
             if ($content == false) {
-                \Log::debug('No content while trying to scrape search query - '.$query->name);
+                \Log::debug('No content while trying to scrape search query - '.$query->name.' URL: '.$url);
                 \Log::debug($result);
                 \Log::debug(mb_strlen($result));
-                throw new Exceptions\NoContentException('No content while trying to scrape search query - '.$query->name);
+                throw new Exceptions\NoContentException('No content while trying to scrape search query - '.$query->name.' URL: '.$url);
             }
 
             // Acquire "after" parameter for next page request
