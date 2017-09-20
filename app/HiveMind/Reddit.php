@@ -207,6 +207,9 @@ class Reddit extends Scraper
                 \Log::debug('No content while trying to scrape search query - '.$query->name.' URL: '.$url);
                 \Log::debug($result);
                 \Log::debug(mb_strlen($result));
+                \Log::debug($result === false);
+                \Log::debug(is_string($result));
+                \Log::debug(is_bool($result));
                 throw new Exceptions\NoContentException('No content while trying to scrape search query - '.$query->name.' URL: '.$url);
             }
 
