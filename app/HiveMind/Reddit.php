@@ -204,12 +204,6 @@ class Reddit extends Scraper
             $content = json_decode($result);
 
             if ($content == false) {
-                \Log::debug('No content while trying to scrape search query - '.$query->name.' URL: '.$url);
-                \Log::debug($result);
-                \Log::debug(mb_strlen($result));
-                \Log::debug($result === false);
-                \Log::debug(is_string($result));
-                \Log::debug(is_bool($result));
                 throw new Exceptions\NoContentException('No content while trying to scrape search query - '.$query->name.' URL: '.$url);
             }
 
@@ -219,7 +213,7 @@ class Reddit extends Scraper
             }
 
             // Add to output array
-            if (is_object($content) && is_object($content->data)) {
+            if (is_object($content) && isset($content->data) && is_object($content->data)) {
                 if (isset($content->data->children)) {
                     if (count($content->data->children) > 0) {
                         $results[] = $this->ExtractArticles($content, $query);
@@ -230,7 +224,7 @@ class Reddit extends Scraper
             $pages_completed++;
 
             // Update count of results, to be checked before running through the loop again
-            if (isset($content->data->children) && count($content->data->children) > 0) {
+            if (isset($content->data) && isset($content->data->children) && count($content->data->children) > 0) {
                 $request_count = count($content->data->children);
             } else {
                 $request_count = 0;
