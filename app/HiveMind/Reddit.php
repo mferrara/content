@@ -40,7 +40,7 @@ class Reddit extends Scraper
             $this->sort_parameter   .$sort."&".
             $this->limit_parameter  .$limit;
 
-        $content = json_decode($this->GET($url, get_class($this)));
+        $content = json_decode($this->request($url));
 
         $comments = [];
         if (count($content) > 0) {
@@ -128,7 +128,7 @@ class Reddit extends Scraper
             }
 
             // Fetch results
-            $result = $this->GET($url, get_class($this));
+            $result = $this->request($url);
             $content = json_decode($result);
 
             if ($content == false) {
@@ -189,9 +189,9 @@ class Reddit extends Scraper
             $url .= "&".$this->restrict_to_sub_parameter."true";
         }
 
-        $results = [];
-        $pages_completed = 0;
-        $after = false;
+        $results            = [];
+        $pages_completed    = 0;
+        $after              = false;
         $request_count = $this->result_limit; // To determine if a search returned was less than max results, if so, don't run the next page page_depth searches
         while ($pages_completed < $page_depth && $request_count == $this->result_limit) {
             // Add the previous request's 'after' token to this one to get the next page of results
@@ -200,7 +200,7 @@ class Reddit extends Scraper
             }
 
             // Fetch results
-            $result = $this->GET($url, get_class($this));
+            $result = $this->request($url);
             $content = json_decode($result);
 
             if ($content == false) {

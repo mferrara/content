@@ -9,10 +9,10 @@ use HiveMind\Exceptions\NoContentException;
 class Scraper
 {
 
-    public function GET($url, $source_name)
+    public function request($url)
     {
-        // Check cache for this search
-        $key = $source_name.'_search_'.md5($url);
+        // Check cache for this request
+        $key = 'request_'.md5($url);
         if (\Cache::has($key)) {
             return \Cache::get($key);
         }
@@ -36,15 +36,27 @@ class Scraper
                         \Log::error('2nd 503 on - '.$url);
                         \Log::error('Trying again...');
                         sleep(\config('hivemind.503_sleep'));
-                        $result = $browser->get($url, ['headers' => ['User-Agent' => config('hivemind.useragent')]]);
+
+                        try{
+                            $result = $browser->get($url, ['headers' => ['User-Agent' => config('hivemind.useragent')]]);
+                        }
+                        catch (ServerException $e)
+                        {
+                            throw $e;
+                        }
+
                     }
                 }
             }
+            else
+                throw $e;
         }
 
         $body = false;
+        // If the $result var is not false, meaning the $browser->get() returned without throwing a ServerException
         if ($result !== false) {
 
+            // Get the body of the response
             $body = $result->getBody();
 
             // Cache the result if there was one
