@@ -145,7 +145,10 @@ class Usersearch extends Model
             // Combine the $collective_text into $text_output
             while (count(explode(' ', $text_output)) <= $max_words) {
                 $text = $collective_text->random(1)->post_text;
-                $text_output .= $text."<br /><br />";
+
+                // Confirm this is a string
+                if(is_string($text))
+                    $text_output .= $text."<br /><br />";
             }
 
             // Setup images to be returned
