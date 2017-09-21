@@ -16,7 +16,7 @@ class ArticleProcessor
     public static function fire($model, $no_keywords = false)
     {
         // Loop through all content for counters
-        $all_text = '';
+        $all_text       = '';
         $content_types  = [];
         $subreddits     = [];
         $base_domains   = [];
@@ -24,7 +24,13 @@ class ArticleProcessor
         $self_posts     = 0;
         $total_posts    = 0;
         foreach ($model->articles as $art) {
-            $all_text .= $art->post_text;
+            $post_text = $art->post_text;
+
+            // Interestingly this $art->post_text is coming back as a stdClass on some occassions,
+            // throwing an error when trying to treat it as a string. Regardless, if it's not a string
+            // we don't need it here so we'll just confirm that it is or isn't and move on.
+            if(is_string($post_text))
+                $all_text .= $post_text;
 
             if (isset($content_types[$art->content_type])) {
                 $content_types[$art->content_type]++;
