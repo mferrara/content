@@ -84,7 +84,8 @@ class ArticleProcessor
 			$phrases = ContentHelper::extractCommonPhrases($all_text, [2,3], 25);
 		else
 			$phrases = ContentHelper::extractCommonPhrases(substr($all_text,0,1000), [2,3], 25);
-		*/
+
+        // Skip the keyword processing for now - we're not using it and it's throwing out of memory errors on the VM
         $keywords = [];
         if ($no_keywords === false) {
             try {
@@ -113,6 +114,7 @@ class ArticleProcessor
         } else {
             \Log::error('Running article processing with no-keywords flag due to previous error: '.$model->name);
         }
+        */
 
         $cache = [
             'content_types' => $content_types,
