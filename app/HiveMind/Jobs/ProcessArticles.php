@@ -79,6 +79,8 @@ class ProcessArticles
             $error = true;
 
             $job->release();
+
+            throw $e;
         }
 
         if ($error === false) {
