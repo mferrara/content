@@ -148,7 +148,11 @@ class Article extends Model
     public function compress($value)
     {
         if ($value !== null) {
-            $value = serialize($value);
+
+            // Convert to JSON if it's not already
+            if(is_string($value) == false || json_decode($value) == null)
+                $value = json_encode($value);
+
             // Double compress (http://stackoverflow.com/questions/10991035/best-way-to-compress-string-in-php)
             $value = gzdeflate($value, 9);
             $value = gzdeflate($value, 9);
@@ -163,8 +167,8 @@ class Article extends Model
             return $value;
         }
 
-        // This string is an object that has been serialized then double gzdeflate()'d - see above - (http://stackoverflow.com/questions/10991035/best-way-to-compress-string-in-php)
-        return unserialize(gzinflate(gzinflate($value)));
+        // This string is an object that has been decoded then double gzdeflate()'d - see above - (http://stackoverflow.com/questions/10991035/best-way-to-compress-string-in-php)
+        return json_decode(gzinflate(gzinflate($value)));
     }
 
     public static function getContentType($content)
