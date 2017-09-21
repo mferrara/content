@@ -9,20 +9,26 @@ use HiveMind\Exceptions\NoContentException;
 class Scraper
 {
 
+    /**
+     * Send HTTP requests and return/cache responses
+     *
+     * @param $url
+     * @return bool|mixed|\Psr\Http\Message\StreamInterface|string
+     * @throws NoContentException
+     * @throws \Exception
+     */
     public function request($url)
     {
         // Check cache for this request
         $key = 'request_'.md5($url);
-        if (\Cache::has($key)) {
-
-            \Log::debug('Request returned from cache - '.$url);
+        if (\Cache::has($key))
+        {
             $cached_value = \Cache::get($key);
+            // The original request response is a JSON object so we'll return that here as well
             $cached_value = json_encode($cached_value);
 
             return $cached_value;
         }
-
-        \Log::debug('Requesting URL: '.$url);
 
         $result     = false;
         $browser    = new Client();
@@ -80,7 +86,7 @@ class Scraper
         {
             throw new \Exception('No response on request. URL: '.$url);
         }
-        
+
         return $body;
     }
 }

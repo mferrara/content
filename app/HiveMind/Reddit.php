@@ -34,14 +34,27 @@ class Reddit extends Scraper
                                     "t8" => "PromoCampaign"
                                     ];
 
-    public function Comments($article_id, $subreddit, $proxy = false, $limit = 10, $sort = 'top')
+    /**
+     * Scrape the comments from a given article_id + subreddit
+     *
+     * @param $article_id
+     * @param $subreddit
+     * @param int $limit
+     * @param string $sort
+     * @return array
+     */
+    public function Comments($article_id, $subreddit, $limit = 10, $sort = 'top')
     {
+        // Build request URL
         $url = $this->url."r/".$subreddit."/comments/".$article_id.$this->response_type."?".
             $this->sort_parameter   .$sort."&".
             $this->limit_parameter  .$limit;
 
-        $content = json_decode($this->request($url));
+        // Issue request
+        $response = $this->request($url);
+        $content = json_decode($response);
 
+        // Loop through response JSON extracting comments into array
         $comments = [];
         if (count($content) > 0) {
             foreach ($content as $listing) {
@@ -55,6 +68,12 @@ class Reddit extends Scraper
         return $comments;
     }
 
+    /**
+     * Extract comments from a 'Listing' JSON object
+     *
+     * @param $listing
+     * @return array
+     */
     public static function extractComments($listing)
     {
         $comments = [];
@@ -109,6 +128,16 @@ class Reddit extends Scraper
         return $comments;
     }
 
+    /**
+     * Scrape Subreddit
+     *
+     * @param $subreddit
+     * @param int $page_depth
+     * @param string $search_sort
+     * @param string $search_time
+     * @return array
+     * @throws Exceptions\NoContentException
+     */
     public function Subreddit($subreddit, $page_depth = 1, $search_sort = 'top', $search_time = 'all')
     {
         $url = $this->url."r/".$subreddit."/".$search_sort.$this->response_type."?".
@@ -116,10 +145,10 @@ class Reddit extends Scraper
             $this->time_parameter   .$search_time."&".
             $this->limit_parameter  .$this->result_limit;
 
-        $sub = Subreddit::where('name', $subreddit)->first();
-        $results = [];
-        $pages_completed = 0;
-        $after = false;
+        $sub                = Subreddit::where('name', $subreddit)->first();
+        $results            = [];
+        $pages_completed    = 0;
+        $after              = false;
         $request_count = $this->result_limit; // To determine if a search returned was less than max results, if so, don't run the next page page_depth searches
         while ($pages_completed < $page_depth && $request_count == $this->result_limit) {
             // Add the previous request's 'after' token to this one to get the next page of results
@@ -166,6 +195,18 @@ class Reddit extends Scraper
         return $results;
     }
 
+    /**
+     * Scrape a search request response
+     *
+     * @param Searchquery $query
+     * @param int $page_depth
+     * @param string $search_syntax
+     * @param string $search_sort
+     * @param string $search_time
+     * @param string $subreddits
+     * @return array
+     * @throws Exceptions\NoContentException
+     */
     public function Search(Searchquery $query, $page_depth = 1, $search_syntax = 'plain', $search_sort = 'relevance', $search_time = 'all', $subreddits = "all")
     {
         $replace = [' ', ','];
@@ -236,6 +277,14 @@ class Reddit extends Scraper
         return $results;
     }
 
+    /**
+     * Extract 'Articles' from a JSON response object
+     *
+     * @param $content
+     * @param Searchquery|null $query
+     * @param Subreddit|null $subreddit
+     * @return array
+     */
     public function ExtractArticles($content, Searchquery $query = null, Subreddit $subreddit = null)
     {
         $results = [];
@@ -261,8 +310,9 @@ class Reddit extends Scraper
                     $paragraph_count = 0;
                 }
 
-                $post->data->word_count = $word_count;
-                $post->data->paragraph_count = $paragraph_count;
+                $post->data->word_count         = $word_count;
+                $post->data->paragraph_count    = $paragraph_count;
+                $post->data->character_count    = $character_count;
 
                 // Get base domain name
                 $remove             = ["www."];
