@@ -20,7 +20,8 @@
 
     query (required) - url encoded string, used to search for content
     webhook_url (required) - url encoded url, when results are collected they will be POST'ed to this url
+    max_words (optional) - integer to represent the maximum number of words provided in the text content (default: 600)
 
 ###### Examples
 
-    http://content.app/api/search?query=stars&webhook_url=http%3A%2F%2Fexample.com%2Fwebhook%2Fpage%2F17%2Fcontent%2Fstore
+    http://content.app/api/search?query=stars&webhook_url=http%3A%2F%2Fexample.com%2Fwebhook%2Fpage%2F17%2Fcontent%2Fstore&max_words=1200

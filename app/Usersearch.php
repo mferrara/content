@@ -34,6 +34,9 @@ class Usersearch extends Model
     protected $table    = 'usersearches';
     protected $guarded  = ['id', 'created_at'];
     protected $fillable = [];
+    protected $casts    = [
+        'options'   => 'array'
+    ];
 
     public function searchquery()
     {
@@ -59,7 +62,7 @@ class Usersearch extends Model
             unset($articles[$key]->data);
         }
 
-        // Filter content_type's
+        // Filter content_type's into respective collections
         $images     = $articles->filter(function ($article) {
             if ($article->content_type == 'image') {
                 return true;
@@ -96,6 +99,7 @@ class Usersearch extends Model
             return false;
         });
 
+        // Get counts of each of those content types
         $images_count       = $images->count();
         $videos_count       = $videos->count();
         $selfshort_count    = $selfshort->count();
@@ -103,13 +107,18 @@ class Usersearch extends Model
         $selflong_count     = $selflong->count();
 
         // Build output content
-        $max_words      = 600;
+        $max_words      = config('hivemind.default_max_words');
+        // Get the max_words from the request options if it exists
+        if(isset($this->options['max_words']))
+            $max_words = $this->options['max_words'];
         $text_output    = '';
         $images_output  = [];
         $videos_output  = [];
 
-        if (($images_count + $videos_count + $selfshort_count + $selfmedium_count + $selflong_count) > 0) {
-            // Text content
+        // If there's at least one article we can move on to return *something*
+        if (($images_count + $videos_count + $selfshort_count + $selfmedium_count + $selflong_count) > 0)
+        {
+            // Setup text to be returned
             $collective_text    = new \Illuminate\Database\Eloquent\Collection();
 
             if ($selfshort_count) {
@@ -133,11 +142,13 @@ class Usersearch extends Model
                 $collective_text = $collective_text->merge($selflong);
             }
 
+            // Combine the $collective_text into $text_output
             while (count(explode(' ', $text_output)) <= $max_words) {
                 $text = $collective_text->random(1)->post_text;
                 $text_output .= $text."<br /><br />";
             }
 
+            // Setup images to be returned
             if ($images_count) {
                 if ($images_count > 5) {
                     $images = $images->random(5);
@@ -148,6 +159,7 @@ class Usersearch extends Model
                 }
             }
 
+            // Setup videos to be returned
             if ($videos_count) {
                 if ($videos_count > 5) {
                     $videos = $videos->random(5);
@@ -172,7 +184,7 @@ class Usersearch extends Model
         // Send webhook
         $client = new \GuzzleHttp\Client();
         $client->post($this->webhookurl->url, [
-            'body' => $output
+            'form_params' => $output
         ]);
 
         $this->webhook_sent = 1;
@@ -214,7 +226,7 @@ class Usersearch extends Model
         return Usersearch::create(['subreddit_id' => $subreddit->id]);
     }
 
-    public static function getSearch($keyword, $search_type = 'plain', $sort_by = 'relevance', $subreddits = 'all', $webhook_url = null)
+    public static function getSearch($keyword, $search_type = 'plain', $sort_by = 'relevance', $subreddits = 'all', $webhook_url = null, $options = [])
     {
         // Get the search query
         $query = Searchquery::where('name', $keyword)->first();
@@ -226,7 +238,8 @@ class Usersearch extends Model
 
         // Create a Usersearch object
         $data = [
-            'searchquery_id' => $query->id
+            'searchquery_id' => $query->id,
+            'options'        => $options
         ];
 
         if ($webhook_url !== null) {
