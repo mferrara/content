@@ -85,6 +85,7 @@ class ArticleProcessor
         arsort($auths);
         arsort($doms);
 
+        $keywords = [];
         /*
 		if(\App::environment() == 'production')
 			$phrases = ContentHelper::extractCommonPhrases($all_text, [2,3], 25);
@@ -92,7 +93,6 @@ class ArticleProcessor
 			$phrases = ContentHelper::extractCommonPhrases(substr($all_text,0,1000), [2,3], 25);
 
         // Skip the keyword processing for now - we're not using it and it's throwing out of memory errors on the VM
-        $keywords = [];
         if ($no_keywords === false) {
             try {
                 $config     = new Config;
