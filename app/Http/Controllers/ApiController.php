@@ -8,6 +8,10 @@ use App\Usersearch;
 class ApiController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return array|string
+     */
     public function search(Request $request)
     {
         if (! $request->has('query')) {
@@ -20,11 +24,15 @@ class ApiController extends Controller
         if($request->has('max_words'))
             $max_words  = urldecode($request->get('max_words'));
 
+        $subreddits = 'all';
+        if($request->has('subreddit_filter'))
+            $subreddits = $request->get('subreddit_filter');
+
         $options = [
-            'max_words' => $max_words
+            'max_words'         => $max_words
         ];
 
-        $usersearch = Usersearch::getSearch($query, 'plain', 'relevance', 'all', $webhookurl, $options);
+        $usersearch = Usersearch::getSearch($query, 'plain', 'relevance', $subreddits, $webhookurl, $options);
 
         $return = [];
         if ($usersearch !== null) {
